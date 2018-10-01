@@ -1,0 +1,1696 @@
+eclipse (3.8.1-7) unstable; urgency=medium
+
+  * Team upload.
+  * Install all arch-dependent files into eclipse-rcp correctly by renaming
+    override_dh_install to override_dh_install-arch.
+    Fix wrong override for dh_install-indep and move jh_classpath commands
+    to the appropriate override target. (Closes: #770457, #763994)
+
+ -- Markus Koschany <apo@gambaru.de>  Mon, 24 Nov 2014 02:31:41 +0100
+
+eclipse (3.8.1-6) unstable; urgency=medium
+
+  [ Emmanuel Bourg ]
+  * Team upload.
+  * Replaced the jsr14 compilation target with 1.5 to compile with Java 8
+
+  [ Jakub Adam ]
+  * Refreshed d/eclipse-build-generatedScripts.tar.bz2 (Closes: #759847).
+  * Override needless-suggest-recommend-libservlet-java lintian warning
+    - follows from an optional OSGi dependency on javax.servlet.
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Sun, 14 Sep 2014 13:52:58 +0200
+
+eclipse (3.8.1-5.1) unstable; urgency=low
+
+  [ Jakub Adam ]
+  * Compile org.eclipse.osgi bundle for java 1.5.
+    - Required for Tycho build with Java 7.
+  * Fix FTBFS on s390x architecture.
+  * Provide convenient symlinks for jdi.jar and jdimodel.jar (Closes: #734797).
+  * Add README.ports.
+  * Move Orbit jar symlinks mentioned in bundles.info from eclipse-platform-data
+    into eclipse-platform (Closes: #735096, #732244).
+    - Ensures bundles.info is always consistent with bundle names.
+
+  [ Matthias Klose ]
+  * Build for arm64 and ppc64el.
+
+  [ tony mancill ]
+  * Bump Standards-Version to 3.9.5.
+
+ -- tony mancill <tmancill@debian.org>  Thu, 16 Jan 2014 20:52:11 -0800
+
+eclipse (3.8.1-4) unstable; urgency=low
+
+  * Fix help webapp with tomcat-jasper.jar from libtomcat7-java 7.0.40.
+  * Improved eclipse-jdt extended description (Closes: #700256).
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Wed, 12 Jun 2013 19:36:31 +0200
+
+eclipse (3.8.1-3) unstable; urgency=low
+
+  * Team upload.
+  * Actually upload to unstable.
+
+ -- tony mancill <tmancill@debian.org>  Sat, 01 Jun 2013 07:24:26 -0700
+
+eclipse (3.8.1-2) experimental; urgency=low
+
+  *Team upload.
+
+  [ Jakub Adam ]
+  * Fix FTBFS on ppc64 (Closes: #694950).
+  * Bump Standards-Version to 3.9.4.
+
+  [ tony mancill ]
+  * Upload to unstable.
+
+ -- tony mancill <tmancill@debian.org>  Fri, 31 May 2013 10:18:02 -0700
+
+eclipse (3.8.1-1) experimental; urgency=low
+
+  * New upstream release.
+  * Update extended description of eclipse-platform-data (Closes: #679423).
+  * Fix libgnomeproxy compilation with glib >= 2.32 (Closes: #679328).
+  * Expose org.eclipse.jface and its dependencies in /usr/share/java.
+  * Don't let patches delete files.
+    - Works around dpkg bug #683547.
+    - Affected patches are use-deb-build-compiler-flags.patch and
+      find-tomcat-libs.patch.
+  * Refreshed d/patches/eclipse-help-fix-jsp-precompilation.patch.
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Sun, 14 Oct 2012 14:59:33 +0200
+
+eclipse (3.8.0~rc4-1) unstable; urgency=low
+
+  [ Jakub Adam ]
+  * New upstream release.
+  * Synchronize extended descriptions of eclipse-platform-data and
+    eclipse-platform, grammar fixes (Closes: #678459).
+  * Don't create binary packages when GCJ is used, only run the build
+    so that log can be analyzed.
+
+  [ Niels Thykier ]
+  * Remove (Build-)Depends on libjasper-java (the old jasper5.5
+    implementation).
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Wed, 27 Jun 2012 12:59:33 +0200
+
+eclipse (3.8.0~rc3-4) unstable; urgency=low
+
+  * Upload to unstable.
+  * Add upper bound on swt-gtk dependency.
+
+ -- Niels Thykier <niels@thykier.net>  Wed, 20 Jun 2012 12:55:00 +0200
+
+eclipse (3.8.0~rc3-3) experimental; urgency=low
+
+  * Increase debhelper compatibility to level 9.
+  * Use default build flags during compilation of native binaries.
+  * Override false positive hardening-no-fortify-functions for
+    libunixfile_1_0_0.so (Doesn't use any fortifiable functions).
+  * Updated d/watch.
+  * Depend on libswt-cairo-gtk-3-jni and libswt-webkit-gtk-3-jni (>= 3.8.0~)
+    (Closes: #676467)
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Mon, 18 Jun 2012 13:05:32 +0200
+
+eclipse (3.8.0~rc3-2) experimental; urgency=low
+
+  [ Jakub Adam ]
+  * Fix FTBFS on most architectures.
+  * Install libgnomeproxy-1.0.0.so to system JNI directory.
+   - Prevents the library from being copied in to user's ~/.eclipse
+  * Fix JSP precompilation in org.eclipse.help.webapp.
+  * Make eclipse-platform-data Replace & Break eclipse-platform (<< 3.8.0~)
+    (Closes: #676222)
+
+  [ Niels Thykier ]
+  * Add missing ${misc:Pre-Depends} dependency in eclipse-platform.
+  * Drop unused ${shlibs:Recomends} dependency in eclipse-rcp.
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Thu, 07 Jun 2012 17:08:30 +0200
+
+eclipse (3.8.0~rc3-1) experimental; urgency=low
+
+  * New upstream release.
+  * Fix generation of Eclipse Help search index (Closes: #669000).
+  * Remove Gnome libraries from Build-Depends.
+  * Improve extended descriptions of binary packages and fix grammar
+    errors (Closes: #664704, #664708).
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Mon, 04 Jun 2012 16:31:24 +0200
+
+eclipse (3.7.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Use SWT from swt-gtk package instead of the bundled version
+    (Closes: #538808).
+  * Add org.eclipse.equinox.log to eclipse-rcp.
+  * Update package synopsis and extended descriptions
+    (Closes: #655945, #655946).
+  * Bump Standards-Version to 3.9.3 (no changes required).
+  * Fix broken installaton after some package Eclipse core platform
+    depends on is upgraded (Closes: #662153, #663335).
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Sun, 11 Mar 2012 20:10:20 +0100
+
+eclipse (3.7.1-1) unstable; urgency=low
+
+  * New upstream release (Closes: #652839).
+  * Fix FTBFS with libjasper-java 5.5.33-2
+  * Add Jakub Adam to Uploaders
+  * Depend on libjasper-java >= 5.5.33-2 (Closes: #648641)
+  * Removed GDK_NATIVE_WINDOWS=true workaround
+  * Fixed update site injection on first Eclipse startup and changed
+    URL to Indigo update site
+
+ -- Jakub Adam <jakub.adam@ktknet.cz>  Sat, 31 Dec 2011 15:49:15 +0100
+
+eclipse (3.7.0-1) unstable; urgency=low
+
+  [ Benjamin Drung ]
+  * Upload to unstable (Closes: #631382, #642085).
+  * Use pkg-config to determine CFLAGS and LIBS for gnomeproxy.
+  * Eclipse 3.7 requires at least version 3.3 of asm3.
+  * Update debian/copyright.
+  * Drop xulrunner from Apport hook.
+  * Update debian/watch file.
+  * Add patch to find libjasper-java 5.5.33-1 on Debian.
+  * Update lintian overrides.
+
+  [ Damien Raude-Morvan ]
+  * d/patches/find-newer-servlet-api.patch: Patch to support libservlet2.5.
+
+ -- Benjamin Drung <bdrung@debian.org>  Sat, 22 Oct 2011 16:01:50 +0200
+
+eclipse (3.7~exp-5) experimental; urgency=low
+
+  * Forced many Eclipse version qualifiers to "dist" to avoid buildd
+    issues (new patch: forceContextQualifier.patch)
+
+ -- Jimmy Kaplowitz <jimmy@debian.org>  Thu, 25 Aug 2011 14:45:51 -0400
+
+eclipse (3.7~exp-4) experimental; urgency=low
+
+  * We need to install org.eclipse.equinox.concurrent in eclipse-
+    platform-data in order for many features to work
+  * Merge eclipse-plugin-cvs into eclipse-platform-data, updating
+    package description accordingly. Added unversioned Replaces and
+    Breaks.
+
+ -- Jimmy Kaplowitz <jimmy@debian.org>  Sat, 20 Aug 2011 04:15:10 -0400
+
+eclipse (3.7~exp-3) experimental; urgency=low
+
+  * Re-added main lucene bundle to eclipse-platform
+  * Added myself to Uploaders, with permission
+
+ -- Jimmy Kaplowitz <jimmy@debian.org>  Fri, 12 Aug 2011 13:58:12 -0400
+
+eclipse (3.7~exp-2) experimental; urgency=low
+
+  * Fixed the regression to pde-build script in eclipse-pde.
+
+ -- Niels Thykier <niels@thykier.net>  Tue, 09 Aug 2011 14:19:52 +0200
+
+eclipse (3.7~exp-1) experimental; urgency=low
+
+  [ Andres Mejia ]
+  * Update to my @debian.org email.
+
+  [ Niels Thykier ]
+  * New upstream release.
+    - Built without xulrunner support  (Closes: #631061)
+  * Added Build-Conflicts to ensure xulrunner is not picked up if
+    built in unclean chroots.
+  * B-D on liblucene2-java (>= 2.9.4+ds1-3~) due to #631234.
+  * Bump debhelper compat to 8.
+
+ -- Niels Thykier <niels@thykier.net>  Mon, 8 Aug 2011 23:15:00 +0200
+
+eclipse (3.6.2~exp-1) experimental; urgency=low
+
+  [ Anders Kaseorg ]
+  * debian/patches/gnomeproxy-pkg-config.patch: Use pkg-config to find
+    include files and libraries for libgnomeproxy.  (LP: #749218)
+
+  [ Benjamin Drung ]
+  * New upstream version (Closes: #587742, LP: #604390).
+    - Allows kernels with weird versions (LP: #600584).
+  * Use a svn e3.6 branch snapshot of eclipse-build.
+  * Drop four backported patches.
+  * Drop fix-shell-script-perm.patch.
+  * Refresh remaining patches.
+  * Drop removed plugins and install new plugins.
+  * Drop uname workaround.
+  * Add six new patches.
+  * Add three patches that moves commands from debian/rules into the ant build
+    process.
+  * Drop seven patches that are accepted upstream.
+
+  [ Niels Thykier ]
+  * Removed Adrian Perez, thanks for your support.
+  * Updated debian/copyright.
+  * Bumped B-D on icu4j.
+  * Added B-D to build swt with webkit support.
+  * Use mh_clean to clean up after the maven-repo-helper.
+  * Pulled the eclipse-platform.NEWS from the master branch and removed the
+    old NEWS file.
+  * Reduced eclipse-plugins-cvs to a Suggests for eclipse-jdt.  (LP: #657286)
+  * Made eclipse-plugin-cvs an architecture all package.
+  * Made SWT load its JNI from well defined location to prevent occasional
+    extraction to ~/.eclipse.
+
+  [ Andres Mejia ]
+  * Numerous changes to eclipse packaging just to get eclipse building using
+    sbuild.
+    - Changes introduced to eclipse so that it builds with latest ant (1.8.2).
+      This required updating eclipse-build-generatedScripts.tar.bz2 inside the
+      debian directory and reactivating the
+      eclipse-build-generatedScripts.patch. This also requires renaming
+      eclipse/plugins/org.apache.ant_1.7.1.v20100518-1145 to
+      eclipse/plugins/org.apache.ant_1.8.2.v20101227-1145 during build time.
+    - Ensure osgi.services is built. This requires activating the
+      osgi-services-symlink-javax.patch.
+    - In the patch to generate metadata and extract the swt libraries, the
+      option -Declipse.p2.data.area should not be used. Also, the value passed
+      with -profile should be SDKProfile.
+  * Refresh patches and update descriptions.
+  * Install swt*.jar symlinks in eclipse-platform package.
+  * Add myself as Uploader.
+  * Bump to Standards-Version 3.9.2.
+  * Include needed dependency on libswt-gtk-3.6-jni for eclipse-rcp.
+  * Update eclipse script for new upstream release.
+  * Update script to implement better search for *.prefs files.
+  * Fix generation of metadata needed to be able to install third party plugins.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Sun, 08 May 2011 22:06:51 -0400
+
+eclipse (3.5.2-10) unstable; urgency=low
+
+  [ Benjamin Drung ]
+  * debian/extra/eclipse: Actually, don't export UBUNTU_MENUPROXY=0 here
+    because that affects launched applications too.  Instead, it is
+    blacklisted by appmenu-gtk (Closes: #616003).
+
+  [ Niels Thykier ]
+  * Bump ant and lucene2 (Build-)Depends. (Closes: #624213)
+  * Backported patch from upstream to improve the ant 1.8.2 support in
+    eclipse.
+  * Added lintian-overrides for codeless-jar and jar-no-in-usr-share,
+    as they are mostly false-positives.
+  * Backported a fix to the pdebuild script from eclipse-build.
+  * Bumped Standards-Version to 3.9.2 - no changes required.
+
+ -- Niels Thykier <niels@thykier.net>  Sat, 07 May 2011 22:08:35 +0200
+
+eclipse (3.5.2-9) unstable; urgency=low
+
+  * Bump version for sat4j. (Closes: #612738)
+  * Backported patch for CVE-2010-4647. (Closes: #611849)
+    - Fixes XSS in help browser application.
+
+ -- Niels Thykier <niels@thykier.net>  Fri, 11 Feb 2011 14:15:40 +0100
+
+eclipse (3.5.2-8) unstable; urgency=low
+
+  [ Niels Thykier ]
+  * Imported debdiffs from TJ and Didier Roche (see below).
+
+  [ TJ ]
+  * Backported fix for finding root CA in keystore rather than from
+    JAR. (LP: #655833)
+
+  [ Didier Roche ]
+  * debian/extra/eclipse:
+    - no appmenu for eclipse (thanks bratsche) (LP: #613119)
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Tue, 19 Oct 2010 11:55:12 +0200
+
+eclipse (3.5.2-7) unstable; urgency=low
+
+  * Install the NEWS file in eclipse-platform instead of eclipse,
+    where it belongs.
+  * Added NEWS entry about how to workaround #587657.
+  * Made (Build)-Depends on lucene2 and sat4j stricter.
+  * Removed Adrian Perez from uploaders.
+
+ -- Niels Thykier <niels@thykier.net>  Mon, 13 Sep 2010 20:23:51 +0200
+
+eclipse (3.5.2-6) unstable; urgency=low
+
+  [ Adnan Hodzic ]
+  * Fixed libjetty-java and sat4j build/regular dependency versioning
+    (see #591140)
+
+  [ Niels Thykier ]
+  * Added patch for pde-build to make it stop writing to ~/workspace,
+    which is not acceptable during autobuilds. (Closes: #592526)
+  * Use mh_clean for cleaning up after the maven repo helper, instead
+    of using a homemade clean rule.
+  * Bumped Standards-Versions to 3.9.1 - no changes required.
+
+ -- Niels Thykier <niels@thykier.net>  Fri, 20 Aug 2010 12:56:39 +0200
+
+eclipse (3.5.2-5) unstable; urgency=medium
+
+  [ Benjamin Drung ]
+  * Fix pattern matching to detect correct architecture.
+
+  [ Niels Thykier ]
+  * Move operations on arch:all packages to its own make target. Fixes FTBFS on
+    all buildds.
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Tue, 29 Jun 2010 22:00:44 +0200
+
+eclipse (3.5.2-4) unstable; urgency=low
+
+  [ Niels Thykier ]
+  * Added menu entry for the Debian menu.
+  * Moved a lot of arch-indep plugins into eclipse-platform-data.
+  * Backported fix for poor tooltip colors with certain themes.
+    (Closes: #582302, LP: #540332)
+  * Backported fix for hover text visability problem.
+  * Corrected a format issue in debian/copyright.
+  * Removed depends on cvs for eclipse-plugin-cvs, it is not needed.
+    (LP: #592508)
+  * Removed Depends on JRE for libequinox-osgi-java.
+  * Added patch to use sat4j 2.2 instead of 2.1 (Closes: #586978)
+  * Added recommends on eclipse-pde for eclipse-platform.
+    (LP: #593260)
+  * Added patch to install the o.e.equinox.concurrent plugin in
+    eclipse-platform (Closes: #585178)
+  * Bumped (Build-)Depends on libhamcrest-java to 1.1-8 to avoid
+    being affected by a regression in libhamcrest-java 1.1-7.
+
+  [ Adnan Hodzic ]
+  * Added debian/patches/fix-bashism.patch (Closes: #581099)
+
+  [ Yulia Novozhilova ]
+  * Added the Maven POMs for libequinox-osgi.java (LP: #598039)
+  * Added a Build-Depends dependency on maven-repo-helper and maven-ant-helper
+  * Added missing recommends on libservlet2.5-java for libequinox-osgi-java.
+
+  [ Benjamin Drung ]
+  * Bump Standards-Version to 3.9.0 (no changes required).
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Mon, 28 Jun 2010 22:25:42 +0200
+
+eclipse (3.5.2-3) unstable; urgency=low
+
+  [ Benjamin Drung ]
+  * Set org.eclipse.swt.browser.XULRunnerPath explicitly. (LP: #546518)
+  * Set MOZILLA_FIVE_HOME instead of LD_LIBRARY_PATH and
+    org.eclipse.swt.browser.XULRunnerPath (LP: #559229, #553779).
+  * Add apport hook to collect more useful data for bug reports.
+  * Improve xulrunner path detection to work on Debian and Ubuntu.
+
+  [ Niels Thykier ]
+  * Added missing copyright statement about ownership over the Debian
+    packaging.
+  * Made eclipse use version depends on -jdt and -pde to ensure smoother
+    upgrades from older versions.
+  * Added reportbug helpers to eclipse-platform and eclipse.
+  * Added Recommends on default-jdk | sun-java6-jdk for eclipse-jdt.
+    (LP: #576952)
+  * Added patch to deal with broken help-menu. (Closes: #576106, LP: #549904)
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Sat, 08 May 2010 23:17:14 +0200
+
+eclipse (3.5.2-2) unstable; urgency=low
+
+  [ Niels Thykier ]
+  * Changed section of eclipse packages to devel.
+  * Install IJG_README from source dir rather than install dir.
+    (Closes: #574619)
+  * Added missing replace on eclipse to eclipse-platform-data. (Closes: #574607)
+  * Fix broken symlinks in libequinox-osgi-java.
+  * Imported ecj-gccmain-java.patch from ecj to add better support for gcj.
+
+  [ Benjamin Drung ]
+  * Integrate upstream-eclipse-build-repack.patch from final 0.5.0
+    eclipse-build release.
+
+ -- Benjamin Drung <bdrung@ubuntu.com>  Sun, 21 Mar 2010 23:16:41 +0100
+
+eclipse (3.5.2-1) unstable; urgency=low
+
+  * New upstream release. (LP: #123064)
+    - Supports xulrunner-1.9.1 (Closes: #507536)
+    - Fixed "Software Updates" menu. (Closes: #539016)
+  * Converted build system to use eclipse-build 0.5.0. (Closes: #501533)
+    - Fixed broken symlink in swt packages. (Closes: #543318)
+    - Fixed broken plugins/features. (Closes: #493984)
+    - Fixed problem finding native libraries. (Closes: #553131)
+    - Fixed build for various archs. (Closes: #521312)
+  * Stopped eclipse from unpacking native libraries into ~/.eclipse.
+    (Closes: #351729)
+  * Corrected Depends and Recommends. (Closes: #554677, #558246)
+    - eclipse-jdt now only suggests eclipse.
+    - removed strict dependency on openjdk.
+    - removed recommends on eclipse-*-gcj packages.
+  * Removed obsolete linda overrides.
+  * New maintainers. (Closes: #526489)
+  * Removed the need for Zenity (Closes: #528070)
+  * Added missing "apt" plug-in for eclipse-jdt. (Closes: #403655, LP: #120610)
+  * Added conflicts on the old eclipse-*-nls packages. (Closes: #538869)
+  * Removed "builtin browser not supported"-warning; it did not work.
+    (Closes: #402340, #491542)
+  * Removed dependency on libtomcat5.5-java and liblucene-java-doc.
+  * Stopped using special hacks and work arounds to find JVMs.
+    - This removes the need for ~/.eclipse/eclipserc (Closes: #402077)
+    - This makes eclipse read eclipse.ini (Closes: #491334)
+    - This makes eclipse respect alternatives (Closes: #353360, #574271)
+  * Moved the executable to eclipse-platform from eclipse. (Closes: #358594)
+  * Put the osgi jar-files into its own separate package. (LP: #102717)
+  * Added workaround for gtk problems. (Closes: #552480)
+  * Added missing API references. (Closes: #376850)
+  * Moved org.eclipse.ant.ui to eclipse-platform. (LP: #477944)
+  * Added information about how to create the orig.tar.gz. (Closes: #505553)
+  * Rewrote symlink script to handle folders that are renamed on different
+    archs/builds. (LP: #471859)
+  * Move eclipse.ini into /etc (LP: #43162)
+  * Set a sane file limit for osgi-bundles. (Closes: #558693, LP: #293573)
+  * Inject update sites on first run. (LP: #460944)
+  * Prevent conflict with swt-gtk's swt packages. (Closes: #541638, LP: #491880)
+    - Removed our swt packages.
+    - Do not install conflicting symlinks/files.
+  * Imported patch from Fedora that fixes seg. faults in libpango. (LP: #445009)
+  * Update manpage. (LP: #494065)
+  * Bump Standards-Version to 3.8.4.
+  * Use system jars rather than pre-compiled ones. (LP: #453036)
+  * Added notice to package descriptions that eclipse-pde is needed for most
+    plugins. Thanks to Josh Bowman. (LP: #539256)
+
+ -- Debian Orbital Alignment Team <pkg-java-maintainers@lists.alioth.debian.org>  Thu, 18 Mar 2010 12:13:51 +0100
+
+eclipse (3.4.1-1) unstable; urgency=low
+
+  * Build for unstable.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri, 24 Jul 2009 10:13:56 +0200
+
+eclipse (3.2.2-5) unstable; urgency=low
+
+  * Added junit4 support.
+  * Added ant-nodeps.jar to ant classpath. Needed for replaceregexp tag.
+  * Simplified debian/rules by removing all JVM_* variables.
+  * Updated watch file to match upstream correctly. Closes: #449647.
+  * Added Homepage, Vcs-Svn and Vcs-Browser fields.
+  * Updated Standards-Version to 3.7.3.
+  * debian/eclipse-rcp.dirs. Removed, unneeded.
+  * Updated debian/patches/eclipse-jsch-sftpexception.dpatch for jsch 0.1.36.
+    Closes: #460364.
+  * Updated (Build-)Depends on libjsch-java (>= 0.1.36).
+  * Added JAVA_HOME for icedtea to debian/extra/java_home.
+  * Add additional Depends on libgtk2.0-0 (>= 2.12.0-3) for libswt3.2-gtk-jni.
+  * Added eclipse to Recommends of all plugin packages. Closes: #447202.
+  * Added debian/source.lintian-overrides to shut up lintian a bit.
+  * Added ${shlibs:Depends} to Depends of all -gcj packages with native jars.
+
+ -- Michael Koch <konqueror@gmx.de>  Tue, 12 Feb 2008 22:01:22 +0100
+
+eclipse (3.2.2-4) unstable; urgency=low
+
+  [ Michael Koch ]
+  * Explicitely build for i386. Closes: #443490.
+  * Use GCJ 4.2.
+  * Added debian/patches/eclipse-jsch-sftpexception.dpatch. Closes: #443485.
+  * Updated Depends on jsch.
+  * Remove *lucene*.jar from native compilation.
+  * Introduce build option 'nonative' to disable native compilation easily.
+  * debian/patches/eclipse-ant-manifest.dpatch: Don't remove ant-launcher.jar
+    from ant plugin classpath. Needed for Ant 1.7.
+  * debian/rules: Honor 'parallel=X' setting in DEB_BUILD_OPTIONS.
+
+  [ Flávio Martins ]
+  * Make eclipse-gcj depend on ecj-gcj instead of ecj-bootstrap-gcj.
+    Closes: #445578.
+  * Added support for lpia architecture
+  * Fix powerpc FTBFS issue for real now. Closes: #432648
+
+ -- Michael Koch <konqueror@gmx.de>  Sun, 07 Oct 2007 11:46:03 +0200
+
+eclipse (3.2.2-3) unstable; urgency=low
+
+  [ Michael Koch ]
+  * debian/control.in: eclipse-platform: Removed zenity alternatives from
+    Depends. Closes: #419668.
+  * Fixed debian/eclipse.menu and debian/eclipse/extra/eclipse.desktop to be
+    policy compliant.
+
+  [ Flávio Martins ]
+  * Resurrected and tweaked eclipse-java-home.dpatch to fix FTBFS.
+  Closes: #432648.
+
+ -- Michael Koch <konqueror@gmx.de>  Wed, 22 Aug 2007 15:43:49 +0200
+
+eclipse (3.2.2-2) unstable; urgency=low
+
+  * debian/extra/java_home: Use /usr/lib/jvm/java-6-sun instead of
+    /usr/lib/jvm/java-1.6.0-sun. Closes: #415712.
+  * debian/rules: Build with source and target version 1.5.
+  * debian/control.in: Replaced all ${Source-Version} by ${binary:Version}.
+
+ -- Michael Koch <konqueror@gmx.de>  Sun, 15 Jul 2007 11:01:20 +0200
+
+eclipse (3.2.2-1) unstable; urgency=low
+
+  [ Michael Koch ]
+  * Sparc build fixes.
+  * debian/extra/java_home: Added paths for SUN JDK 6.
+    Closes: #415712, #418877.
+  * debian/rules: Don't force empty bootclasspath.
+  * lintian/*: fixed lintian warnings for eclipse 3.2.2.
+
+ -- Michael Koch <konqueror@gmx.de>  Mon, 04 Jun 2007 08:18:23 -0100
+
+eclipse (3.2.1-6) unstable; urgency=low
+
+  * Rebuilt with unstables libc6.
+
+ -- Michael Koch <konqueror@gmx.de>  Thu, 22 Feb 2007 10:14:17 +0000
+
+eclipse (3.2.1-5) unstable; urgency=low
+
+  [ Matthias Klose ]
+  * libswt3.2-gtk-jni: Conflict with libswt-gnome-gtk-3.2-jni as well.
+    Closes: #401570.
+  * debian/patches/eclipse-ecj-gcj.dpatch: New, same as in ecj-bootstrap.
+
+  [ Michael Koch ]
+  * debian/control.in: libswt3.2-gtk-java: Conflicts with libswt-gtk-3.2-java
+    (<< 3.2.1-5). Closes: #407384.
+
+ -- Michael Koch <konqueror@gmx.de>  Sun, 28 Jan 2007 12:30:36 +0100
+
+eclipse (3.2.1-4) unstable; urgency=low
+
+  [ Matthias Klose ]
+  * debian/patches/eclipse-libswt-xulrunner.dpatch: Add chunks from
+    eclipse-libswt-firefox.dpatch.
+  * debian/rules: For the xulrunner case, apply eclipse-libswt-firefox2,
+    don't apply eclipse-libswt-mozilla-profiles.
+  * eclipse-platform: Unconditionally depend on xulrunner. Closes: #396636.
+  * debian/extra/eclipse.sh: Don't honor MOZILLA_FIVE_HOME anymore.
+
+ -- Matthias Klose <doko@debian.org>  Sun,  7 Jan 2007 10:53:12 +0100
+
+eclipse (3.2.1-3) unstable; urgency=low
+
+  [ Vladimír Lapáček ]
+  * debian/patches/eclipse-tomcat55-dpatch: link to mx4j-jmx.jar
+    rather then to jmx.jar. 
+
+  [ Matthias Klose ]
+  * Unconditionally depend on zenity. Closes: #403204.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 20 Dec 2006 01:10:10 +0100
+
+eclipse (3.2.1-2) unstable; urgency=low
+
+  [ Matthias Klose ]
+  * libswt3.2-gtk-jni: Add conflict with duplicate copy in the
+    Debian archive. Closes: #401819.
+
+ -- Matthias Klose <doko@debian.org>  Wed,  6 Dec 2006 13:45:37 +0100
+
+eclipse (3.2.1-1) unstable; urgency=low
+
+  [ Matthias Klose ]
+  * debian/control.in: eclipse-gcj: Depend on eclipse.
+  * debian/rules: Reenable 64bit build patches.
+
+  [ Stephan Michels ]
+  * debian/patches/eclipse-build.dpatch: Updated patch from FC
+  * debian/patches/eclipse-disable-motif.dpatch: Converted patch
+    to Eclipse 3.2.
+
+ -- Matthias Klose <doko@debian.org>  Sun,  3 Dec 2006 11:52:53 +0100
+
+eclipse (3.2.1-0) experimental; urgency=low
+
+  [ Michael Koch ]
+  * New upstream version.
+    - Added debian/patches/eclipse-disable-junit4-apt.dpatch to disable
+      JUnit4 support.
+    - Added debian/patches/eclipse-tomcat55.dpatch,
+      debian/patches/eclipse-tomcat55-build.dpatch,
+      debian/patches/eclipse-webapp-tomcat55.dpatch and
+      debian/patches/eclipse-webapp-tomcat55-newarches.dpatch to add support
+      for tomcat 5.5.
+    - Added debian/patches/eclipse-jsch.dpatch to use the JSch version
+      from Debian.
+    - Removed debian/patches/eclipse-tomcat5.dpatch. Obsoleted by tomcat5.5
+      patches.
+    - Updated debian/patches/eclipse-libswt-xulrunner.dpatch to apply cleanly.
+    - Removed debian/patches/eclipse-java-model-cache.dpatch.
+      Implemented upstream.
+    - Removed debian/patches/eclipse-heapstatus.dpatch. Implemented upstream.
+    - Updated debian/patches/eclipse-fileinitializer.dpatch,
+      debian/patches/eclipse-updatehomedir.dpatch,
+      debian/patches/eclipse-javadoc-bootclasspath.dpatch,
+      debian/patches/eclipse-gnuformatterjdtui.dpatch,
+      debian/patches/eclipse-disable-motif.dpatch and
+      debian/patches/eclipse-libswt-enableall.dpatch to apply to new upstream.
+    - libswt3.2-gtk-gcj.install, libswt3.2-gtk-gcj.postinst,
+      libswt3.2-gtk-gcj.postrm, libswt3.2-gtk-java.install,
+      libswt3.2-gtk-jni.dirs, libswt3.2-gtk-jni.install:
+      Moved over from the respective files from 3.1.x.
+    - libswt3.1-gtk-gcj.install, libswt3.1-gtk-gcj.postrm,
+      libswt3.1-gtk-gcj.postinst, libswt3.1-gtk-java.install,
+      libswt3.1-gtk-jni.dirs, libswt3.1-gtk-jni.install: Removed.
+    - debian/rules: Adjusted list of license files to delete.
+      (Thanks to Vladimir Lapacek for patches for Tomcat 5.5 integration)
+  * extra/package-links.txt, extra/links.txt: Link tomcat 5.5 jars.
+  * debian/rules: Changed list of patches to apply. Updated to version numbers.
+  * debian/extra/ecj-gcj.1, debian/extra/ecj-java.1: Fixed manpage name.
+  * debian/control.in: Added new meta package eclipse-gcj for native eclipse
+    users.
+  * Moved all files to /usr/lib/eclipse to make all plugins work.
+  * debian/control.in: eclipse-jdt-common, eclipse-pde-common,
+    eclipse-platform-common, eclipse-rcp-common: Removed.
+  * Build icu4j as a eclipse plugin.
+
+  [ Matthias Klose ]
+  * Build-depend on java-gcj-compat-dev (>> 1.0.65-4), remove explicit build
+    dependency on ecj-bootstrap-gcj.
+  * Don't build ecj again, just use the system one.
+  * Don't build the eclipse-ecj and eclipse-ecj-gcj packages anymore.
+  * Use java-gcj-compat-dev to compile the jar files to native code
+    and register them.
+  * debian/patches/eclipse-libswt-mozilla.dpatch: Update.
+  * debian/rules: Apply eclipse-libswt-mozilla-profiles when building
+    with mozilla.
+  * debian/rules: Fix libswt-gtk.jar symlink.
+  * Build swt bindings with -O2.
+  * debian/patches/eclipse-libswt-xpcomgcc4.dpatch: New, taken from FC.
+  * debian/patches/eclipse-libswt-firefox.dpatch: Updated from FC.
+  * debian/patches/eclipse-libswt-firefox2.dpatch: New, taken from FC.
+  * debian/rules: Uses bashisms, set SHELL.
+  * Speed up native build on multiprocessor machines.
+  * debian/extras/eclipse.sh: Remove mozilla error dialog.
+  * debian/control.in: Let eclipse recommend eclipse-gcj.
+  * debian/copyright: Update.
+
+  [ Vladimir Lapacek ]
+  * Build jsch as a eclipse plugin.
+
+  [ Stephan Michels ]
+  * Added "lib" prefix to the links of the tomcat plugin in package-links.txt
+  * Ensured that the directories exist before links were created
+  * Converted native presentation patch to 3.2
+  * Show error dialog only if the mozilla/firefox wasn't found.
+  * Updated updatehomedir patch from Fedora's repository
+
+ -- Matthias Klose <doko@debian.org>  Sun, 22 Oct 2006 04:25:47 +0200
+
+eclipse (3.1.2-3) experimental; urgency=low
+
+  [ Michael Koch ]
+  * debian/rules: Added support to build with xulrunner. Made it the default.
+    Closes: #352184.
+  * debian/patches/eclipse-libswt-xulrunner.dpatch: New file.
+  * debian/control.in: libswt3.1-gtk-java: Make @MOZILLA_DEP@ a Recommends.
+    libswt3.1-gtk-jni: Make dependencies on GNOME and Mozilla a Recommends.
+    Closes: #361696, #368705.
+  * debian/control.in: eclipse-platform-common: Added Depends on
+    java2-runtime. Closes: #369415, #380170.
+  * debian/control.in: eclipse-jdt-common: Don't Depends on eclipse-jdt.
+    Closes: #375908.
+  * debian/control.in: libswt3.1-gtk-jni: Don't Depends on libswt3.1-gtk-java.
+    Closes: #375870.
+  * debian/extra/java_home: Added path for SUN JDK from non-free. Thanks to
+    Tom Marble. Closes: #368583, #369194, #369950.
+  * debian/control.in: eclipse-efj: Removed Recommends on java-gcj-compat. It
+    is listed in Depends too.
+
+  [ Stephan Michels ]
+  * debian/extra/ecj-gcj.1, debian/extra/ecj-java.1: Revised.
+  * debian/extra/efj.1, debian/eclipse-efj.manpages: New manpage for efj.
+
+  [ Matthias Klose ]
+  * Build-depend on java-gcj-compat-dev (>= 1.0.61).
+  * debian/rules: Do not apply the eclipse-libjawt patch for the experimental
+    build.
+  * debian/patches/eclipse-awt-libpath.dpatch: Set AWT_LIB_PATH.
+  * debian/extra/eclipse.sh: Ignore the fact, that the package doesn't work
+    with Mozilla; everything but the help should work.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 13 Aug 2006 15:22:24 +0200
+
+eclipse (3.1.2-2) unstable; urgency=low
+
+  [ Michael Koch ]
+  * debian/control.in: eclipse: Added Conflicts/Replaces against
+    eclipse-platform-common. Closes: #352196, #352348, #365477, #359979
+  * debian/control.in: Build-Depends on bzip2 instead of unzip.
+    Closes: #352726, #357087
+  * control.in, eclipse-rcp-common.install, eclipse-rcp.install,
+    extra/arch-files.txt, libswt3.1-gtk-java.install: Moved
+    org.eclipse.swt plugins to eclipse-rcp package.
+  * debian/extra/efj.sh: Rewritten to match the code from eclipse.sh
+    Closes: #353555
+  * debian/extra/eclipse.1: Clarified explanation for -vm option.
+  * debian/control.in: Updated Standards-Version to 3.7.2.
+  * debian/control.in: eclipse-source: Fixed typo in description.
+    Closes: #363379
+  * debian/rules: Build the newest compiler. Closes: #356028
+  * debian/control.in: libswt3.1-gtk-jni: Conflict with
+    libswt-gnome-gtk-3.1-jni and libswt-mozilla-gtk-3.1-jni Closes: #361692
+  * debian/rules: Don't compile catalina.jar to native as this ICEe current
+    gcj-4.1.
+
+  [ Matthias Klose ]
+  * debian/control.in: eclipse replaces eclipse-platform (<< 3.1.2-2).
+  * debian/extra/eclipse.sh: Make sure to use /usr/lib/mozilla as
+    MOZILLA_HOME in any case.
+  * debian/rules: Set a default for MOZILLA_HOME.
+  * Set JAVA_HOME for the build (needed for non-matching gcc/gcj versions).
+  * debian/eclipse.menu: Set longtitle. Ubuntu #34916.
+  * Merge from Ubuntu:
+    - Move swt.jar into the libswt3.1-gtk-java package. Closes: #362991.
+    - Add a new package libswt3.1-gtk-gcj.
+  * ecj.sh: Only access /etc/eclipse/java_home, if it exists. Closes: #356027.
+  * eclipse.sh: s/source/./. Closes: #359945.
+  * Merge from Ubuntu:
+    - Build using gij-4.1/gcj-4.1.
+
+ -- Michael Koch <konqueror@gmx.de>  Wed, 17 May 2006 12:48:03 +0000
+
+eclipse (3.1.2-1) unstable; urgency=low
+
+  [ Stephan Michels ]
+  * New upstream version. Release notes:
+    http://www.eclipse.org/eclipse/development/readme_eclipse_3.1.2.html
+  * debian/extra/eclipse.sh: Make the -vmargs and -install
+    arguments usable. Closes: #347749
+  * debian/rules: Replaced logic to create the symbolic links.
+  * debian/patches/eclipse-java-model-cache.dpatch: Removed
+    patch because it is fixed upstream in 3.1.2
+  * debian/patches/eclipse-libswt-mozilla.dpatch,
+    debian/patches/eclipse-libswt-firefox.dpatch: Using pkg-config to get
+    compiler flags for the compilation of SWT.
+  * debian/patches/eclipse-updatehomedir.dpatch: Updated patch to
+    the latest version.
+  * debian/rules, debian/extra/lib.link: Removed all symbolic links from
+    /usr/share/eclipse to /usr/lib/eclipse. Used a new install site
+    instead.
+  * eclipse.install, eclipse-platform-common.menu, eclipse.menu: Added
+    eclipse.desktop to eclipse.install and moved
+    eclipse-platform-common.menu to eclipse.menu. Closes: #350475, #351163
+  * eclipse.install, eclipse-platform-common.install: Moved the eclipse
+    executable to the eclipse package to ensure that you can only start
+    Eclipse if you have the eclipse package installed. Closes: #348584
+
+  [ Michael Koch ]
+  * debian/extra/eclipse.sh: Made the -vm option working. Fixed tests for
+    xpcom.so. Exec the eclipse binary directly. Check for libgtkembedmoz.so.
+  * debian/patches/eclipse-libswt-firefox.dpatch, debian/rules,
+    debian/patches/eclipse-libswt-mozilla.dpatch: Make libswt3.1-gtk-java only
+    depend on mozilla-browser (Debian) or firefox (Ubuntu). Link against
+    libgtkembedmoz.so during build. Closes: #343667
+  * debian/control.in: eclipse-platform-common: Depends on zenity |
+    kdebase-bin | xdialog instead of zenity only.
+  * Added debian/patches/eclipse-heapstatus.dpatch to show the heap status
+    always.
+  * debian/extra/links.txt, debian/extra/package-links.txt: Adjust links for
+    libmx4j-java >= 2.1.1-3.
+  * debian/control.in: Make eclipse package Architure: any (not all).
+  * debian/control.in: Remove ${shlibs:Depends} on most *-gcj packages.
+  * debian/rules: Determine upstream version and use a variable containing it
+    everywhere.
+  * debian/eclipse-jdt-gcj.install, debian/eclipse-pde-gcj.install,
+    debian/eclipse-platform-gcj.install, debian/eclipse-rcp-gcj.install:
+    Include the native jars in the *-gcj packages.
+  * Added watch file.
+
+  [ Matthias Klose ]
+  * Add support to build using firefox-dev (turned off by default).
+
+ -- Michael Koch <konqueror@gmx.de>  Thu,  9 Feb 2006 06:23:00 +0000
+
+eclipse (3.1.1-8) unstable; urgency=low
+
+  * debian/eclipse-platform.preinst: Make /usr/lib/eclipse/features a real
+    directory. Closes: #345724, #345749, #346224
+  * debian/rules: Don't make /usr/lib/eclipse/features a symlink.
+  * debian/eclipse-platform.install: Include only the non-source features.
+  * debian/rules: Handle eclipse architures with the same name as the
+    according Debian architures correctly.
+  * debian/rules: Don't re-define CURDIR. It's defined by make.
+  * debian/rules: Don't overwrite LC_ALL. Not needed.
+  * debian/extra/eclipse.sh: Fixed handling of /etc/eclipse/java_home.
+    Closes: #345756, #346110
+
+ -- Michael Koch <konqueror@gmx.de>  Sat,  7 Jan 2006 11:45:19 +0000
+
+eclipse (3.1.1-7) unstable; urgency=low
+
+  [ Stephan Michels ]
+  * debian/copyright: Updated license to EPL 1.0. Closes: #342695
+  * debian/eclipse-rcp.prerm: Fix the deletion of the eclipse
+    directories in /usr/local/lib, so that it doesn't fail if they are not
+    empty. Closes: #342338, #342305
+  * debian/extra/eclipse.1: Updated and added missing commandline
+    options. Closes: #343315
+  * debian/patches/eclipse-public-applypatch.dpatch: Add patch to make some
+    of the API of the compare plugin public, which is needed for the bugzilla
+    plugin (https://bugs.eclipse.org/bugs/show_bug.cgi?id=98707)
+  * debian/rules,debian/eclipse-ecj.manpages,debian/eclipse-ecj-gcj.manpages,
+    debian/extra/ecj.1,debian/extra/ecj-java.1,debian/extra/ecj-gcj.1:
+    Make an own copy for ecj-gcj with a special comment about gcj and
+    use *.manpages instead of a copy within the rules.
+  * debian/control, debian/rules: Added dependency to classpath-doc and enabled 
+    eclipse-link-classpathdoc.dpatch to prevent that javadoc is fetching
+    javadoc informations from java.sun.com during the build time.
+
+  [ Michael Koch ]
+  * debian/extra/eclipse.1: Fixed typo.
+  * debian/extra/eclipse.sh: Added property for faster startup with GCJ 4.0:
+    -Dgnu.gcj.runtime.VMClassLoader.library_control=never.
+  * debian/extra/eclipse.sh: Use /bin/sh to as shell. Fixed to be POSIX-
+    compliant. Closes: #342255
+  * debian/rules: Generalized architecture support where debian arch name
+    is the same as the eclipse arch name. Closes: #342579
+  * debian/control.in: libswt3.1-gtk-java: Alternatively Depends on firefox
+    (>= 1.4.99). Closes: 342505
+  * debian/control.in: eclipse-pde-common: Don't depend on eclipse-pde.
+    Closes: #341854
+  * debian/control.in: eclipse-platform-common: Don't depend on
+    eclise-platform-common.
+  * debian/eclipse-platform-common.install, debian/eclipse-platform-common.menu,
+    debian/rules, debian/extra/eclipse32.xpm: Implemented menu entry for X11
+    desktops the Debian way. Closes: #343114
+  * debian/extra/eclipse.sh: Implemented setting of MOZILLA_FIVE_HOME for
+    Firefox 1.5 correctly.
+  * debian/control.in: Build-Depends on gjdoc (>= 0.7.7). Closes: #343089
+  * debian/rules: Moved natively compiled jars to /usr/lib/gcj-4.0 and
+    reworked it to support updates to newer GCJ versions more easily.
+
+ -- Stephan Michels <stephan@apache.org>  Fri, 23 Dec 2005 12:24:07 +0100
+
+eclipse (3.1.1-6) unstable; urgency=low
+
+  [ Stephan Michels ]
+  * debian/eclipse-platform.dirs: Removed /usr/local/share/eclipse.
+    Closes: #336884
+  * debian/eclipse-rcp.postinst, debian/eclipse-rcp.prerm:
+    Create and remove empty directories for /usr/local/lib/eclipse.
+    Closes: #335242
+  * debian/control: eclipse-sdk: Add dependency to eclipse-source, because
+    the sdk feature explicit depends on the source features. Closes: #338209
+  * debian/patches/eclipse-tomcat5.dpatch: Changed version of the tomcat
+    plugin from 4.1.30.1 to 5.0.30 and all occurrences to fix dependency
+    problem of the sdk feature.
+  * debian/patches/eclipse-swttools.dpatch: Rebuild patch to build the swt
+    tools before org.eclipse.swt.gtk.linux.ia64
+  * debian/control,debian/eclipse-sdk.install: Rename the package 
+    eclipse-sdk to eclipse, and create a dummy package 
+    for eclipse-sdk. Closes: #338733
+  * debian/control: Remove circular dependency for eclipse-rcp to 
+    eclipse-sdk. Closes: #339830
+  * debian/control: Removed obsolete package eclipse-base.
+
+  [ Michael Koch ]
+  * debian/control.in: Build-Depends on java-gcj-compat-dev (>= 1.0.41-2).
+    Closes: #336012.
+  * debian/control.in: libswt3.1-gtk-java: Fixed alternate Depends on
+    mozilla-firefox. Closes: #336285.
+  * debian/control.in: Uploaders: Added Stephan Michels.
+
+ -- Stephan Michels <stephan@apache.org>  Sun, 20 Nov 2005 14:41:10 +0100
+
+eclipse (3.1.1-5) unstable; urgency=low
+
+  * Remove gij-4.0 dependency from eclipse-base.
+  * Build using tomcat5 on Ubuntu as well.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 10 Nov 2005 09:00:42 +0200
+
+eclipse (3.1.1-4) unstable; urgency=low
+
+  [ Stephan Michels ]
+  * debian/patches/eclipse-helpindexbuilder.dpatch:
+    Added patch to fix bug in the HelpIndexBuilder
+    (https://bugs.eclipse.org/bugs/show_bug.cgi?id=114001).
+  * debian/patches/eclipse-consoleprogressmonitor.dpatch:
+    Removed patch because it was never necessary.
+  * debian/patches/eclipse-ant-manifest.dpatch
+    Fixed incorrect manifest file, because of the the last tailing comma.
+  * debian/rules: Enabled eclipse-ant-manifest patch
+  * debian/extra/config.ini: Removed file to fix the problem
+    with the missing splash screen.
+  * debian/control: Add alternative dependency to firefox instead
+    of mozilla-browser. Closes: #336285
+  * debian/extra/eclipse.sh: Use /usr/lib/firefox as alternative for
+    MOZILLA_FIVE_HOME.
+  * debian/patches/eclipse-libswt-mozilla-classic.dpatch: Disable
+    patch if the firefox libraries are used, because the chrome registry
+    is not available and it is not necessary to set the chrome theme.
+  * debian/rules, debian/eclipse-platform-common.install: Used the png icons,
+    which are delivered with Eclipse.
+  * debian/eclipse-source.install: Added missing features like
+    org.eclipse.platform.source_3.1.1 to /usr/lib/eclipse. Closes: #336453
+  * debian/rules: prepare-stamp: Execute the insertBuildId target
+    to replace all occurrences of @buildId@
+  * eclipse-platform.install: Exclude every file for eclipse/configuration/
+    except the necessary file config.ini.
+  * debian/control: Change architecture for libswt3.1-gtk-java from "all" to
+    "any". Closes: #336316,#336338,#336389. Ubuntu #17580
+  * debian/extra/eclipse.sh: Print help message for -h and --help.
+    Removed the special handling for the workspace location. Closes: #337564
+  * debian/patches/eclipse-javadoc-bootclasspath.dpatch: Add patch to fix
+    problem with missing bootclasspath property within the eclipse build scripts
+    https://bugs.eclipse.org/bugs/show_bug.cgi?id=115401
+  * debian/patches/eclipse-gjdoc-reflection.dpatch: Add patch to use the
+    reflection option for gjdoc, to fix problem with the classpath option
+    http://gcc.gnu.org/bugzilla/show_bug.cgi?id=23917
+  * debian/control: Add eclipse-source <= 3.1.1-3 to the conflicts/replaces
+    of eclipse-platform, because of problems with /usr/lib/eclipse/features
+
+  [ Michael Koch ]
+  * debian/extra/java_home: Removed support for sablevm and fjsdk for now.
+    Closes: #336470.
+  * debian/control: eclipse-jdt-common: Conflicts and Replaces
+    eclipse-jdt << 3.0. Closes: #336273.
+  * debian/control: eclipse-platform-common: Conflicts and Replaces
+    eclipse-platform << 3.0. Closes: #336307.
+  * debian/rules: Added support to build for s390 architecture.
+  * debian/eclipse-rcp.install, debian/libswt3.1-gtk-java.install, debian/rules:
+    Reorganized SWT to put its jar into /usr/lib/eclipse/plugins/.
+  * debian/control.in: libswt3.1-gtk-java: Made it an Architecture: any
+    package.
+
+ -- Michael Koch <konqueror@gmx.de>  Wed,  9 Nov 2005 10:42:57 +0100
+
+eclipse (3.1.1-3) unstable; urgency=low
+
+  * Michael Koch <konqueror@gmx.de>:
+    - Updated debian/patches/eclipse-java-model-cache.dpatch to use the upstream
+      solution.
+    - debian/rules: Handle ia64 architecture.
+    - Worked around bugs in latest lucene package.
+    - Moved package to main.
+
+  * Stephan Michels <stephan@apache.org>:
+    - Added debian/patches/eclipse-gnuformatterjdtui.dpatch
+      to make the GNU formation rules available in the preferences
+      (https://bugs.eclipse.org/bugs/show_bug.cgi?id=91770)
+    - Added debian/patches/eclipse-updatehomedir.dpatch
+      to add home directory as installation location
+      if ECLIPSE_HOME is not writable
+      (https://bugs.eclipse.org/bugs/show_bug.cgi?id=90630)
+    - Updated debian/patches/eclipse-disable-filelog.dpatch
+      so that the patch didn't depend on the tomcat patches anymore
+    - Updated debian/patches/eclipse-tomcat5.patch
+      to combine the tomcat5 patches to one patch
+    - Updated debian/patches/eclipse-disable-tomcat.dpatch
+      in respect of the eclipse-disable-filelog.dpatch
+    - Added debian/patches/eclipse-libswt-mozilla-classic.dpatch
+      to set the classic theme for the browser widget to improve the look
+      (https://bugs.eclipse.org/bugs/show_bug.cgi?id=108257)
+    - Added debian/patches/eclipse-navtivepresentation.dpatch
+      to enable the internal native presentation and add some improvments
+      (https://bugs.eclipse.org/bugs/show_bug.cgi?id=93806)
+
+ -- Michael Koch <konqueror@gmx.de>  Tue, 25 Oct 2005 09:18:18 +0000
+
+eclipse (3.1.1-2) unstable; urgency=low
+
+  * eclipse-ecj: Fix dangling symlinks in /usr/share/ant/lib.
+  * Move the dh_installdirs/dh_install calls from the binary targets
+    to the install target. Fixes FTBFS when only building the architecture
+    dependent packages.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 12 Oct 2005 14:02:50 +0200
+
+eclipse (3.1.1-1) unstable; urgency=low
+
+  * Upload to contrib, the remaining reason is tomcat5 beeing in contrib.
+
+  * New upstream release. Closes: #260510, #293058.
+    - source code formatter changes. Closes: #212765.
+    - Fixed broken Filesystem: inputfield on gtk. Closes: #204569.
+    - Fixed ant integration memory leaks. Closes: #219475.
+    - Fixed refactoring and quickfix fail when assert is used. Closes: #226160.
+    - Fixed includes regarding kaffe jni files. Closes: #262760.
+    - eclipse-platform package description changed. Closes: #271584.
+    - Dependency on kaffe is unneeded. Closes: #259321.
+    - start-functions.sh file removed. Closes: #304672.
+    - libswt2.1-gtk2-java not built anymore. Closes: #207156, #255745, #305990.
+    - eclipse can be installed. Closes: #247404.
+
+  * Michael Koch <konqueror@gmx.de>:
+    - Updated debian/patches/eclipse-disable-motif.patch and
+      debian/patches/eclipse-libswt-cairo1.0.patch. Thanks to Stephan Michels
+    - Added debian/patches/eclipse-java-cache-model.patch to work around
+      memory handling stupidity
+    - debian/rules: Build Eclipse only once.
+    - debian/rules: Put debian version into about.mappings of org.eclipse.sdk
+      to show it in Eclipse about dialog.
+    - debian/rules: Build the native jars conditionally
+    - Use gcj instead of jikes to build the bootstrap ecj compiler
+    - Merged the fileInitializer code for debian/rules from Jerry Haltom's
+      Eclipse version for Ubuntu.
+    - debian/control: Make sure all *-gcj packages depend directly or
+      indirectly on gij-4.0 for the gcj-dbtool-4.0.
+    - debian/control: (Build-)Depends on ant-optional instead of ant for a
+      fully featured Apache Ant.
+    - debian/extra/java_home: Added more free and non-free JDKs.
+      Closes: #281226.
+
+  * Matthias Klose <doko@ubuntu.com>:
+    - debian/*-gcj.postrm: Copy the update-gcj-classmaps-eclipse.sh script
+      into the postrm scripts. eclipse-base: Depend on gij-4.0. Ubuntu #16574.
+    - debian-*-gcj.prerm: Remove the update-gcj-classmaps-eclipse.sh script.
+    - debian/extra/java_home: Add home for the Blackdown JDK (j2sdk1.4 package).
+    - debian/control: Recommend eclipse-source, don't depend on it.
+      Ubuntu #2878.
+    - Convert the custom patch system to dpatch.
+    - Add support to build conditionally with tomcat5.
+    - debian/control: eclipse-base: Depend on gij-4.0. Ubuntu #2850.
+    - debian/control: eclipse-rcp replaces eclipse-rcp-common (<< 3.1.1).
+      Ubuntu #2828.
+    - debian/control: Remove gcc/g++ build dependencies, replace gcj dependency
+      with dependency on libgcj-dev.
+    - debian/control: Generated from debian/control.in
+    - Set the package section to contrib/devel again, tomcat5 is still in
+      contrib.
+    - Revert the 3.1-11 SWT package changes.
+    - Add conflicts to the swt packages, which are currently built from sources
+      extracted from the eclipse release.
+    - Honor setting of JAVA_HOME in startup script. Ubuntu #2835.
+    - Build swt libraries using -O2.
+    - debian/patches/eclipse-ant-manifest.dpatch: Disable.
+    - Blackdown crashes cannot be reproduced anymore with current Blackdown
+      package versions on i386 and amd64. Closes: #221712, #221816.
+
+  * We do build swt-gtk from the eclipse source for various reasons:
+    - There is no swt-gtk upstream release, upstream does release swt-gtk
+      as part of an eclipse release.
+    - The swt-gtk built by separate sources is incompatible with the swt
+      built by eclipse as it misses some eclipse specific parts.  Eclipse
+      and SWT always have to have the same version to make sure both are
+      compatible with each other.
+      As upstream doesn't maintain different releases of both, they don't
+      maintain compatiblity very well.
+
+ -- Michael Koch <konqueror@gmx.de>  Mon, 10 Oct 2005 22:12:43 +0200
+
+eclipse (3.1-11) unstable; urgency=low
+
+  * Fixed SWT.
+
+ -- Michael Koch <konqueror@gmx.de>  Thu,  8 Sep 2005 19:16:14 +0000
+
+eclipse (3.1-10ubuntu1) breezy; urgency=low
+
+  * Synchronize with unstable.
+  * Disable building with tomcat5, not yet in universe, remove libtomcat5-java
+    build dependency. libtomcat5-java dependency from eclipse-platform,
+    replace it with a suggestion.
+  * Fix FTBFS on amd64, building without tomcat5.
+  * Build using ecj-bootstrap instead of jikes.
+  * libswt3.1-gtk-jni: Remove dependency on mozilla-browser.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 26 Sep 2005 15:32:13 +0200
+
+eclipse (3.1-10) unstable; urgency=low
+
+  * debian/extra/eclipse.sh: support -vm instead of -java as the manpage says.
+  * Reworked debian/patches/eclipse-tomcat5.patch to make the help system
+    actually work.
+  * Removed debian/patches/eclipse-doc-plugins-disabled.patch. Obsolete now.
+  * Removed debian/patches/TomcatAppServer.java.diff. Obsolete now.
+  * Removed debian/patches/eclipse-libswt-cairo0.6.patch and
+    added debian/patches/eclipse-libswt-cairo1.0.patch to work correctly
+    with Cairo 1.0
+  * Added debian/patches/eclipse-swt-x11.patch for building on 64bit archs.
+  * Added debian/patches/eclipse-disable-javadoc.patch,
+  * debian/patches/eclipse-disable-buildHelpIndex.patch,
+    eclipse-3.1/debian/patches/eclipse-consoleprogressmonitor.patch and
+    eclipse-3.1/debian/patches/z-eclipse-disable-filelog.patch to cope with
+    a hanging build system when building help files
+
+ -- Michael Koch <konqueror@gmx.de>  Thu,  8 Sep 2005 05:16:07 +0000
+
+eclipse (3.1-9) unstable; urgency=low
+
+  * Added patch from Stephan Michels to set MOZILLA_FIVE_HOME during startup
+    to be able to embedd Mozilla inside Eclipse.
+  * Added debian/patches/eclipse-swttools.patch.
+  * Fixed debian/extra/arch-files.txt.
+  * libswt-gtk-3.1-jni: Added dependency on mozilla-browser.
+  * Fixed debian/patches/eclipse-tomcat5.patch to add the correct jar names to
+    the tomcat MANIFEST.MF.
+
+ -- Michael Koch <konqueror@gmx.de>  Tue, 30 Aug 2005 20:26:10 +0000
+
+eclipse (3.1-8) unstable; urgency=low
+
+  * (Build-)Depend on libtomcat5-java instead of libtomcat4-java.
+  * debian/rules: Reference tomcat5 instead of tomcat4 and handle tomcat5
+    properly.
+  * Removed debian/patches/eclipse-tomcat4.patch and added
+    debian/patches/eclipse-tomcat5.patch.
+  * Make eclipse-rcp depend on libswt3.1-gtk-java.
+
+ -- Michael Koch <konqueror@gmx.de>  Sun, 28 Aug 2005 07:45:51 +0000
+
+eclipse (3.1-7) unstable; urgency=low
+
+  * Added missing *.jar.so files to the packages.
+  * Added debian/aot-compile script and use it to compile jars to native.
+  * Removed debian/eclipse-sdk.postinst and debian/eclipse-sdk.postrm.
+  * Don't make eclipse-efj Depends on ${shlibs:Depends}.
+  * Fixed debian/extra/eclipse.sh to give command line arguments to
+    Eclipse.
+
+ -- Michael Koch <konqueror@gmx.de>  Sun, 21 Aug 2005 13:54:16 +0000
+
+eclipse (3.1-6) unstable; urgency=low
+
+  * Fixed compilation of jars to native.
+  * Created classmap files and and merged them after package installation.
+  * Got rid of update-eclipse script.
+  * Included update-gcj-classmaps-eclipse script.
+  * Added patches from Stephan Michels to enable cairo and Mozilla support
+    and to disable Motif and Win32 compilation.
+  * Use ant instead of libant1.6-java.
+
+ -- Michael Koch <konqueror@gmx.de>  Sun, 14 Aug 2005 20:58:35 +0000
+
+eclipse (3.1-5) unstable; urgency=low
+
+  * Cleaned up debian/rules more.
+  * debian/rules: Use $(ECLIPSE_ARCH) instead of hardcoding x86.
+  * Renamed debian/eclipse-ecj.postrm to debian/eclipse-ecj.prerm.
+  * Renamed debian/eclipse-ecj-native.postrm to
+    debian/eclipse-ecj-native.prerm.
+  * Added debian/eclipse-rcp.postinst.
+  * Include efj executable.
+  * Got rid of libeclipse-jni package.
+  * Renamed eclipse-ecj-native to eclipse-ecj-gcj and included
+    ecj-gcj executable.
+  * Fixed jsch usage.
+
+ -- Michael Koch <konqueror@gmx.de>  Mon, 11 Jul 2005 06:16:28 +0000
+
+eclipse (3.1-4) unstable; urgency=low
+
+  * Use native ecj to build Eclipse.
+  * Updated debian/patches/eclipse-cvs-ssh-jsch.patch to update all
+    occurrences of jsch version number.
+
+ -- Michael Koch <konqueror@gmx.de>  Fri,  8 Jul 2005 13:15:29 +0000
+
+eclipse (3.1-3) unstable; urgency=low
+
+  * debian/control: Big cleanup.
+  * Moved debian/addons/ to debian/extra/.
+  * debian/rules: Got rid of --sourcedir argument to dh_install.
+  * debian/*.install: Fixed paths.
+
+ -- Michael Koch <konqueror@gmx.de>  Fri,  8 Jul 2005 06:56:56 +0000
+
+eclipse (3.1-2) unstable; urgency=low
+
+  * Fixed command line arguments for SUN java.
+  * Include missing files.
+  * Fixed handling of links for SWT.
+  * Use standard binaries and remove wrappers in debian/bin.
+
+ -- Michael Koch <konqueror@gmx.de>  Wed,  6 Jul 2005 15:18:47 +0000
+
+eclipse (3.1-1) unstable; urgency=low
+
+  * New upstream version.
+  * Updated Standards-Version to 3.6.2.
+
+ -- Michael Koch <konqueror@gmx.de>  Tue,  5 Jul 2005 04:27:24 +0000
+
+eclipse (3.0.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Thanks to Jan Schulz for maintaining the Eclipse 2.1 packages and for his
+    comments on my Eclipse 3.0 packaging effort.
+  * Designed to run by default with Kaffe.
+
+ -- Jerry Haltom <wasabi@larvalstage.net>  Sun, 16 Jan 2005 23:19:39 -0600
+
+eclipse (2.1.3-4) unstable; urgency=low
+
+  * build by gcc-3.3 instead of 3.4 (closes: #251368).
+
+ -- Takashi Okamoto <tora@debian.org>  Fri, 18 Jun 2004 08:26:58 +0900
+
+eclipse (2.1.3-3) unstable; urgency=low
+
+  * add information on non free JVM to eclipse-platform package
+    description (closes: #243904)
+  * Remove any references to fonts in control
+  * add x-www-browser as alternative to mozilla-browser
+  * remove gij from postinst calls. It fails to run the updater.
+    (closes: #247404,  #248587)
+  * Changed 2>1 typo in the postinst java calls
+  * recompile on a plain sid without experimental gcc (closes: #251563)
+  * s/2.1.2/2.1.3/ in libswt*.links (closes:  #252026)
+    Note to self: this needs to be checked be some tests...)
+  * libeclipse-jni replaces eclipse-platform (<<2.1.3-2)
+  * recompile with plain sid and not experimental gcc
+    (closes: #251368, #251563)
+  * Add a patch to make it compile on latest gtk
+  * Make the /usr/lib/jni/*so real files, located in the jni packages and
+    not symlinks in the java ones (makes lin* happy). Tighten the 
+    dependcies between java and jni packages.
+
+ -- Jan Schulz <debian@katzien.de>  Sun,  6 Jun 2004 11:21:27 +0200
+
+eclipse (2.1.3-2) unstable; urgency=low
+
+  * workaround for a FTBFS with ant 1.6 and JDK 1.3: Added the right jars to
+    the CLASSPATH and build depend on ant 1.6.
+  * add debugging output to the build-java call: export
+    DEB_BUILD_OPTIONS=debug before building.
+  * don't install the old KDE desktop dir.
+
+ -- Jan Schulz <debian@katzien.de>  Thu,  8 Apr 2004 01:15:12 +0200
+
+eclipse (2.1.3-1) unstable; urgency=low
+
+  * New Upstream version: Again, only bugfixes, no new features
+  * Remove patches integrated upstream.
+    . new-cvs-response.patch
+    . org.eclipse.ui.workbench.texteditor.patch
+    . 00-PDE_build_with_NLS.patch
+  * Updated eclipse-javac links for ant.
+  * Removed ant dependencies and include the jars from upstream. This is
+    due to the problem, that debians ant is now 1.6, but eclipse requires
+    1.5 ant. As the 3.0 version changes this anyway, I didn't bother to
+    patch this: this is too much work and too less result (xerces and tomcat
+    are also taken from upstream source).
+  * Introduced 3 new packages: lib*-jni, which includes all native
+    compiled parts from the corresponding Java packages. (closes: #232882)
+    . Conflict and replace older versions to force them off the system
+    . Compile this parts in it's own target, so that arch binary only
+      releases are a lot faster. (closes: #232852)
+  * Add some info to the libswt*.README.Debian re compiling the jars
+    to native libs with gcj. (closes: #232011)
+  * Removed one desktop file, as this is not anymore needed since kde 3.2
+  * Sidenote: kaffe is now able to do rudimentary startup.
+
+ -- Jan Schulz <debian@katzien.de>  Wed, 24 Mar 2004 17:28:29 +0100
+
+eclipse (2.1.2-2) unstable; urgency=low
+
+  * Added a note to NEWS, that the install can fail, if sablevm ends
+    up being the only JVM for eclipses config app. Also added some note
+    to the postinst scripts. This is a bug in the java policy, as I cannot
+    exclude sablevm from the /usr/bin/java alternative, which the postinst
+    uses as the last option. Workaround is to set JAVA_HOME to a working
+    JVM before doing the upgrade.
+  * Tighter dependencies between packages, so that upgrades will work.
+                                                             (closes: #229587)
+  * Added patch to work around problems with latest cvs.     (closes: #231135)
+  * Make /usr/bin/eclipse -nl aware and use LANG to determine the to be used
+    language. To change that independly from your normal settings, add
+    LANG="..." to your $HOME/.eclipse/eclipserc              (closes: #231464)
+  * Tried to remove as much whitespace changes from the 'addsite' patch as
+    possible.
+  * Removed the '#!/bin/bash' from startup function: its not meant to be
+    executed, only sourced.
+  * Added my name to the copyright.
+  * Added debian package version to version string, which is shown in 
+    Help|About
+  * Readme.Debian: s/artikel/article/g. Thanks to David N. Welton for
+    spotting it.
+
+ -- Jan Schulz <debian@katzien.de>  Fri,  6 Feb 2004 21:35:36 +0100
+
+eclipse (2.1.2-1) unstable; urgency=low
+
+  * New Upstream release: Only maintainance, no new features. (Closes: #224104)
+    . New version needs to be intialized after installation. Added a 
+      postinst call in platform and jdt packages. This call is currently not
+      failsave due to shortcommings in java policy. It should work on a
+      current unstable system
+  * Cleaned up the upstream sourceball a bit (aka: it's not perfect yet),
+    which resulted in one MB less orig.tar.gz. Basicly a
+    rm *{macosx,photon,win32,...}* and rm *so. The next upstream version
+    will be done with CVS and a proper script.
+  * fixed a bug wrt default WS: I forgot to change the path to the new
+    java-config file.
+  * Cleaned up initial $HOME/.eclipse creation.               (Closes: #218972)
+  * Changed the regex in the 'does not startup workaround' to be more
+    specific. Thanks to David Walluck!
+  * Add lucene parser.jar from lucene-demos package, so that indexer works
+    again. Thanks to Anthony W. Juckel for the find.   	      (Closes: #220952)
+  * Removed old GTK Libs from Build-Depends. I don't think that eclipse is
+    still working with old gtk versions and I have no system to test.
+    Use a Gnome >2.2 woody backport, if you want eclipse on a woody system.
+  * added "libgnomevfs2-dev" to Build-Depends:. Thanks to Hiroshi Miura for
+    the find.                                                 (Closes: #222034)
+  * added "Copyright: 2000, 2003 IBM and other' in debian/copyright. This is
+    the String, which is in every java file.
+  * Add workaround for 'first startup'-bug when two WS are istalled.
+
+ -- Jan Schulz <debian@katzien.de>  Wed, 17 Dec 2003 00:01:13 +0100
+
+eclipse (2.1.1-7) unstable; urgency=low
+
+  * updated patch for emacs keybinding and PDE_build_with_NLS.patch fixed.
+    Thanks to Takashi Okamoto!
+  
+  * -> not uploaded eclipse 2.1.1-6 
+  * Added sensible-browser (as default) and x-www-browser to view the 
+    help pages.                                               (Closes: #217520)
+  * the -3 prerm scrips had a bug/typo, which would leave the alternative
+    installed, when the swt package were removed. This would result in
+    eclipse not starting up, if the 'ws' value wasn't overwritten at runtime.
+    Added postinst code to fix this. Thanks for Dominique Devriese for 
+    the bugreport.                                            (closes: #216572)
+  * added some notes about some locales problems, which results in
+    strange characters being inserted when doing C&P. The real cause is 
+    reported in bug#200933.                                   (closes: #212767)
+  * Added "patch (>= 2.5.9)" to build depends, which resolves a problem
+    when build on woody. Thanks to Anselm Kruis!
+  * Anselm Kruis also sent a patch to make eclipse be buildable on a plain
+    woody system together with a gnome2.2 mirror (using old qt and so on).
+    Many thanks for the work!
+    . redesign the swt makefiles to accept old qt versions
+    . add Dependencies for that versions
+    . add small Howto: debian/README.Backport
+  * Some minor changes in debian/control and some cleanup debian/rules
+  * change libswt*java to use java-config files. Included versioned 
+    Conflicts: to force older versions off the system. As I haven't seen
+    any packages other than the eclipse-platform, the packages don't 
+    provide any fallback to the old behaviour.
+  * separate some parts of eclipse-platforms README.Debian into FAQ.Debian
+  * disabled the PDE_build_with_NLS.patch, as it failed to work. I have no
+    idea why, everything seems fine with that patch.
+  * replaced the lucene jar with the one from the lucene package.
+
+  * -> not uploaded eclipse 2.1.1-5
+  * Eclipse prints a better error message, when it failed while using
+    /usr/bin/java, which could be unfit to run eclipse. Also changed -cp
+    into -classpath, so that the error isn't that obscure.    (closes: #207830)
+  * added kde and gnome desktop files. Thanks to Matt Pavlovich
+                                                              (closes: #209041)
+  * update eclipse manpage (JAVA_HOME, addsite).
+  * added '-vm' functionality, which was in the manpage, but not in the
+    starter skript. Ouups...
+
+  * -> not uploaded eclipse 2.1.1-4:
+  * Seperated Dependencies and Suggestion from the SWT libs: Not all libs
+    are needed to use SWT. Also changed the eclipse binary starter
+    requirements to suggests (see next entry).                 (Closes:#203966)
+  * Integrated the launcher capabilities into /usr/bin/eclipse.
+    The binary launcher is only used for splash screen. It will fail
+    if the libraries used for displaying this aren't present, but
+    this won't prevent eclipse from starting.
+  * ant-optional.jar is now correctly linked.                 (Closes: #205170)
+  * Removed platform gtk/motif features: updatemanger was confused,
+    if two window system versions were present. No functionality was
+    removed.                                                  (Closes: #204791)
+  * Removed unofficial pde-junit package from eclipse-pde suggest. This
+    plugin is integrated into upstream source in the next major version.
+                                                              (Closes: #203964)
+  * fixed a typo in the *gtk.jars file which prevented the pi jar to
+    be added to the classpath.                                (Closes: #217309)
+  * New standard version (no changes needed).
+
+ -- Jan Schulz <debian@katzien.de>  Sat, 25 Oct 2003 21:45:03 +0200
+
+eclipse (2.1.1-3) unstable; urgency=low
+  
+  * copyright: libswt2.1-gtk2-java is partly distributed under LGPL.
+  * fix the Refactor|Rename problem properly. See 00-refactor-rename.patch
+  * integrated the patches done by Takashi Okamoto (Thanks for the
+    fast rebuild!) 
+  * make java building fail in case of an error (Closes:201422).
+  * missed a plugin in dh_install call. Fixed and test for this added.
+  * changed the buildprocess to use less space.
+  * upgraded to debian-policy 3.6.0: no changes needed
+  * Added some workaround for errors at startup: if any plugins are excluded
+    from loading, the startscript will remove this entries and start with
+    all plugins. Closes:#192176
+  * removed bashism in /usr/bin/eclipse. Closes:#201235
+  * initial support for swt-motif. swt-gtk is still the prefered one 
+    if present. Be aware that eclipse-platform still depends on some gtk
+    related libs. This will change in the next release.
+  * different swt versions can be installed next to each other.
+    . versioned package names
+    . versioned jar files
+    . libswt-java is renamed to libswt2.1-java and only a virtual package
+    . libswt2.1-gtk2-java and libswt2.1-motif-java provide this package
+    . swt is now under update-alternative (See README.Debian about the way
+      this is done)
+    . eclipse has a default -ws, based upon this alternative
+  * removed the (gtk|motif)-features, as they causes trouble with 
+    the updatemanager, if they are present when the 'other ws' is 
+    used. See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=39889
+
+ -- Jan Schulz <debian@katzien.de>  Tue,  15 Jul 2003 23:56:00 +0200
+
+eclipse (2.1.1-2) unstable; urgency=low
+
+  * fixed bug C-w don't work correctory when use emacs binding.
+    See 00-org.eclipse.ui.patch.
+  * fixed bug export plugin doesn't work when use language pack.
+    See 00-org.eclipse.pde.build.patch file.
+  * build with jdk1.3.1 to avoid refactor problem. (closes: #197484)
+
+ -- Takashi Okamoto <tora@debian.org>  Sat, 12 Jul 2003 22:29:39 +0900
+
+eclipse (2.1.1-1) unstable; urgency=low
+
+  * new upstream version. Only bugfixes, no new features.
+    o Eclipse crashes with certain gtk themes (closes:#198127)
+  * converted upstream zip to tar.gz: 10MB less *orig.tar.gz    
+
+ -- Jan Schulz <debian@katzien.de>  Sun, 29 Jun 2003 05:01:43 +0200
+
+eclipse (2.1-6) unstable; urgency=low
+
+  * some internal improvements to /usr/bin/eclipse
+  * eclipse-pde Suggest: eclipse-pde-junit
+  * updated libswt-java README.Debian to include information 
+    about gcj compile to native. (Closes:#193523)
+  * Added a new option to $HOME/.eclipse/eclipsrc to *not* use 
+    anti aliased Fonts, which speeds up eclipse. 
+    See /usr/share/doc/eclipse-platform/README.Debian for more info.
+    eclipse-platform: Suggests: ttf-bitstream-vera
+  * patch for eclipse launcher to show some debian specific 
+    information in case of a crash and to return proper exit codes.
+  * Patch for 'Refactor|Rename' problem, when compiled with javac 1.4 
+    (Closes:#197484)
+  * changed libswt-java to be only available on 32bit arch. 
+    (Closes:#197409)
+  * Buildnotes converted to plain text
+  * Added Takashi Okamoto <tora@debian.org> as co-maintainer
+  * Conflict with a earlier version of eclipse-nls-sdk, which broke due
+    to the /usr/lib -> /usr/share change.
+  * addsite patch cleanups.
+
+ -- Jan Schulz <debian@katzien.de>  Mon, 23 Jun 2003 23:58:07 +0200
+
+eclipse (2.1-5) unstable; urgency=low
+ 
+  * Changed /usr/local included site from /usr/local/lib/eclipse to 
+    /usr/local/share/eclipse. You need to copy the plugins/features 
+    by hand to make them work again!    
+ 
+  Unofficial version 4.3: 
+  * More fixes for the OutOfMemoryException problem. 
+    Max Memory for ant is now set to 256M, but will 
+    be overwritten(!) in $HOME/.antrc or with an exported 
+    ANT_OPTS variable. Made the errorreport more verbose.
+  * Fixed a bug in the bugfix *sight*.
+  * Some smaller cleanups in debian/*
+  * eclipserc and debug_options are now linked to 
+    /usr/share/doc/eclipse-platform/examples
+  * added c-shell to Build-Depends and removed kdelibs*-dev
+  * updated policy version.
+  * replaced menu-icon with a smaller version.
+
+  Unofficial version 4.2
+  * Using JAVA_HOME during buildprozess, if set
+  * Try to prevent OutOfMemeoryException in ant during java 
+    compilation on 1.3 JDKs. Also make the java building more 
+    failsave.
+  * eclipse-sdk and eclipse-webdav-ftp are now 
+    "Architecture: all"
+
+  Unofficial version 4.1  
+  * Changed eclipse home from /usr/lib/eclipse to 
+    /usr/share/eclipse. Native libs and the eclipse launcher
+    are in /usr/lib/eclipse and have symlinks to the right places.
+  * Using gtk launcher instead of motif one (Closes: #191873)
+  * Additonal sites (places to install plugins) can be specified 
+    via -addsite commandline parameter. See
+    /usr/share/doc/eclipse-platform/README.Debian for more info.
+  * Using internal precompiled xerces for now until XML4J is 
+    packaged
+  * Cleanup debian/* files and build-*.sh. Also included is a new 
+    makefile for swt. It now builds on PPC (Closes:#187542) 
+  * Fixed first batch of lintian and linda warnings. Not yet 
+    ready *sight*
+  * Adding README.Debian to libswt-java
+  * Included upstream buildlogs    
+
+  * New maintainer
+ 
+ -- Jan Schulz <debian@katzien.de>  Thu, 22 May 2003 17:51:23 +0200 
+ 
+eclipse (2.1-4) unstable; urgency=low
+
+  * Fixed typos and other things in debian/control. (Closes: #190541, #188252)
+
+ -- Takashi Okamoto <tora@debian.org>  Sun,  4 May 2003 10:31:03 +0900
+
+eclipse (2.1-3) unstable; urgency=low
+
+  * New mechanism to install plugins (using the feature zips). 
+    This finally gives working source plug-ins and right named 
+    features.
+  * Changed name of eclipse package to eclipse-sdk.
+  * WebDAV and FTP support package included now.
+  * Fixed typos and updated README.Debian.
+  * eclipse startscript can now configured with some default 
+    values. See README.Debian
+  * Fixed broken links in to the swt*.so files
+  * Most of above improvements are provided by Jan Schulz.
+  
+ -- Takashi Okamoto <tora@debian.org>  Thu, 24 Apr 2003 02:59:40 +0200
+
+eclipse (2.1-2) unstable; urgency=low
+
+  * fixed broken version.
+
+ -- Takashi Okamoto <tora@debian.org>  Wed, 23 Apr 2003 23:10:54 +0900
+
+eclipse (2.1-1) unstable; urgency=low
+
+  unofficial 2.1-1:
+  * New upstream release
+  * include source plugins to develop plugins. (closes: #186287)
+
+  unofficial 2.1-2:
+  * fixed following bugs reported by Jan Schulz:
+     - ant-optional is linked two times (at least two times the same
+       entry in eclipse-platform.links)
+     - org.eclipse.jdt-feature is in platform and jdt included.
+     - error in eclipse.jdt.links: the second link must probably be to
+       apache and not apahce.
+  * add debug function for script. (thanks Jan Schulz)
+  * eclipse args is enable. See eclipse man page.
+  * create separated packages eclispe-pde and eclipse-source.
+  * enable emacs key binding for code assist.
+
+  unofficial 2.1-3:
+  * fixed typo.
+  * add menu file(/usr/lib/menu/eclipse-platform).
+  * change local plug-ins install directory. Now it's
+    /usr/local/lib/eclipse/plugins.
+  * use included xerces's jars instead of eclipse-xerces packages.
+  * remove obsolete patch for WorkspaceModelManager.java.
+  * fixed -vmargs options doesn't work correctly.
+
+ -- Takashi Okamoto <tora@debian.org>  Sun, 13 Apr 2003 11:33:31 +0900
+
+eclipse (2.0.99-2.1-RC2-1) unstable; urgency=low
+
+  * New upstream release
+  * add plugins path for /usr/local/eclipse/plugins.
+
+ -- Takashi Okamoto <tora@debian.org>  Sat,  8 Mar 2003 23:32:01 +0900
+
+eclipse (2.0.99-2.1-RC1-2) unstable; urgency=low
+
+  * use eclipse specific xerces instead of libxerces2-java.
+
+ -- Takashi Okamoto <tora@debian.org>  Sun,  2 Mar 2003 18:04:13 +0900
+
+eclipse (2.0.99-2.1-RC1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Takashi Okamoto <tora@debian.org>  Sun, 23 Feb 2003 17:58:10 +0900
+
+eclipse (2.0.99-2.1-M5-0.5) unstable; urgency=low
+
+  * fixed dependency at eclipse-platform.
+
+ -- Takashi Okamoto <tora@debian.org>  Wed, 19 Feb 2003 22:23:11 +0900
+
+eclipse (2.0.99-2.1-M5-0.4) unstable; urgency=low
+
+  * fixed update manager didn't work.
+  * remove motif binding from SWT.
+
+ -- Takashi Okamoto <tora@debian.org>  Sat, 15 Feb 2003 10:05:01 +0900
+
+eclipse (2.0.99-2.1-M5-0.3) unstable; urgency=low
+
+  * add debian's description to build id.
+  * add version dependency.
+  * rename libeclipse-swt-java to libswt-java.
+  * use gtk for default SWT binding instead of motif.
+
+ -- Takashi Okamoto <tora@debian.org>  Tue, 11 Feb 2003 15:01:50 +0900
+
+eclipse (2.0.99-2.1-M5-0.2) unstable; urgency=low
+
+  * Rename package version.
+
+ -- Takashi Okamoto <tora@debian.org>  Sun,  9 Feb 2003 15:49:26 +0900
+
+eclipse (2.0.99_2.1M5-0.1) unstable; urgency=low
+
+  * New updtream.
+
+ -- Takashi Okamoto <tora@debian.org>  Sat,  8 Feb 2003 23:48:22 +0900
+
+eclipse (2.0.2-0.4) stable; urgency=low
+
+  * add j2sdk1.3 and j2sdk1.4 dependency to convinience install.
+
+ -- Takashi Okamoto <tora@debian.org>  Sun, 15 Dec 2002 13:32:21 +0900
+
+eclipse (2.0.2-0.3) unstable; urgency=low
+
+  * add lacked build-depends.
+
+ -- Takashi Okamoto <tora@debian.org>  Thu, 5 Dec 2002 11:09:34 +0900
+
+eclipse (2.0.2-0.2) unstable; urgency=low
+
+  * fixed lintian error.
+  * add dependency for xerces2, junit and ant.
+  * add manual page.
+  * fixed -data option doesn't work.
+
+ -- Takashi Okamoto <tora@debian.org>  Thu, 21 Nov 2002 11:09:34 +0900
+
+eclipse (2.0.2-0.1) unstable; urgency=low
+
+  * New upstream.
+
+ -- Takashi Okamoto <tora@debian.org>  Sat, 16 Nov 2002 11:07:09 +0900
+
+eclipse (2.0.1-0.2) unstable; urgency=low
+
+  * add some dependency.
+  * clean up build script build.sh.
+  * clean up bootstrap script /usr/bin/eclipse
+
+ -- Takashi Okamoto <tora@debian.org>  Fri,  1 Nov 2002 19:18:51 +0900
+
+eclipse (2.0.1-0.1) unstable; urgency=low
+
+  * Initial Exprerimental Release.
+
+ -- Takashi Okamoto <tora@debian.org>  Sun, 27 Oct 2002 16:27:07 +0900

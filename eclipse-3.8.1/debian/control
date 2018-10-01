@@ -1,0 +1,225 @@
+Source: eclipse
+Section: devel
+Priority: optional
+Maintainer: Debian Orbital Alignment Team <pkg-java-maintainers@lists.alioth.debian.org>
+Uploaders: Niels Thykier <niels@thykier.net>,
+           Adnan Hodzic <adnan@foolcontrol.org>,
+           Jimmy Kaplowitz <jimmy@debian.org>,
+           Andres Mejia <amejia@debian.org>,
+           Jakub Adam <jakub.adam@ktknet.cz>
+Build-Depends: ant (>= 1.8.2),
+               ant-optional,
+               debhelper (>= 9~),
+               default-jdk,
+               docbook2x,
+               javahelper,
+               junit (>= 3.8.2-4),
+               junit4 (>= 4.10-2),
+               libasm3-java (>= 3.3),
+               libcommons-codec-java (>= 1.4-2),
+               libcommons-httpclient-java (>= 3.1-9),
+               libcommons-logging-java (>= 1.1.1-6),
+               libfelix-gogo-command-java,
+               libfelix-gogo-shell-java,
+               libgconf2-dev,
+               libgtk2.0-dev,
+               libhamcrest-java (>= 1.1-8~),
+               libicu4j-4.4-java (>= 4.4.2.2),
+               libjetty8-java,
+               libjsch-java (>= 0.1.37-3),
+               liblucene2-java (>= 2.9.4+ds1-3~),
+               liblucene2-java (<< 2.9.5),
+               libservlet3.0-java,
+               libswt-gtk-3-java (>= 3.8.0~m6),
+               libtomcat7-java,
+               lsb-release,
+               maven-ant-helper,
+               maven-repo-helper,
+               pkg-config,
+               rsync,
+               sat4j (>= 2.3.0),
+               sat4j (<< 2.4.0),
+               unzip,
+               zip
+Standards-Version: 3.9.5
+Vcs-Git: git://git.debian.org/git/pkg-java/eclipse.git
+Vcs-Browser: http://git.debian.org/?p=pkg-java/eclipse.git
+Homepage: http://www.eclipse.org/
+
+Package: eclipse
+Architecture: all
+Depends: eclipse-jdt (>= ${source:Version}),
+         eclipse-pde (>= ${source:Version}),
+         ${misc:Depends}
+Description: Extensible Tool Platform and Java IDE
+ The Eclipse Platform is an open and extensible platform for anything and yet
+ nothing in particular. It provides a foundation for constructing and running
+ integrated software-development tools. The Eclipse Platform allows tool
+ builders to independently develop tools that integrate with other people's
+ tools so seamlessly you can't tell where one tool ends and another starts.
+ .
+ This package provides the whole Eclipse SDK that contains Eclipse Platform,
+ Java development tools and Plug-in Development Environment, including source
+ and both user and programmer documentation.
+
+Package: eclipse-jdt
+Architecture: all
+Depends: default-jre | java5-runtime | java6-runtime,
+         eclipse-platform (>= ${source:Version}),
+         junit (>= 3.8.2-4),
+         junit4 (>= 4.10-2),
+         libhamcrest-java (>= 1.1-8~),
+         ${misc:Depends}
+Recommends: default-jdk | sun-java6-jdk
+Suggests: eclipse
+Replaces: eclipse-jdt-gcj
+Description: Eclipse Java Development Tools (JDT)
+ The Eclipse Platform is an open and extensible platform for anything and yet
+ nothing in particular. It provides a foundation for constructing and running
+ integrated software-development tools. The Eclipse Platform allows tool
+ builders to independently develop tools that integrate with other people's
+ tools so seamlessly you can't tell where one tool ends and another starts.
+ .
+ This package contains Java Development Tools. These provide a powerful
+ Java IDE along with several editors, a refactoring engine, Ant and JUnit
+ integration, a debugger, and many more features.
+
+Package: eclipse-pde
+Architecture: any
+Depends: default-jre | java5-runtime | java6-runtime,
+         eclipse-jdt (>= ${source:Version}),
+         eclipse-platform (>= ${source:Version}),
+         libasm3-java (>= 3.3),
+         ${misc:Depends}
+Suggests: eclipse
+Replaces: eclipse-pde-gcj
+Description: Eclipse Plug-in Development Environment (PDE)
+ The Eclipse Platform is an open and extensible platform for anything and yet
+ nothing in particular. It provides a foundation for constructing and running
+ integrated software-development tools. The Eclipse Platform allows tool
+ builders to independently develop tools that integrate with other people's
+ tools so seamlessly you can't tell where one tool ends and another starts.
+ .
+ This package provides tools for easy development of plug-ins for Eclipse.
+
+Package: eclipse-platform
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ant (>= 1.8.2),
+         ant-optional,
+         default-jre | java5-runtime | java6-runtime,
+         eclipse-platform-data (>= ${source:Version}),
+         eclipse-rcp (= ${binary:Version}),
+         java-common (>= 0.23),
+         libcommons-codec-java (>= 1.4-2),
+         libcommons-httpclient-java (>= 3.1-9),
+         libcommons-logging-java (>= 1.1.1-6),
+         libjetty8-java,
+         libjsch-java (>= 0.1.37-3),
+         liblucene2-java (>= 2.9.4+ds1-3~),
+         liblucene2-java (<< 2.9.5),
+         libservlet3.0-java,
+         sat4j (>= 2.3.0),
+         sat4j (<< 2.4.0),
+         ${misc:Depends},
+         ${perl:Depends},
+         ${shlibs:Depends}
+Recommends: eclipse-pde
+Replaces: eclipse-platform-data (<< 3.8.1-5)
+Breaks: eclipse-source (<= 3.1.1-3)
+Conflicts: eclipse-common-nls,
+           eclipse-platform-common,
+           eclipse-platform-nls,
+           libeclipse-jni
+Suggests: eclipse-jdt
+Description: Eclipse platform without development plug-ins
+ The Eclipse Platform is an open and extensible platform for anything and yet
+ nothing in particular. It provides a foundation for constructing and running
+ integrated software-development tools. The Eclipse Platform allows tool
+ builders to independently develop tools that integrate with other people's
+ tools so seamlessly you can't tell where one tool ends and another starts.
+ .
+ This package provides the Eclipse Platform and is the base for all Eclipse
+ development plug-ins, but it does not include any. These are available in
+ different packages, for example:
+ .
+  * eclipse-jdt Java Development Tools
+  * eclipse-pde Plug-in Development Tools
+  * eclipse-cdt C/C++ Development Tools
+
+Package: eclipse-platform-data
+Architecture: all
+Depends: libtomcat7-java,
+         ${misc:Depends}
+Replaces: eclipse (<< 3.5.2),
+          eclipse-platform (<< 3.8.0~),
+          eclipse-platform-gcj,
+          eclipse-plugin-cvs
+Breaks: eclipse-plugin-cvs,
+        eclipse-platform (<< 3.8.0~)
+Description: Eclipse platform without development plug-ins (data)
+ The Eclipse Platform is an open and extensible platform for anything and yet
+ nothing in particular. It provides a foundation for constructing and running
+ integrated software-development tools. The Eclipse Platform allows tool
+ builders to independently develop tools that integrate with other people's
+ tools so seamlessly you can't tell where one tool ends and another starts.
+ .
+ The Eclipse Platform is the base for all Eclipse development plug-ins, but it
+ does not include any. These are available in different packages, for example:
+ .
+  * eclipse-jdt Java Development Tools
+  * eclipse-pde Plug-in Development Tools
+  * eclipse-cdt C/C++ Development Tools
+ .
+ This package contains the architecture-independent data files of the Eclipse
+ Platform.
+
+Package: eclipse-rcp
+Architecture: any
+Depends: default-jre | java5-runtime | java6-runtime,
+         libequinox-osgi-java (= ${source:Version}),
+         libfelix-gogo-command-java,
+         libfelix-gogo-shell-java,
+         libicu4j-4.4-java (>= 4.4.2.2),
+         libswt-gtk-3-java (<< 3.9.0~),
+         libswt-gtk-3-java (>= 3.8.0~),
+         libswt-cairo-gtk-3-jni (>= 3.8.0~),
+         libswt-webkit-gtk-3-jni (>= 3.8.0~),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: libswt-glx-gtk-3-jni,
+            libswt-gnome-gtk-3-jni
+Suggests: eclipse
+Replaces: eclipse-rcp-gcj,
+          libswt-gtk-3.4-java,
+          libswt-gtk-3.4-jni,
+          libswt-gtk-3.5-jni (<< 3.5.1+repack),
+          libswt3.2-gtk-gcj,
+          libswt3.2-gtk-java,
+          libswt3.2-gtk-jni
+Description: Eclipse Rich Client Platform (RCP)
+ The Eclipse Platform is an open and extensible platform for anything and yet
+ nothing in particular. It provides a foundation for constructing and running
+ integrated software-development tools. The Eclipse Platform allows tool
+ builders to independently develop tools that integrate with other people's
+ tools so seamlessly you can't tell where one tool ends and another starts.
+ .
+ This package includes the Eclipse Rich Client Platform (RCP), the basis upon
+ which Eclipse RCP applications are built.
+
+Package: libequinox-osgi-java
+Architecture: all
+Section: java
+Depends: ${misc:Depends}
+Recommends: libservlet3.0-java
+Breaks: eclipse-rcp (<< 3.5.1-0ubuntu3)
+Replaces: eclipse-platform-gcj, eclipse-rcp-gcj
+Description: Equinox OSGi framework
+ The Eclipse Platform is an open and extensible platform for anything and yet
+ nothing in particular. It provides a foundation for constructing and running
+ integrated software-development tools. The Eclipse Platform allows tool
+ builders to independently develop tools that integrate with other people's
+ tools so seamlessly you can't tell where one tool ends and another starts.
+ .
+ This package includes only the Eclipse Equinox OSGi framework, which can
+ be used outside Eclipse.

@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.swt; singleton:=true
+Bundle-Vendor: Eclipse.org
+DynamicImport-Package: org.eclipse.swt.accessibility2, org.mozilla.xpcom
+ 
+Created-By: 0.98
+Bundle-Version: 3.7.1
+Bundle-RequiredExecutionEnvironment: CDC-1.0/Foundation-1.0,J2SE-1.3
+Bundle-ManifestVersion: 2
+Export-Package: org.eclipse.swt,org.eclipse.swt.accessibility,org.eclips
+ e.swt.awt,org.eclipse.swt.browser,org.eclipse.swt.custom,org.eclipse.swt
+ .dnd,org.eclipse.swt.events,org.eclipse.swt.graphics,org.eclipse.swt.lay
+ out,org.eclipse.swt.opengl,org.eclipse.swt.printing,org.eclipse.swt.prog
+ ram,org.eclipse.swt.widgets,org.eclipse.swt.internal;x-friends:="org.ecl
+ ipse.ui",org.eclipse.swt.internal.image; x-internal:=true,org.eclipse.sw
+ t.internal.theme; x-internal:=true
+Eclipse-ExtensibleAPI: true
+Bundle-Localization: plugin
+Bundle-Name: Standard Widget Toolkit
+
+

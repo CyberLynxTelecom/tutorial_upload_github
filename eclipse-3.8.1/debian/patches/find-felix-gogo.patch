@@ -1,0 +1,25 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Thu, 15 Mar 2012 21:13:44 +0100
+Subject: find-felix-gogo
+
+---
+ dependencies/dependencies.properties |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/dependencies/dependencies.properties b/dependencies/dependencies.properties
+index 7e087e2..96a827f 100644
+--- a/dependencies/dependencies.properties
++++ b/dependencies/dependencies.properties
+@@ -16,9 +16,9 @@ org.apache.commons.codec_1.3.0.v201101211617.jar=/usr/share/java/commons-codec.j
+ org.apache.commons.el_1.0.0.v200806031608.jar=/usr/share/java/commons-el.jar
+ org.apache.commons.httpclient_3.1.0.v201012070820.jar=/usr/share/java/commons-httpclient.jar
+ org.apache.commons.logging_1.0.4.v201101211617.jar=/usr/share/java/commons-logging.jar
+-org.apache.felix.gogo.command_0.8.0.v201108120515.jar=/usr/share/java/felix/org.apache.felix.gogo.command.jar
+-org.apache.felix.gogo.runtime_0.8.0.v201108120515.jar=/usr/share/java/felix/org.apache.felix.gogo.runtime.jar
+-org.apache.felix.gogo.shell_0.8.0.v201110170705.jar=/usr/share/java/felix/org.apache.felix.gogo.shell.jar
++org.apache.felix.gogo.command_0.8.0.v201108120515.jar=/usr/share/java/org.apache.felix.gogo.command.jar
++org.apache.felix.gogo.runtime_0.8.0.v201108120515.jar=/usr/share/java/org.apache.felix.gogo.runtime.jar
++org.apache.felix.gogo.shell_0.8.0.v201110170705.jar=/usr/share/java/org.apache.felix.gogo.shell.jar
+ org.apache.jasper_7.0.21.jar=/usr/share/java/tomcat/jasper.jar
+ org.apache.lucene.core_2.9.1.v201101211721.jar=/usr/share/java/lucene.jar:/usr/share/java/lucene-core.jar
+ org.apache.lucene.analysis_2.9.1.v201101211721.jar=/usr/share/java/lucene-contrib/lucene-analyzers.jar:/usr/share/java/lucene-analyzers.jar

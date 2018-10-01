@@ -1,0 +1,18 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Thu, 15 Mar 2012 21:29:30 +0100
+Subject: icu4j-no-source-bundle
+
+---
+ dependencies/sdkdependencies.properties |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/dependencies/sdkdependencies.properties b/dependencies/sdkdependencies.properties
+index e9dd227..e8186ef 100644
+--- a/dependencies/sdkdependencies.properties
++++ b/dependencies/sdkdependencies.properties
+@@ -1,4 +1,4 @@
+ org.objectweb.asm_3.3.1.v201101071600.jar=/usr/share/java/objectweb-asm/asm-all.jar:/usr/share/java/asm3-all.jar
+ # Try to link source bundle to the one build by P2. If it does not work, then fall back on icu4j, 
+ # which is not actually a source bundle, but will exists, and will allow for the build to happen.
+-com.ibm.icu.source_4.4.2.v20110823.jar=/usr/share/java/icu4j-eclipse/plugins/com.ibm.icu.source_4.4.2.v20110823.jar:/usr/share/java/com.ibm.icu.source-4.4.jar:/usr/share/java/com.ibm.icu.source-4.4.jar:/usr/share/java/icu4j.jar
++#com.ibm.icu.source_4.4.2.v20110823.jar=/usr/share/java/icu4j-eclipse/plugins/com.ibm.icu.source_4.4.2.v20110823.jar:/usr/share/java/com.ibm.icu.source-4.4.jar:/usr/share/java/com.ibm.icu.source-4.4.jar:/usr/share/java/icu4j.jar:/usr/share/java/com.ibm.icu-4.4.jar

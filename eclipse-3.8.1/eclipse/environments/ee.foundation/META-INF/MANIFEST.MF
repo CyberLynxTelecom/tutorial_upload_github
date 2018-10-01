@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Created-By: 1.5.0_11 (Sun Microsystems Inc.)
+Bundle-License: ... TODO
+Import-Package: javax.microedition.io,javax.microedition.pki,javax.sec
+ urity.auth.x500
+Bundle-RequiredExecutionEnvironment: CDC-1.1/Foundation-1.1
+Include-Resource: legal/about.html, legal/LICENSE
+Bnd-LastModified: 1240835512841
+Export-Package: java.security.interfaces,java.lang,java.net,java.secur
+ ity,java.text,java.security.spec,java.security.acl,java.lang.reflect,
+ java.util,java.lang.ref,java.security.cert;uses:="javax.security.auth
+ .x500",java.io,java.util.zip,java.math,java.util.jar,javax.microediti
+ on.io;uses:="javax.microedition.pki",javax.security.auth.x500,javax.m
+ icroedition.pki
+Bundle-Version: 1.1.0.200904270831
+Bundle-Copyright: Copyright (c) OSGi Alliance (2000, 2009). All Rights
+  Reserved.
+Bundle-Name: ee.foundation
+Bundle-Description: Contains the OSGi foundation execution environment
+  stubbed classes and sources
+Private-Package: .
+Bundle-Vendor: OSGi Alliance
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: ee.foundation
+Tool: Bnd-0.0.319
+

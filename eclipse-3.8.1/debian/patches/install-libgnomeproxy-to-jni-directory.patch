@@ -1,0 +1,37 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Tue, 5 Jun 2012 22:04:23 +0200
+Subject: install-libgnomeproxy-to-jni-directory
+
+---
+ eclipse/plugins/org.eclipse.core.net.linux.x86/build.properties    |    3 +--
+ eclipse/plugins/org.eclipse.core.net.linux.x86_64/build.properties |    3 +--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/eclipse/plugins/org.eclipse.core.net.linux.x86/build.properties b/eclipse/plugins/org.eclipse.core.net.linux.x86/build.properties
+index a698f05..39b538f 100644
+--- a/eclipse/plugins/org.eclipse.core.net.linux.x86/build.properties
++++ b/eclipse/plugins/org.eclipse.core.net.linux.x86/build.properties
+@@ -12,8 +12,7 @@ bin.includes = fragment.properties,\
+                .,\
+                META-INF/,\
+                about.html,\
+-               bin/,\
+-               libgnomeproxy-1.0.0.so
++               bin/
+ src.includes = about.html
+ generateSourceBundle=false
+ source.. = src/
+diff --git a/eclipse/plugins/org.eclipse.core.net.linux.x86_64/build.properties b/eclipse/plugins/org.eclipse.core.net.linux.x86_64/build.properties
+index b43277d..83d7877 100644
+--- a/eclipse/plugins/org.eclipse.core.net.linux.x86_64/build.properties
++++ b/eclipse/plugins/org.eclipse.core.net.linux.x86_64/build.properties
+@@ -12,8 +12,7 @@ bin.includes = fragment.properties,\
+                .,\
+                META-INF/,\
+                about.html,\
+-               bin/,\
+-               libgnomeproxy-1.0.0.so
++               bin
+ src.includes = about.html
+ generateSourceBundle=false
+ source.. = src/

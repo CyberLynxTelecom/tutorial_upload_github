@@ -1,0 +1,21 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Fri, 23 Mar 2012 18:30:52 +0100
+Subject: use-jsch-0.1.42
+
+---
+ .../META-INF/MANIFEST.MF                           |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/dependencyManifests/com.jcraft.jsch_0.1.44.v201101211721.jar/META-INF/MANIFEST.MF b/dependencyManifests/com.jcraft.jsch_0.1.44.v201101211721.jar/META-INF/MANIFEST.MF
+index a8c730f..6761070 100644
+--- a/dependencyManifests/com.jcraft.jsch_0.1.44.v201101211721.jar/META-INF/MANIFEST.MF
++++ b/dependencyManifests/com.jcraft.jsch_0.1.44.v201101211721.jar/META-INF/MANIFEST.MF
+@@ -2,7 +2,7 @@ Manifest-Version: 1.0
+ Bundle-ManifestVersion: 2
+ Bundle-Name: %bundleName
+ Bundle-SymbolicName: com.jcraft.jsch
+-Bundle-Version: 0.1.44.v201101211721
++Bundle-Version: 0.1.42
+ Bundle-ClassPath: com.jcraft.jsch_0.1.44.v201101211721.jar
+ Bundle-Vendor: %venderName
+ Bundle-Localization: plugin

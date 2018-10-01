@@ -1,0 +1,106 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Tue, 10 Sep 2013 17:08:50 +0200
+Subject: target-java-1.5
+
+---
+ eclipse/plugins/org.eclipse.equinox.event/build.properties              | 2 +-
+ eclipse/plugins/org.eclipse.equinox.p2.core/build.properties            | 2 +-
+ eclipse/plugins/org.eclipse.equinox.p2.metadata/build.properties        | 2 +-
+ .../plugins/org.eclipse.equinox.p2.publisher.eclipse/build.properties   | 2 +-
+ eclipse/plugins/org.eclipse.equinox.p2.publisher/build.properties       | 2 +-
+ .../plugins/org.eclipse.equinox.p2.repository.tools/build.properties    | 2 +-
+ eclipse/plugins/org.eclipse.equinox.p2.repository/build.properties      | 2 +-
+ eclipse/plugins/org.eclipse.osgi/build.properties                       | 2 +-
+ 8 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/eclipse/plugins/org.eclipse.equinox.event/build.properties b/eclipse/plugins/org.eclipse.equinox.event/build.properties
+index a373285..7cab565 100644
+--- a/eclipse/plugins/org.eclipse.equinox.event/build.properties
++++ b/eclipse/plugins/org.eclipse.equinox.event/build.properties
+@@ -20,4 +20,4 @@ source.. = src/
+ jre.compilation.profile = J2SE-1.5
+ 
+ javacSource=1.5
+-javacTarget=jsr14
+\ No newline at end of file
++javacTarget=1.5
+diff --git a/eclipse/plugins/org.eclipse.equinox.p2.core/build.properties b/eclipse/plugins/org.eclipse.equinox.p2.core/build.properties
+index 26802d4..435999d 100644
+--- a/eclipse/plugins/org.eclipse.equinox.p2.core/build.properties
++++ b/eclipse/plugins/org.eclipse.equinox.p2.core/build.properties
+@@ -16,5 +16,5 @@ bin.includes = META-INF/,\
+                OSGI-INF/
+ src.includes = about.html
+ source.. = src/
+-javacTarget=jsr14
++javacTarget=1.5
+ javacSource=1.5
+diff --git a/eclipse/plugins/org.eclipse.equinox.p2.metadata/build.properties b/eclipse/plugins/org.eclipse.equinox.p2.metadata/build.properties
+index 4cccd09..ea8fbc1 100644
+--- a/eclipse/plugins/org.eclipse.equinox.p2.metadata/build.properties
++++ b/eclipse/plugins/org.eclipse.equinox.p2.metadata/build.properties
+@@ -17,5 +17,5 @@ bin.includes = META-INF/,\
+                OSGI-INF/
+ src.includes = about.html,\
+                OSGI-INF/
+-javacTarget=jsr14
++javacTarget=1.5
+ javacSource=1.5
+diff --git a/eclipse/plugins/org.eclipse.equinox.p2.publisher.eclipse/build.properties b/eclipse/plugins/org.eclipse.equinox.p2.publisher.eclipse/build.properties
+index db6efe3..b4ff226 100644
+--- a/eclipse/plugins/org.eclipse.equinox.p2.publisher.eclipse/build.properties
++++ b/eclipse/plugins/org.eclipse.equinox.p2.publisher.eclipse/build.properties
+@@ -21,6 +21,6 @@ source.ant_tasks/pdepublishing-ant.jar = src_ant/
+ output.ant_tasks/pdepublishing-ant.jar = bin_ant/
+ extra.ant_tasks/pdepublishing-ant.jar = platform:/plugin/org.apache.ant
+ jars.extra.classpath = platform:/plugin/org.apache.ant/lib/ant.jar
+-javacTarget=jsr14
++javacTarget=1.5
+ javacSource=1.5
+ src.includes = about.html
+diff --git a/eclipse/plugins/org.eclipse.equinox.p2.publisher/build.properties b/eclipse/plugins/org.eclipse.equinox.p2.publisher/build.properties
+index 719d06a..586bdd1 100644
+--- a/eclipse/plugins/org.eclipse.equinox.p2.publisher/build.properties
++++ b/eclipse/plugins/org.eclipse.equinox.p2.publisher/build.properties
+@@ -19,5 +19,5 @@ bin.includes = META-INF/,\
+                plugin.properties
+ src.includes = about.html
+ javacWarnings..=+unusedThrown
+-javacTarget=jsr14
++javacTarget=1.5
+ javacSource=1.5
+diff --git a/eclipse/plugins/org.eclipse.equinox.p2.repository.tools/build.properties b/eclipse/plugins/org.eclipse.equinox.p2.repository.tools/build.properties
+index 12ada42..78ca610 100644
+--- a/eclipse/plugins/org.eclipse.equinox.p2.repository.tools/build.properties
++++ b/eclipse/plugins/org.eclipse.equinox.p2.repository.tools/build.properties
+@@ -23,5 +23,5 @@ output.lib/repository-tools-ant.jar = bin_ant/
+ jars.extra.classpath=platform:/plugin/org.apache.ant/lib/ant.jar,\
+                      platform:/plugin/org.eclipse.equinox.p2.jarprocessor/lib/jarprocessor-ant.jar
+ src.includes = about.html
+-javacTarget=jsr14
++javacTarget=1.5
+ javacSource=1.5
+diff --git a/eclipse/plugins/org.eclipse.equinox.p2.repository/build.properties b/eclipse/plugins/org.eclipse.equinox.p2.repository/build.properties
+index 3da448f..3fed160 100644
+--- a/eclipse/plugins/org.eclipse.equinox.p2.repository/build.properties
++++ b/eclipse/plugins/org.eclipse.equinox.p2.repository/build.properties
+@@ -16,5 +16,5 @@ bin.includes = META-INF/,\
+                OSGI-INF/cacheManager.xml
+ src.includes = about.html
+ javacSource = 1.5
+-javacTarget = jsr14
++javacTarget = 1.5
+ source.. = src/
+diff --git a/eclipse/plugins/org.eclipse.osgi/build.properties b/eclipse/plugins/org.eclipse.osgi/build.properties
+index deea927..f2c14df 100644
+--- a/eclipse/plugins/org.eclipse.osgi/build.properties
++++ b/eclipse/plugins/org.eclipse.osgi/build.properties
+@@ -36,7 +36,7 @@ jre.compilation.profile = J2SE-1.5
+ # bootClasspath=osgi/exceptions.jar;osgi/xmlParserAPIs.jar;${CDC-1.1/Foundation-1.1}
+ 
+ javacSource=1.5
+-javacTarget=jsr14
++javacTarget=1.5
+ 
+ # To enable building the framework using projects from OSGi repo uncomment customBuildCallbacks 
+ # and add the following to the beginning of source..

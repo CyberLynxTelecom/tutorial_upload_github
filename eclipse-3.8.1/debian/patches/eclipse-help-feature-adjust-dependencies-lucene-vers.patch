@@ -1,0 +1,25 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Sun, 6 May 2012 18:09:37 +0200
+Subject: eclipse-help-feature-adjust-dependencies-lucene-version
+
+---
+ patches/eclipse-help-feature-adjust-dependencies.patch |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/patches/eclipse-help-feature-adjust-dependencies.patch b/patches/eclipse-help-feature-adjust-dependencies.patch
+index d2e042a..0028ec4 100644
+--- a/patches/eclipse-help-feature-adjust-dependencies.patch
++++ b/patches/eclipse-help-feature-adjust-dependencies.patch
+@@ -74,9 +74,9 @@ diff --git a/plugins/org.eclipse.help.base/META-INF/MANIFEST.MF b/plugins/org.ec
+   org.eclipse.help.search,
+   org.eclipse.help.server,
+   org.eclipse.help.standalone
+--Require-Bundle: org.apache.lucene;bundle-version="[2.9.0,3.0.0)";visibility:=reexport,
+-+Require-Bundle: org.apache.lucene.core;bundle-version="[2.9.0,3.0.0)";visibility:=reexport,
+-  org.apache.lucene.analysis;bundle-version="[2.9.0,3.0.0)";visibility:=reexport,
++-Require-Bundle: org.apache.lucene;bundle-version="2.9.0";visibility:=reexport,
+++Require-Bundle: org.apache.lucene.core;bundle-version="2.9.0";visibility:=reexport,
++  org.apache.lucene.analysis;bundle-version="2.9.0";visibility:=reexport,
+   org.eclipse.ant.core;bundle-version="3.2.200";resolution:=optional,
+   org.eclipse.core.runtime;bundle-version="3.6.0",
+ diff --git a/eclipse/plugins/org.eclipse.help.base/src/org/eclipse/help/internal/search/SearchIndex.java b/eclipse/plugins/org.eclipse.help.base/src/org/eclipse/help/internal/search/SearchIndex.java

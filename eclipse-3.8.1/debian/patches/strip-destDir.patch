@@ -1,0 +1,34 @@
+From: Benjamin Drung <bdrung@ubuntu.com>
+Date: Thu, 15 Mar 2012 20:03:39 +0100
+Subject: strip-destDir
+
+---
+ build.xml |   15 +++++++++++++++
+ 1 files changed, 15 insertions(+), 0 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index 3324dd7..d5a159d 100644
+--- a/build.xml
++++ b/build.xml
+@@ -960,6 +960,21 @@
+ 		<delete dir="${destDir}/${prefix}/${libDir}/eclipse/metadata/binary" />
+ 		<delete dir="${destDir}/${prefix}/${libDir}/eclipse/metadata/features" />
+ 		<delete dir="${destDir}/${prefix}/${libDir}/eclipse/metadata/plugins" />
++		<!-- Strip ${destDir} from path -->
++		<exec executable="sed" inputstring="${destDir}" outputproperty="destDirWithUnderscores" failonerror="true">
++			<arg value="s@/@_@g" />
++		</exec>
++		<apply executable="sed" failonerror="true" verbose="true">
++			<arg value="-i" />
++			<arg value="s@${destDir}@@g;s@${destDirWithUnderscores}@@g" />
++			<srcfile />
++			<fileset dir="${destDir}/${prefix}/${libDir}/eclipse">
++				<include name="metadata/content.xml" />
++				<include name="p2/org.eclipse.equinox.p2.engine/.settings/org.eclipse.equinox.p2.metadata.repository.prefs" />
++				<include name="p2/org.eclipse.equinox.p2.engine/.settings/org.eclipse.equinox.p2.artifact.repository.prefs" />
++				<include name="eclipse.ini" />
++			</fileset>
++		</apply>
+ 		<!-- Move config file to /etc -->
+ 		<mkdir dir="${destDir}/etc" />
+ 		<move file="${installationDir}/eclipse.ini" tofile="${destDir}/etc/eclipse.ini" />

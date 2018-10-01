@@ -1,0 +1,40 @@
+From: Niels Thykier <niels@thykier.net>
+Date: Thu, 15 Mar 2012 20:03:39 +0100
+Subject: pdebuild-path-copy-platform
+
+---
+ pdebuild/eclipse-pdebuild.sh |   16 ++++++++--------
+ 1 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/pdebuild/eclipse-pdebuild.sh b/pdebuild/eclipse-pdebuild.sh
+index ea14c58..572cd11 100755
+--- a/pdebuild/eclipse-pdebuild.sh
++++ b/pdebuild/eclipse-pdebuild.sh
+@@ -27,19 +27,19 @@ function copyPlatform {
+     # counting as arguments to copy-platform -- overholt, 2008-03
+     if [ -z "$dependencies" ]; then
+         if [ $verbose -eq 1 ]; then
+-            echo "/bin/sh -x $datadir/eclipse/buildscripts/copy-platform $SDK $datadir/eclipse"
+-            /bin/sh -x $datadir/eclipse/buildscripts/copy-platform $SDK $datadir/eclipse
++            echo "/bin/sh -x @COPY_PLATFORM@ $SDK $datadir/eclipse"
++            /bin/sh -x @COPY_PLATFORM@ $SDK $datadir/eclipse
+         else
+-            echo "/bin/sh $datadir/eclipse/buildscripts/copy-platform $SDK $datadir/eclipse"
+-            /bin/sh $datadir/eclipse/buildscripts/copy-platform $SDK $datadir/eclipse
++            echo "/bin/sh @COPY_PLATFORM@ $SDK $datadir/eclipse"
++            /bin/sh @COPY_PLATFORM@ $SDK $datadir/eclipse
+         fi
+     else
+         if [ $verbose -eq 1 ]; then
+-            echo "/bin/sh -x $datadir/eclipse/buildscripts/copy-platform $SDK $datadir/eclipse $dependencies"
+-            /bin/sh -x $datadir/eclipse/buildscripts/copy-platform $SDK $datadir/eclipse $dependencies
++            echo "/bin/sh -x @COPY_PLATFORM@ $SDK $datadir/eclipse $dependencies"
++            /bin/sh -x @COPY_PLATFORM@ $SDK $datadir/eclipse $dependencies
+         else
+-            echo "/bin/sh $datadir/eclipse/buildscripts/copy-platform $SDK $datadir/eclipse $dependencies"
+-            /bin/sh $datadir/eclipse/buildscripts/copy-platform $SDK $datadir/eclipse $dependencies
++            echo "/bin/sh @COPY_PLATFORM@ $SDK $datadir/eclipse $dependencies"
++            /bin/sh @COPY_PLATFORM@ $SDK $datadir/eclipse $dependencies
+         fi
+     fi
+ }

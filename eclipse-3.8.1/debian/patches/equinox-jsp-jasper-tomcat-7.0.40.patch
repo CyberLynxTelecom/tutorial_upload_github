@@ -1,0 +1,92 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Wed, 12 Jun 2013 19:43:05 +0200
+Subject: equinox-jsp-jasper-tomcat-7.0.40
+
+---
+ .../.settings/org.eclipse.jdt.core.prefs           |    3 ---
+ .../build.properties                               |    3 ++-
+ patches/eclipse-equinox-jsp-jasper.patch           |   24 ++++++++++++++++----
+ 3 files changed, 22 insertions(+), 8 deletions(-)
+
+diff --git a/eclipse/plugins/org.eclipse.equinox.jsp.jasper/.settings/org.eclipse.jdt.core.prefs b/eclipse/plugins/org.eclipse.equinox.jsp.jasper/.settings/org.eclipse.jdt.core.prefs
+index f31f250..4b5cb86 100644
+--- a/eclipse/plugins/org.eclipse.equinox.jsp.jasper/.settings/org.eclipse.jdt.core.prefs
++++ b/eclipse/plugins/org.eclipse.equinox.jsp.jasper/.settings/org.eclipse.jdt.core.prefs
+@@ -8,9 +8,7 @@ org.eclipse.jdt.core.circularClasspath=error
+ org.eclipse.jdt.core.classpath.exclusionPatterns=enabled
+ org.eclipse.jdt.core.classpath.multipleOutputLocations=enabled
+ org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=disabled
+-org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.2
+ org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve
+-org.eclipse.jdt.core.compiler.compliance=1.4
+ org.eclipse.jdt.core.compiler.debug.lineNumber=generate
+ org.eclipse.jdt.core.compiler.debug.localVariable=generate
+ org.eclipse.jdt.core.compiler.debug.sourceFile=generate
+@@ -72,7 +70,6 @@ org.eclipse.jdt.core.compiler.problem.unusedParameterWhenImplementingAbstract=en
+ org.eclipse.jdt.core.compiler.problem.unusedParameterWhenOverridingConcrete=enabled
+ org.eclipse.jdt.core.compiler.problem.unusedPrivateMember=error
+ org.eclipse.jdt.core.compiler.problem.varargsArgumentNeedCast=warning
+-org.eclipse.jdt.core.compiler.source=1.3
+ org.eclipse.jdt.core.formatter.align_type_members_on_columns=false
+ org.eclipse.jdt.core.formatter.alignment_for_arguments_in_allocation_expression=16
+ org.eclipse.jdt.core.formatter.alignment_for_arguments_in_enum_constant=16
+diff --git a/eclipse/plugins/org.eclipse.equinox.jsp.jasper/build.properties b/eclipse/plugins/org.eclipse.equinox.jsp.jasper/build.properties
+index a7600a0..2f51b7a 100644
+--- a/eclipse/plugins/org.eclipse.equinox.jsp.jasper/build.properties
++++ b/eclipse/plugins/org.eclipse.equinox.jsp.jasper/build.properties
+@@ -15,4 +15,5 @@ bin.includes = META-INF/,\
+                plugin.properties,\
+                about.html
+ src.includes = about.html
+-
++javacTarget = 1.5
++javacSource = 1.5
+diff --git a/patches/eclipse-equinox-jsp-jasper.patch b/patches/eclipse-equinox-jsp-jasper.patch
+index 45c9576..765a198 100644
+--- a/patches/eclipse-equinox-jsp-jasper.patch
++++ b/patches/eclipse-equinox-jsp-jasper.patch
+@@ -1,7 +1,13 @@
+ --- plugins/org.eclipse.equinox.jsp.jasper/src/org/eclipse/equinox/jsp/jasper/JspServlet.java	2012-01-16 11:56:16.162034430 +0100
+ +++ plugins/org.eclipse.equinox.jsp.jasper/src/org/eclipse/equinox/jsp/jasper/JspServlet.java	2012-01-18 09:10:59.060929292 +0100
+-@@ -24,19 +24,27 @@
++@@ -20,23 +20,33 @@
++ import java.net.MalformedURLException;
++ import java.net.URL;
++ import java.net.URLClassLoader;
+++import java.security.AccessController;
++ import java.security.Permission;
+  import java.security.PermissionCollection;
+++import java.security.PrivilegedAction;
+  import java.util.Collections;
+  import java.util.Enumeration;
+ +import java.util.EventListener;
+@@ -38,7 +44,7 @@
+  		ClassLoader original = Thread.currentThread().getContextClassLoader();
+  		try {
+  			Thread.currentThread().setContextClassLoader(jspLoader);
+-@@ -318,5 +329,135 @@
++@@ -318,5 +331,145 @@
+  			}
+  			return result;
+  		}
+@@ -109,8 +115,18 @@
+ +		}
+ +
+ +		public ClassLoader getClassLoader() {
+-+			// TODO Auto-generated method stub
+-+			return null;
+++			class GetClassLoaderAction implements PrivilegedAction<Void> {
+++				public ClassLoader classloader;
+++
+++				public Void run() {
+++					classloader = delegate.getClassLoader();
+++					return null;
+++				}
+++			}
+++
+++			GetClassLoaderAction action = new GetClassLoaderAction();
+++			AccessController.doPrivileged(action);
+++			return action.classloader;
+ +		}
+ +
+ +		public Set getDefaultSessionTrackingModes() {

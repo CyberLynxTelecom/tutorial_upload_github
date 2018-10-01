@@ -1,0 +1,42 @@
+Building eclipse
+================
+
+Building eclipse from source takes about 3 GB of free harddisk space
+beyond the source and the Build-Depends. Furthermore it takes up to
+2 GB RAM during the build.
+
+Creating orig.tar-files
+=======================
+
+The orig.tar-files contains both the "packaging" ("eclipse-build") source
+from "Linux Tools" Eclipse subproject as well as "eclipse" source code
+modified by the Linux Tools subproject.
+
+Constructing the orig.tar-files is done via the following steps:
+ * Fetch the eclipse-build from Linux Tools and rename it to
+   eclipse_${VERSION}.orig.tar.bz2
+ * Fetch and rename the "eclipse-${VERSION}-src.tar.bz2" tarball to
+   eclipse_${VERSION}.orig-eclipse.tar.bz2
+See debian/watch file for download links.
+
+SVN checkout
+============
+
+The Debian package may use a SVN checkout of the eclipse-build tar.
+The tree should look like this (excluding "uninteresting" files
+and folders):
+
+eclipse-build/ # SVN checkout
+|-- eclipse-build-config/ # Separate SVN checkout
+|-- eclipse-build-feature/ # Separate SVN checkout
+`-- <files/dirs from eclipse-build> # "uninteresting" files/dirs.
+
+The folder called "eclipse-build" here should be root of the tar.gz.
+
+More information
+================
+
+There is more information about compiling eclipse using Linux Tools'
+eclipse-build along with URLs for SVN and source download links:
+
+http://wiki.eclipse.org/Linux_Tools_Project/Eclipse_Build

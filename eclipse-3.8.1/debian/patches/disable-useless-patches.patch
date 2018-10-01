@@ -1,0 +1,21 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Fri, 1 Jun 2012 21:36:53 +0200
+Subject: disable-useless-patches
+
+---
+ build.xml |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.xml b/build.xml
+index b648a83..3320d2b 100644
+--- a/build.xml
++++ b/build.xml
+@@ -380,7 +380,7 @@
+ 
+ 		<!--patch patchfile="${basedir}/patches/swt-no-api-generation.patch" dir="${buildDirectory}" strip="0" /-->
+ 
+-		<patch patchfile="${basedir}/patches/add-plugin-version-of-arm-launcher-fragment.patch" dir="${buildDirectory}" strip="1" />
++		<!--patch patchfile="${basedir}/patches/add-plugin-version-of-arm-launcher-fragment.patch" dir="${buildDirectory}" strip="1" /-->
+ 
+                 <delete dir="${buildDirectory}/plugins/org.eclipse.equinox.io/" />
+                 <delete dir="${buildDirectory}/plugins/org.eclipse.osgi.services/src/org/osgi/service/io/" />

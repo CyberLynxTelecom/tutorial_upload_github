@@ -1,0 +1,32 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Thu, 15 Mar 2012 21:00:41 +0100
+Subject: find-jetty8-jars
+
+---
+ dependencies/dependencies.properties |   14 +++++++-------
+ 1 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/dependencies/dependencies.properties b/dependencies/dependencies.properties
+index 06de702..7e087e2 100644
+--- a/dependencies/dependencies.properties
++++ b/dependencies/dependencies.properties
+@@ -23,12 +23,12 @@ org.apache.jasper_7.0.21.jar=/usr/share/java/tomcat/jasper.jar
+ org.apache.lucene.core_2.9.1.v201101211721.jar=/usr/share/java/lucene.jar:/usr/share/java/lucene-core.jar
+ org.apache.lucene.analysis_2.9.1.v201101211721.jar=/usr/share/java/lucene-contrib/lucene-analyzers.jar:/usr/share/java/lucene-analyzers.jar
+ org.eclipse.swt_3.7.1.jar=/usr/share/java/swt.jar
+-org.eclipse.jetty.util_8.1.0.v20120127.jar=/usr/share/java/jetty/jetty-util.jar
+-org.eclipse.jetty.server_8.1.0.v20120127.jar=/usr/share/java/jetty/jetty-server.jar
+-org.eclipse.jetty.http_8.1.0.v20120127.jar=/usr/share/java/jetty/jetty-http.jar
+-org.eclipse.jetty.continuation_8.1.0.v20120127.jar=/usr/share/java/jetty/jetty-continuation.jar
+-org.eclipse.jetty.io_8.1.0.v20120127.jar=/usr/share/java/jetty/jetty-io.jar
+-org.eclipse.jetty.security_8.1.0.v20120127.jar=/usr/share/java/jetty/jetty-security.jar
+-org.eclipse.jetty.servlet_8.1.0.v20120127.jar=/usr/share/java/jetty/jetty-servlet.jar
++org.eclipse.jetty.util_8.1.0.v20120127.jar=/usr/share/java/jetty8-util.jar
++org.eclipse.jetty.server_8.1.0.v20120127.jar=/usr/share/java/jetty8-server.jar
++org.eclipse.jetty.http_8.1.0.v20120127.jar=/usr/share/java/jetty8-http.jar
++org.eclipse.jetty.continuation_8.1.0.v20120127.jar=/usr/share/java/jetty8-continuation.jar
++org.eclipse.jetty.io_8.1.0.v20120127.jar=/usr/share/java/jetty8-io.jar
++org.eclipse.jetty.security_8.1.0.v20120127.jar=/usr/share/java/jetty8-security.jar
++org.eclipse.jetty.servlet_8.1.0.v20120127.jar=/usr/share/java/jetty8-servlet.jar
+ org.sat4j.core_2.3.0.v20110329.jar=/usr/share/java/org.sat4j.core.jar:/usr/share/sat4j/org.sat4j.core.jar
+ org.sat4j.pb_2.3.0.v20110329.jar=/usr/share/java/org.sat4j.pb.jar:/usr/share/sat4j/org.sat4j.pb.jar

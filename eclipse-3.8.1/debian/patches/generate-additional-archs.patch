@@ -1,0 +1,31 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Mon, 4 Jun 2012 20:16:44 +0200
+Subject: generate-additional-archs
+
+---
+ build.xml |    2 ++
+ 1 file changed, 2 insertions(+)
+
+Index: b/build.xml
+===================================================================
+--- a/build.xml
++++ b/build.xml
+@@ -244,14 +244,18 @@
+ 		
+ 		<generateArch newArch="alpha" archBase="x86_64"/>
+ 		<generateArch newArch="arm" archBase="x86"/>
++		<generateArch newArch="aarch64" archBase="x86"/>
+ 		<generateArch newArch="ia64" archBase="x86_64"/>
+ 		<generateArch newArch="mips" archBase="x86_64"/>
+ 		<generateArch newArch="mipsel" archBase="x86_64"/>
+ 		<generateArch newArch="PA_RISC" archBase="x86_64"/>
+ 		<generateArch newArch="ppc" archBase="x86" />
+ 		<generateArch newArch="ppc64" archBase="x86_64"/>
++		<generateArch newArch="ppc64le" archBase="x86_64"/>
+ 		<generateArch newArch="sparc" archBase="x86" />
+                 <generateArch newArch="sparc64" archBase="x86_64"/>
++		<generateArch newArch="s390" archBase="x86" />
++		<generateArch newArch="s390x" archBase="x86" />
+ 
+ 		<delete file="${buildDirectory}/plugins/rename.sh"/>
+ 	</target>

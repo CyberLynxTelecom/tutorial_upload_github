@@ -1,0 +1,1 @@
+?package(eclipse-platform):needs="X11" title="Eclipse" command="eclipse" section="Applications/Programming"

@@ -1,0 +1,25 @@
+From: Niels Thykier <niels@thykier.net>
+Date: Thu, 15 Mar 2012 20:03:38 +0100
+Subject: add-o.e.equinox.concurrent
+
+---
+ eclipse/features/org.eclipse.platform/feature.xml |    8 ++++++++
+ 1 files changed, 8 insertions(+), 0 deletions(-)
+
+diff --git a/eclipse/features/org.eclipse.platform/feature.xml b/eclipse/features/org.eclipse.platform/feature.xml
+index f163ef2..b3e4606 100644
+--- a/eclipse/features/org.eclipse.platform/feature.xml
++++ b/eclipse/features/org.eclipse.platform/feature.xml
+@@ -616,4 +616,12 @@
+          version="0.0.0"
+          unpack="false"/>
+ 
++   <plugin
++         id="org.eclipse.equinox.concurrent"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
+ </feature>

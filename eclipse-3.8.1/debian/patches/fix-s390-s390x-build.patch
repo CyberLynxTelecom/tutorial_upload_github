@@ -1,0 +1,24 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Sat, 11 Jan 2014 17:45:20 +0100
+Subject: fix-s390-s390x-build
+
+---
+ eclipse-build-config/productFiles/rcpConfig/build.properties | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/eclipse-build-config/productFiles/rcpConfig/build.properties b/eclipse-build-config/productFiles/rcpConfig/build.properties
+index 9d3866e..778924a 100644
+--- a/eclipse-build-config/productFiles/rcpConfig/build.properties
++++ b/eclipse-build-config/productFiles/rcpConfig/build.properties
+@@ -41,9 +41,9 @@ root.linux.gtk.sparc=absolute:${buildDirectory}/features/org.eclipse.platform/ab
+ root.linux.gtk.sparc.permissions.755=*.so*
+ root.linux.gtk.sparc64=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.sparc64,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/sparc64
+ root.linux.gtk.sparc64.permissions.755=*.so*
+-root.linux.gtk.s390=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.s390,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/contributed/gtk/linux/s390
++root.linux.gtk.s390=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.s390,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/s390
+ root.linux.gtk.s390.permissions.755=*.so*
+-root.linux.gtk.s390x=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.s390x,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/contributed/gtk/linux/s390x
++root.linux.gtk.s390x=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.s390x,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/s390x
+ root.linux.gtk.s390x.permissions.755=*.so*
+ root.linux.gtk.x86_64=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.x86_64,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/x86_64
+ root.linux.gtk.x86_64.permissions.755=*.so*

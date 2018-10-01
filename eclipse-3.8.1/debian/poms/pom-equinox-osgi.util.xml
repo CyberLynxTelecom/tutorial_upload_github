@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+        <project xmlns="http://maven.apache.org/POM/4.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+          <modelVersion>4.0.0</modelVersion>
+          <groupId>org.eclipse.osgi</groupId>
+          <artifactId>org.eclipse.osgi.util</artifactId>
+          <version>3.2.0</version>
+          <packaging>jar</packaging>
+          <name>Equinox OSGi framework</name>
+          <description>
+              Eclipse Equinox OSGi framework, which can be used outside Eclipse.
+          </description>
+          <url>http://eclipse.org</url>
+          <scm>
+            <url>http://www.eclipse.org/projects/project_summary.php?projectid=rt.equinox</url>
+            <connection>scm:cvs::pserver:anonymous@dev.eclipse.org:/cvsroot/rt/org.eclipse.equinox</connection>
+          </scm>
+          <dependencies>
+             <dependency>
+                <groupId>org.eclipse.osgi</groupId>
+                <artifactId>org.eclipse.osgi</artifactId>
+                <version>3.5.2</version>
+             </dependency>
+          </dependencies>
+        </project>

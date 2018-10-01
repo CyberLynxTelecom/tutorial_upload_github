@@ -1,0 +1,186 @@
+From: Debian Orbital Alignment Team
+ <pkg-java-maintainers@lists.alioth.debian.org>
+Date: Mon, 23 Dec 2013 17:16:39 +0100
+Subject: eclipse-add-aarch64-ppc64el
+
+---
+ .../productFiles/rcpConfig/build.properties        |  4 +++
+ patches/eclipse-add-archs-executable.patch         | 32 ++++++++++++++++++++--
+ patches/eclipse-add-ppc64-sparc64-s390-s390x.patch | 14 +++++++---
+ 3 files changed, 43 insertions(+), 7 deletions(-)
+
+diff --git a/eclipse-build-config/productFiles/rcpConfig/build.properties b/eclipse-build-config/productFiles/rcpConfig/build.properties
+index 2033af5..9d3866e 100644
+--- a/eclipse-build-config/productFiles/rcpConfig/build.properties
++++ b/eclipse-build-config/productFiles/rcpConfig/build.properties
+@@ -19,6 +19,8 @@ root.hpux.motif.ia64_32=absolute:${buildDirectory}/features/org.eclipse.equinox.
+ root.solaris.gtk.sparc=absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/solaris/sparc
+ root.solaris.gtk.x86=absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/solaris/x86
+ 
++root.linux.gtk.aarch64=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.aarch64,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/aarch64
++root.linux.gtk.aarch64.permissions.755=*.so*
+ root.linux.gtk.arm=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.arm,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/arm
+ root.linux.gtk.arm.permissions.755=*.so*
+ root.linux.gtk.mips=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.mips,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/mips
+@@ -33,6 +35,8 @@ root.linux.gtk.ppc=absolute:${buildDirectory}/features/org.eclipse.platform/abou
+ root.linux.gtk.ppc.permissions.755=*.so*
+ root.linux.gtk.ppc64=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.ppc64,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/ppc64
+ root.linux.gtk.ppc64.permissions.755=*.so*
++root.linux.gtk.ppc64le=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.ppc64le,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/ppc64le
++root.linux.gtk.ppc64le.permissions.755=*.so*
+ root.linux.gtk.sparc=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.sparc,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/sparc
+ root.linux.gtk.sparc.permissions.755=*.so*
+ root.linux.gtk.sparc64=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.sparc64,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/sparc64
+diff --git a/patches/eclipse-add-archs-executable.patch b/patches/eclipse-add-archs-executable.patch
+index dab9e21..3e3c480 100644
+--- a/patches/eclipse-add-archs-executable.patch
++++ b/patches/eclipse-add-archs-executable.patch
+@@ -1,6 +1,6 @@
+ --- a/features/org.eclipse.equinox.executable/target.build.properties
+ +++ b/features/org.eclipse.equinox.executable/target.build.properties
+-@@ -22,10 +22,47 @@
++@@ -22,10 +22,53 @@
+  root.linux.gtk.x86=bin/gtk/linux/x86,gtk_root
+  root.linux.gtk.x86.permissions.755=libcairo-swt.so
+  
+@@ -10,6 +10,9 @@
+ +root.linux.gtk.arm=bin/gtk/linux/arm,gtk_root
+ +root.linux.gtk.arm.permissions.755=libcairo-swt.so
+ +
+++root.linux.gtk.aarch64=bin/gtk/linux/aarch64,gtk_root
+++root.linux.gtk.aarch64.permissions.755=libcairo-swt.so
+++
+ +root.linux.gtk.ia64=bin/gtk/linux/ia64,gtk_root
+ +root.linux.gtk.ia64.permissions.755=libcairo-swt.so
+ +
+@@ -28,6 +31,9 @@
+  root.linux.gtk.ppc64=bin/gtk/linux/ppc64,gtk_root
+ +root.linux.gtk.ppc64.permissions.755=libcairo-swt.so
+ +
+++root.linux.gtk.ppc64le=bin/gtk/linux/ppc64le,gtk_root
+++root.linux.gtk.ppc64le.permissions.755=libcairo-swt.so
+++
+ +root.linux.gtk.s390=bin/gtk/linux/s390,gtk_root
+ +root.linux.gtk.s390.permissions.755=libcairo-swt.so
+ +
+@@ -50,7 +56,7 @@
+  root.macosx.carbon.ppc.permissions.755=${launcherName}.app/Contents/MacOS/${launcherName}
+ --- a/features/org.eclipse.equinox.executable/feature.xml
+ +++ b/features/org.eclipse.equinox.executable/feature.xml
+-@@ -90,6 +90,66 @@
++@@ -90,6 +90,76 @@
+           version="0.0.0"
+           fragment="true"/>
+  
+@@ -75,6 +81,16 @@
+ +         fragment="true"/>
+ +
+ +   <plugin
+++         id="org.eclipse.equinox.launcher.gtk.linux.aarch64"
+++         os="linux"
+++         ws="gtk"
+++         arch="aarch64"
+++         download-size="0"
+++         install-size="0"
+++         version="0.0.0"
+++         fragment="true"/>
+++
+++   <plugin
+ +         id="org.eclipse.equinox.launcher.gtk.linux.ia64"
+ +         os="linux"
+ +         ws="gtk"
+@@ -117,7 +133,7 @@
+     <plugin
+           id="org.eclipse.equinox.launcher.gtk.linux.ppc"
+           os="linux"
+-@@ -100,6 +160,56 @@
++@@ -100,6 +160,66 @@
+           version="0.0.0"
+           fragment="true"/>
+  
+@@ -131,6 +147,16 @@
+ +         version="0.0.0"
+ +         fragment="true"/>
+ +
+++    <plugin
+++         id="org.eclipse.equinox.launcher.gtk.linux.ppc64le"
+++         os="linux"
+++         ws="gtk"
+++         arch="ppc64le"
+++         download-size="0"
+++         install-size="0"
+++         version="0.0.0"
+++         fragment="true"/>
+++
+ +   <plugin
+ +         id="org.eclipse.equinox.launcher.gtk.linux.s390"
+ +         os="linux"
+diff --git a/patches/eclipse-add-ppc64-sparc64-s390-s390x.patch b/patches/eclipse-add-ppc64-sparc64-s390-s390x.patch
+index d2cdf8d..f1c1a3d 100644
+--- a/patches/eclipse-add-ppc64-sparc64-s390-s390x.patch
++++ b/patches/eclipse-add-ppc64-sparc64-s390-s390x.patch
+@@ -1,15 +1,17 @@
+ --- a/plugins/org.eclipse.core.runtime/src/org/eclipse/core/internal/runtime/InternalPlatform.java
+ +++ b/plugins/org.eclipse.core.runtime/src/org/eclipse/core/internal/runtime/InternalPlatform.java
+-@@ -48,6 +48,14 @@
++@@ -48,6 +48,16 @@
+  			Platform.ARCH_X86, //
+  			Platform.ARCH_AMD64, // 
+  			Platform.ARCH_IA64, //
+ +			Platform.ARCH_PPC64, //
+++			Platform.ARCH_PPC64LE, //
+ +			Platform.ARCH_SPARC64, //
+ +			Platform.ARCH_S390, //
+ +			Platform.ARCH_S390X, //
+ +			Platform.ARCH_ALPHA, //
+ +			Platform.ARCH_ARM, //
+++			Platform.ARCH_AARCH64, //
+ +			Platform.ARCH_MIPS, //
+ +			Platform.ARCH_MIPSEL, //
+  			Platform.ARCH_IA64_32};
+@@ -17,17 +19,19 @@
+  	// debug support:  set in loadOptions()
+ --- a/plugins/org.eclipse.core.runtime/src/org/eclipse/core/runtime/Platform.java
+ +++ b/plugins/org.eclipse.core.runtime/src/org/eclipse/core/runtime/Platform.java
+-@@ -348,6 +348,15 @@
++@@ -348,6 +348,17 @@
+  	 * @since 3.1
+  	 */
+  	public static final String ARCH_IA64_32 = "ia64_32";//$NON-NLS-1$
+ +	
+ +	public static final String ARCH_PPC64 = "ppc64";//$NON-NLS-1$
+++	public static final String ARCH_PPC64LE = "ppc64le";//$NON-NLS-1$
+ +	public static final String ARCH_SPARC64 = "sparc64";//$NON-NLS-1$
+ +	public static final String ARCH_S390 = "s390";//$NON-NLS-1$
+ +	public static final String ARCH_S390X = "s390x";//$NON-NLS-1$
+ +	public static final String ARCH_ALPHA = "alpha";//$NON-NLS-1$
+ +	public static final String ARCH_ARM = "arm";//$NON-NLS-1$
+++	public static final String ARCH_AARCH64 = "aarch64";//$NON-NLS-1$
+ +	public static final String ARCH_MIPS = "mips";//$NON-NLS-1$
+ +	public static final String ARCH_MIPSEL = "mipsel";//$NON-NLS-1$
+  
+@@ -40,13 +44,13 @@
+  	private static PluginConverterImpl instance;
+  	@SuppressWarnings("deprecation")
+ -	private static final String[] ARCH_LIST = {org.eclipse.osgi.service.environment.Constants.ARCH_PA_RISC, org.eclipse.osgi.service.environment.Constants.ARCH_PPC, org.eclipse.osgi.service.environment.Constants.ARCH_SPARC, org.eclipse.osgi.service.environment.Constants.ARCH_X86, org.eclipse.osgi.service.environment.Constants.ARCH_AMD64, org.eclipse.osgi.service.environment.Constants.ARCH_IA64};
+-+	private static final String[] ARCH_LIST = {org.eclipse.osgi.service.environment.Constants.ARCH_PA_RISC, org.eclipse.osgi.service.environment.Constants.ARCH_PPC, org.eclipse.osgi.service.environment.Constants.ARCH_SPARC, org.eclipse.osgi.service.environment.Constants.ARCH_X86, org.eclipse.osgi.service.environment.Constants.ARCH_AMD64, org.eclipse.osgi.service.environment.Constants.ARCH_IA64, org.eclipse.osgi.service.environment.Constants.ARCH_PPC64, org.eclipse.osgi.service.environment.Constants.ARCH_SPARC64, org.eclipse.osgi.service.environment.Constants.ARCH_S390, org.eclipse.osgi.service.environment.Constants.ARCH_S390X, org.eclipse.osgi.service.environment.Constants.ARCH_ALPHA, org.eclipse.osgi.service.environment.Constants.ARCH_ARM, org.eclipse.osgi.service.environment.Constants.ARCH_MIPS, org.eclipse.osgi.service.environment.Constants.ARCH_MIPSEL};
+++	private static final String[] ARCH_LIST = {org.eclipse.osgi.service.environment.Constants.ARCH_PA_RISC, org.eclipse.osgi.service.environment.Constants.ARCH_PPC, org.eclipse.osgi.service.environment.Constants.ARCH_PPC64LE, org.eclipse.osgi.service.environment.Constants.ARCH_SPARC, org.eclipse.osgi.service.environment.Constants.ARCH_X86, org.eclipse.osgi.service.environment.Constants.ARCH_AMD64, org.eclipse.osgi.service.environment.Constants.ARCH_IA64, org.eclipse.osgi.service.environment.Constants.ARCH_PPC64, org.eclipse.osgi.service.environment.Constants.ARCH_SPARC64, org.eclipse.osgi.service.environment.Constants.ARCH_S390, org.eclipse.osgi.service.environment.Constants.ARCH_S390X, org.eclipse.osgi.service.environment.Constants.ARCH_ALPHA, org.eclipse.osgi.service.environment.Constants.ARCH_ARM, org.eclipse.osgi.service.environment.Constants.ARCH_AARCH64, org.eclipse.osgi.service.environment.Constants.ARCH_MIPS, org.eclipse.osgi.service.environment.Constants.ARCH_MIPSEL};
+  	static public final String FRAGMENT_MANIFEST = "fragment.xml"; //$NON-NLS-1$
+  	static public final String GENERATED_FROM = "Generated-from"; //$NON-NLS-1$
+  	static public final String MANIFEST_TYPE_ATTRIBUTE = "type"; //$NON-NLS-1$
+ --- a/plugins/org.eclipse.osgi/supplement/src/org/eclipse/osgi/service/environment/Constants.java
+ +++ b/plugins/org.eclipse.osgi/supplement/src/org/eclipse/osgi/service/environment/Constants.java
+-@@ -160,6 +160,14 @@
++@@ -160,6 +160,16 @@
+  	 */
+  	public static final String ARCH_IA64_32 = "ia64_32";//$NON-NLS-1$
+  
+@@ -55,6 +59,8 @@
+ +	public static final String ARCH_S390X = "s390x";//$NON-NLS-1$
+ +	public static final String ARCH_ALPHA = "alpha";//$NON-NLS-1$
+ +	public static final String ARCH_ARM = "arm";//$NON-NLS-1$
+++	public static final String ARCH_AARCH64 = "aarch64";//$NON-NLS-1$
+++	public static final String ARCH_PPC64LE = "ppc64le";//$NON-NLS-1$
+ +	public static final String ARCH_MIPS = "mips";//$NON-NLS-1$
+ +	public static final String ARCH_MIPSEL = "mipsel";//$NON-NLS-1$
+ +

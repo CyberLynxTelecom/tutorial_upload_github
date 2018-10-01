@@ -1,0 +1,87 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Thu, 7 Jun 2012 21:58:11 +0200
+Subject: use-deb-build-compiler-flags
+
+---
+ build.xml                                                      |    2 +-
+ .../org.eclipse.equinox.executable/library/gtk/make_linux.mak  |    6 +++---
+ .../org.eclipse.core.filesystem/natives/unix/linux/Makefile    |    6 +++---
+ .../plugins/org.eclipse.core.net/natives/unix/linux/makefile   |    8 ++++----
+ 4 files changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index e511148..1d65b7b 100644
+--- a/build.xml
++++ b/build.xml
+@@ -352,7 +352,7 @@
+ 		<patch patchfile="${basedir}/patches/eclipse-pde.build-add-package-build.patch" dir="${buildDirectory}" strip="1" />
+ 
+ 		<!-- This one should be removed when Eclipse bug 369215 is fixed -->
+-		<patch patchfile="${basedir}/patches/gnomeproxy-makefile.patch" dir="${buildDirectory}" strip="1" />
++		<!--patch patchfile="${basedir}/patches/gnomeproxy-makefile.patch" dir="${buildDirectory}" strip="1" /-->
+ 
+ 		<patch patchfile="${basedir}/patches/eclipse-nosourcebundlesfordependencies.patch" dir="${buildDirectory}" strip="1" />
+ 
+diff --git a/eclipse/features/org.eclipse.equinox.executable/library/gtk/make_linux.mak b/eclipse/features/org.eclipse.equinox.executable/library/gtk/make_linux.mak
+index 9c64a31..5de09d3 100644
+--- a/eclipse/features/org.eclipse.equinox.executable/library/gtk/make_linux.mak
++++ b/eclipse/features/org.eclipse.equinox.executable/library/gtk/make_linux.mak
+@@ -44,8 +44,8 @@ DLL = $(PROGRAM_LIBRARY)
+ #LIBS = `pkg-config --libs-only-L gtk+-2.0` -lgtk-x11-2.0 -lgdk_pixbuf-2.0 -lgobject-2.0 -lgdk-x11-2.0 -lpthread -ldl -lX11
+ LIBS = -lpthread -ldl
+ GTK_LIBS = -DGTK_LIB="\"libgtk-x11-2.0.so.0\"" -DGDK_LIB="\"libgdk-x11-2.0.so.0\"" -DPIXBUF_LIB="\"libgdk_pixbuf-2.0.so.0\"" -DGOBJ_LIB="\"libgobject-2.0.so.0\"" -DX11_LIB="\"libX11.so.6\""
+-LFLAGS = ${M_ARCH} -shared -fpic -Wl,--export-dynamic 
+-CFLAGS = ${M_ARCH} -g -s -Wall\
++LFLAGS = ${M_ARCH} ${LDFLAGS} -shared -fpic -Wl,--export-dynamic 
++CFLAGS := ${M_ARCH} ${CFLAGS} ${CPPFLAGS} -s -Wall\
+ 	-fpic \
+ 	-DLINUX \
+ 	-DMOZILLA_FIX \
+@@ -95,7 +95,7 @@ eclipseNix.o: ../eclipseNix.c
+ 	$(CC) $(CFLAGS) -c ../eclipseNix.c -o eclipseNix.o
+ 
+ $(EXEC): $(MAIN_OBJS) $(COMMON_OBJS)
+-	$(CC) ${M_ARCH} -o $(EXEC) $(MAIN_OBJS) $(COMMON_OBJS) $(LIBS)
++	$(CC) ${LDFLAGS} ${M_ARCH} -o $(EXEC) $(MAIN_OBJS) $(COMMON_OBJS) $(LIBS)
+ 	
+ $(DLL): $(DLL_OBJS) $(COMMON_OBJS)
+ 	$(CC) $(LFLAGS) -o $(DLL) $(DLL_OBJS) $(COMMON_OBJS) $(LIBS)
+diff --git a/eclipse/plugins/org.eclipse.core.filesystem/natives/unix/linux/Makefile b/eclipse/plugins/org.eclipse.core.filesystem/natives/unix/linux/Makefile
+index 1dc4f16..b9b3072 100644
+--- a/eclipse/plugins/org.eclipse.core.filesystem/natives/unix/linux/Makefile
++++ b/eclipse/plugins/org.eclipse.core.filesystem/natives/unix/linux/Makefile
+@@ -25,11 +25,11 @@ ifeq (${JAVA_HOME},)
+ endif
+ 
+ JDK_INCLUDE = -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/${OS_TYPE}
+-OPT_FLAGS=-O -s -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
++OPT_FLAGS= -s -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+ 
+ core:
+-	gcc $(OPT_FLAGS) -fPIC -c $(JDK_INCLUDE) -o $(CORE.O) $(CORE.C)
+-	gcc $(OPT_FLAGS) -shared -Wl,-soname,$(LIB_NAME) -o $(LIB_NAME_FULL) $(CORE.O) -lc
++	gcc $(OPT_FLAGS) -fPIC -c $(JDK_INCLUDE) -o $(CORE.O) $(CORE.C) ${CFLAGS} ${CPPFLAGS}
++	gcc $(OPT_FLAGS) -shared -Wl,-soname,$(LIB_NAME) -o $(LIB_NAME_FULL) $(CORE.O) -lc ${LDFLAGS}
+ 
+ clean:
+ 	rm -f $(CORE.O) $(LIB_NAME_FULL)
+diff --git a/eclipse/plugins/org.eclipse.core.net/natives/unix/linux/makefile b/eclipse/plugins/org.eclipse.core.net/natives/unix/linux/makefile
+index 0aa0cbe..6f78532 100644
+--- a/eclipse/plugins/org.eclipse.core.net/natives/unix/linux/makefile
++++ b/eclipse/plugins/org.eclipse.core.net/natives/unix/linux/makefile
+@@ -20,11 +20,11 @@ LIB_NAME_FULL = libgnomeproxy-1.0.0.so
+ 
+ OS_TYPE = linux
+ JDK_INCLUDE = -I${JAVA_HOME}/include -I${JAVA_HOME}/include/${OS_TYPE}
+-INCLUDE = -I/usr/include/gconf/2/ -I/usr/include/orbit-2.0/ -I/usr/include/glib-2.0/ -I/usr/lib/glib-2.0/include/
+-COMPILER_FLAGS = -O0 -fPIC -g3 -Wall -c -fmessage-length=0 -m32
++INCLUDE = `pkg-config --cflags gconf-2.0`
++COMPILER_FLAGS = -fPIC -c ${CFLAGS} ${CPPFLAGS}
+ 
+-LIBS := -lgconf-2 -lORBit-2 -lgthread-2.0 -lrt -lgobject-2.0 -lglib-2.0
+-LINKER_FLAGS= -m32
++LIBS := `pkg-config --libs gconf-2.0`
++LINKER_FLAGS= ${LDFLAGS}
+ 
+ all: link
+ 

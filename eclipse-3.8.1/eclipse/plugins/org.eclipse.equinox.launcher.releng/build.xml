@@ -1,0 +1,216 @@
+<!--
+    Copyright (c) 2009, 2011 IBM Corporation and others. 
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        IBM Corporation - initial API and implementation
+ -->
+<project name="Launcher Build" basedir="." default="build">
+	<property name="gitTag" value="master" />
+	
+	<property name="keyfile" value="C:\BUILD\ssh\swtbuild_dsa_private" /> 
+	
+	<available file="${basedir}/launcher.properties" property="launcherProperties" value="${basedir}/launcher.properties" />
+	
+	<!-- macro to resolve properties because we can't do ${${prop}} -->
+	<macrodef name="resolveProperty">
+		<attribute name="name" />
+		<attribute name="value" />
+		<sequential>
+			<condition property="@{name}" value="${@{value}}" >
+				<isset property="@{value}"/>
+			</condition>
+		</sequential>
+	</macrodef>
+	
+	<!-- macro for invoking git -->
+	<macrodef name="git">
+		<attribute name="dir" />
+		<attribute name="command" />
+		<attribute name="arguments" default="" />
+		<sequential>
+			<exec dir="@{dir}" executable="git" >
+				<arg value="@{command}"/>
+				<arg line="@{arguments}"/>
+			</exec>
+		</sequential>
+	</macrodef>
+	
+	<target name="init_exeFolder" >
+		<!-- set to "bin" or "contributed" according to which folder under org.eclipse.equinox.executable to store the built eclipse -->
+		<condition property="exeFolder" value="contributed" else="bin">
+			<or>
+				<equals arg1="s390" arg2="${arch}" />
+				<equals arg1="s390x" arg2="${arch}" />
+				<equals arg1="motif.sparc" arg2="${ws}.${arch}" />
+				<equals arg1="win32.ia64" arg2="${ws}.${arch}" />
+			</or>
+		</condition>
+	</target>
+	
+	<target name="init_fragment" >
+		<!-- mac only has arch in fragment name for x86_64 -->
+		<condition property="fragmentFolder" value="org.eclipse.equinox.launcher.${ws}.${os}.${arch}" 
+											 else="org.eclipse.equinox.launcher.${ws}.${os}" >
+			<not>
+				<and>
+					<equals arg1="macosx" arg2="${os}"/>
+					<not> <equals arg1="x86_64" arg2="${arch}"/> </not>
+				</and>
+			</not>
+		</condition>
+	</target>
+
+	<target name="copyMotifLib" if="copyMotifLib" >
+		<scp file="${userName}@${machine}:${lib_dir}/libeclipse-motif.so"
+			todir="${localGit}/rt.equinox.binaries/${fragmentFolder}"
+			keyfile="${keyfile}"
+			trust="true"/>
+	</target>
+	
+	<target name="copyMacPPC" if="copyMacPPC" >
+		<scp file="${userName}@${machine}:${lib_dir}/eclipse"
+			todir="${localGit}/rt.equinox.binaries/org.eclipse.equinox.executable/${exeFolder}/${ws}/${os}/ppc${mac_suffix}"
+			keyfile="${keyfile}"
+			trust="true"/>
+	</target>
+	
+	<target name="loadProperties" if="launcherProperties" >
+		<property file="${launcherProperties}" />
+	</target>
+	
+	<target name="initProperties" depends="loadProperties" >
+		<property name="ws" value="${env.ws}"/>
+		<property name="os" value="${env.os}" />	
+		<property name="arch" value="${env.arch}" />
+		
+		<resolveProperty name="machine" value="m_${os}.${arch}" />
+		<resolveProperty name="javaArg" value="j_${os}.${arch}" />
+		<resolveProperty name="userName" value="u_${os}.${arch}" />
+		<property name="userName" value="swtbuild" />
+		<property name="localGit" value="../../.." />
+		
+		<!-- windows is built locally, everything else is remote -->
+		<condition property="local" >
+			<equals arg1="${os}" arg2="win32"/>
+		</condition>
+		<condition property="remote" >
+			<not> <isset property="local"/> </not>
+		</condition>
+	</target>
+	
+	
+	<!-- 
+		Main entry point.  We expect the following properties:
+			 os, ws, arch  - to be passed as ant properties or set as environment variables.
+			 resultsBaseFolder - location to scp the resulting binaries to, usually a workspace containing the executable & launcher projects (eg: user@machine:~/workspace)
+			 m_<os>.<arch> - name of a machine to ssh to for this os & arch
+			 u_<os>.<arch> - optional user on the machine for this platform
+			 j_<os>.<arch> - location of a jdk we can compile against
+		We expect ssh keys to be set up so that we don't need passwords
+		
+		The j_<os>.<arch> properties work together with remote.sh, and are either
+		   -javaHome /path/to/jdk
+		or -java relative/path/to/jdk
+	-->
+	<target name="build" depends="initProperties,init_exeFolder,init_fragment">
+		<echo message="Building for ${os}, ${ws}, ${arch}"/>
+		<antcall target="buildLocal" />
+		<antcall target="buildRemote" />
+	</target>
+	
+	<target name="buildLocal" if="local" >
+		<property name="tmpdir" value="${basedir}/${fragmentFolder}.${gitTag}"/>
+		<property file="${localGit}/rt.equinox.framework/bundles/org.eclipse.equinox.executable/library/make_version.mak" />
+		<mkdir dir="${tmpdir}" />
+		<copy todir="${tmpdir}">
+			<fileset dir="${localGit}/rt.equinox.framework/bundles/org.eclipse.equinox.executable/library" includes="**" />
+		</copy>
+		<exec dir="${tmpdir}/${ws}" executable="${tmpdir}/${ws}/build.bat" failonerror="true">
+			<arg line="${arch}"/>
+			<arg line="clean all" />
+		</exec>
+		<copy todir="${localGit}/rt.equinox.binaries/org.eclipse.equinox.executable/${exeFolder}/${ws}/${os}/${arch}">
+			<fileset dir="${tmpdir}/${ws}" includes="*.exe"/>
+		</copy>
+		<copy todir="${localGit}/rt.equinox.binaries/${fragmentFolder}">
+			<fileset dir="${tmpdir}/${ws}" includes="eclipse_${maj_ver}${min_ver}.dll"/>
+		</copy>
+		<delete dir="${tmpdir}"/>
+	</target>
+	
+	<target name="buildRemote" if="remote">
+		<echo message="Machine: ${machine}" />
+		<property name="remotebuilddir" value="~/build"/>
+		<property name="remotetmpdir" value="${remotebuilddir}/${fragmentFolder}.${gitTag}"/>
+		<property name="zip_file" value="${fragmentFolder}.${gitTag}.library.zip"/>
+		<property file="${localGit}/rt.equinox.framework/bundles/org.eclipse.equinox.executable/library/make_version.mak" />
+		<zip basedir="${localGit}/rt.equinox.framework/bundles/org.eclipse.equinox.executable/library" includes="**" destfile="${basedir}/${zip_file}"/>
+		<scp file="${basedir}/${zip_file}"
+			todir="${userName}@${machine}:${remotebuilddir}" 
+			keyfile="${keyfile}"
+			trust="true"/>
+		<condition property="lib_dir" value="${remotetmpdir}/carbon" else="${remotetmpdir}/${ws}" >
+			<equals arg1="cocoa" arg2="${ws}" />
+		</condition>
+		<condition property="javaParam" value="" else="-java ${javaArg}" >
+			<or>
+				<equals arg1="macosx" arg2="${os}" />
+				<not>
+					<isset property="javaArg"/>
+				</not>
+			</or>
+		</condition>
+		<sshexec host="${machine}" 
+			username="${userName}" 
+			keyfile="${keyfile}" 
+			trust="true"
+	 		command="rm -rf ${remotetmpdir}; mkdir ${remotetmpdir}; cd ${remotetmpdir}; unzip -aa ${remotebuilddir}/${zip_file}; cd ${lib_dir}; if sh build.sh -os ${os} -ws ${ws} -arch ${arch} ${javaParam} all; then cd; else cd; rm -rf ${remotetmpdir}; rm ${remotebuilddir}/${zip_file}; exit 1; fi"/>
+		<condition property="mac_suffix" value="/Eclipse.app/Contents/MacOS" else="">
+			<equals arg1="macosx" arg2="${os}" />
+		</condition>
+		<scp file="${userName}@${machine}:${lib_dir}/eclipse"
+			todir="${localGit}/rt.equinox.binaries/org.eclipse.equinox.executable/${exeFolder}/${ws}/${os}/${arch}${mac_suffix}"
+			keyfile="${keyfile}"
+			trust="true"/>
+		<scp file="${userName}@${machine}:${lib_dir}/eclipse_${maj_ver}${min_ver}.*"
+			todir="${localGit}/rt.equinox.binaries/${fragmentFolder}"
+			keyfile="${keyfile}"
+			trust="true"/>
+		<!-- x86 and ppc are the same universal binary, copy to both under the executable feature -->
+		<condition property="copyMacPPC">
+			<and>
+				<equals arg1="${arch}" arg2="x86" />
+				<equals arg1="${os}" arg2="macosx" />
+			</and>
+		</condition>
+		<antcall target="copyMacPPC" />
+		<condition property="copyMotifLib" >
+			<equals arg1="aix.motif" arg2="${os}.${ws}" />
+		</condition>
+		<antcall target="copyMotifLib" />
+		<sshexec host="${machine}" 
+			username="${userName}" 
+			keyfile="${keyfile}" 
+			trust="true"
+	 		command="rm -rf ${remotetmpdir}; rm ${remotebuilddir}/${zip_file}"/>
+		<delete file="${basedir}/${zip_file}"/>
+	</target>
+	
+	<target name="commitBinaries" depends="initProperties">
+		<tstamp/>
+		<property name="tag" value="v${DSTAMP}-${TSTAMP}"/>
+		<property name="commitMsg" value="" />
+		
+		<git dir="${localGit}/rt.equinox.binaries" command="commit" arguments="-a -m &quot;Recompiled binaries ${commitMsg}&quot;" />
+		<git dir="${localGit}/rt.equinox.binaries" command="tag" arguments="${tag}" />
+
+		<replaceregexp match="binaryTag=(.*)" replace="binaryTag=${tag}" >
+			<fileset dir="${localGit}/rt.equinox.framework" includes="**/build.properties" />
+		</replaceregexp>
+		<git dir="${localGit}/rt.equinox.framework" command="commit" arguments="-a -m &quot;Binaries ${tag} ${commitMsg}&quot;" />
+	</target>
+</project>

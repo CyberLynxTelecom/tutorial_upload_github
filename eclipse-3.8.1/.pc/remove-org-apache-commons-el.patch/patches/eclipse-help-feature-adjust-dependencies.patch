@@ -1,0 +1,100 @@
+diff --git a/features/org.eclipse.help/feature.xml b/features/org.eclipse.help/feature.xml
+--- a/features/org.eclipse.help/feature.xml
++++ b/features/org.eclipse.help/feature.xml
+@@ -34,30 +34,44 @@
+          install-size="0"
+          version="0.0.0"
+          unpack="false"/>
+-  
+-   <plugin
+-         id="com.sun.el"
++
++  <plugin
++         id="javax.el"
+          download-size="0"
+          install-size="0"
+          version="0.0.0"
+          unpack="false"/>
+ 
+-   <plugin
+-         id="org.apache.commons.logging"
++  <plugin
++         id="org.apache.tomcat.api"
+          download-size="0"
+          install-size="0"
+          version="0.0.0"
+          unpack="false"/>
+ 
+-   <plugin
+-         id="org.apache.jasper.glassfish"
++  <plugin
++         id="org.apache.tomcat.util"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         unpack="false"/>
++
++  <plugin
++         id="org.apache.juli"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         unpack="false"/>
++
++  <plugin
++         id="org.apache.el"
+          download-size="0"
+          install-size="0"
+          version="0.0.0"
+          unpack="false"/>
+ 
+    <plugin
+-         id="org.apache.lucene"
++         id="org.apache.commons.logging"
+          download-size="0"
+          install-size="0"
+          version="0.0.0"
+@@ -182,5 +196,19 @@
+          install-size="0"
+          version="0.0.0"
+          unpack="false"/>
++
++ <plugin
++         id="org.apache.jasper"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         unpack="false"/> 
++
++  <plugin
++         id="org.apache.commons.el"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         unpack="false"/> 
+   
+ </feature>
+diff --git a/plugins/org.eclipse.help.base/META-INF/MANIFEST.MF b/plugins/org.eclipse.help.base/META-INF/MANIFEST.MF
+--- a/plugins/org.eclipse.help.base/META-INF/MANIFEST.MF
++++ b/plugins/org.eclipse.help.base/META-INF/MANIFEST.MF
+@@ -39,7 +39,7 @@ Export-Package: org.apache.lucene.demo.html;x-internal:=true,
+  org.eclipse.help.search,
+  org.eclipse.help.server,
+  org.eclipse.help.standalone
+-Require-Bundle: org.apache.lucene;bundle-version="[2.9.0,3.0.0)";visibility:=reexport,
++Require-Bundle: org.apache.lucene.core;bundle-version="[2.9.0,3.0.0)";visibility:=reexport,
+  org.apache.lucene.analysis;bundle-version="[2.9.0,3.0.0)";visibility:=reexport,
+  org.eclipse.ant.core;bundle-version="3.2.200";resolution:=optional,
+  org.eclipse.core.runtime;bundle-version="3.6.0",
+diff --git a/eclipse/plugins/org.eclipse.help.base/src/org/eclipse/help/internal/search/SearchIndex.java b/eclipse/plugins/org.eclipse.help.base/src/org/eclipse/help/internal/search/SearchIndex.java
+--- a/plugins/org.eclipse.help.base/src/org/eclipse/help/internal/search/SearchIndex.java
++++ b/plugins/org.eclipse.help.base/src/org/eclipse/help/internal/search/SearchIndex.java
+@@ -106,7 +106,7 @@ public class SearchIndex implements ISearchIndex, IHelpSearchIndex {
+ 
+ 	public static final String DEPENDENCIES_KEY_ANALYZER = "analyzer"; //$NON-NLS-1$
+ 
+-	private static final String LUCENE_BUNDLE_ID = "org.apache.lucene"; //$NON-NLS-1$
++	private static final String LUCENE_BUNDLE_ID = "org.apache.lucene.core"; //$NON-NLS-1$
+ 
+ 	private static final String FIELD_NAME = "name"; //$NON-NLS-1$
+ 

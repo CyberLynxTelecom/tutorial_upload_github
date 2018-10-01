@@ -1,0 +1,23 @@
+From: Benjamin Drung <bdrung@ubuntu.com>
+Date: Thu, 15 Mar 2012 20:03:39 +0100
+Subject: remove-unnecessary-files
+
+---
+ build.xml |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index 8d23803..3324dd7 100644
+--- a/build.xml
++++ b/build.xml
+@@ -956,6 +956,10 @@
+ 			</fileset>
+ 		</apply>
+ 		
++		<!-- Remove unnecessary metadata -->
++		<delete dir="${destDir}/${prefix}/${libDir}/eclipse/metadata/binary" />
++		<delete dir="${destDir}/${prefix}/${libDir}/eclipse/metadata/features" />
++		<delete dir="${destDir}/${prefix}/${libDir}/eclipse/metadata/plugins" />
+ 		<!-- Move config file to /etc -->
+ 		<mkdir dir="${destDir}/etc" />
+ 		<move file="${installationDir}/eclipse.ini" tofile="${destDir}/etc/eclipse.ini" />

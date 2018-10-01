@@ -1,0 +1,134 @@
+From: Niels Thykier <niels@thykier.net>
+Date: Thu, 15 Mar 2012 20:03:38 +0100
+Subject: compile-IPluginDescriptor
+
+---
+ build.xml                                          |   33 +++++++++++++++++++-
+ stubs/org/eclipse/core/runtime/CoreException.java  |    4 ++
+ stubs/org/eclipse/core/runtime/IExtension.java     |    2 +
+ .../org/eclipse/core/runtime/IExtensionPoint.java  |    2 +
+ stubs/org/eclipse/core/runtime/ILibrary.java       |    2 +
+ stubs/org/eclipse/core/runtime/IPath.java          |    2 +
+ .../eclipse/core/runtime/IPluginPrerequisite.java  |    2 +
+ stubs/org/eclipse/core/runtime/Plugin.java         |    2 +
+ .../core/runtime/PluginVersionIdentifier.java      |    2 +
+ 9 files changed, 50 insertions(+), 1 deletions(-)
+ create mode 100644 stubs/org/eclipse/core/runtime/CoreException.java
+ create mode 100644 stubs/org/eclipse/core/runtime/IExtension.java
+ create mode 100644 stubs/org/eclipse/core/runtime/IExtensionPoint.java
+ create mode 100644 stubs/org/eclipse/core/runtime/ILibrary.java
+ create mode 100644 stubs/org/eclipse/core/runtime/IPath.java
+ create mode 100644 stubs/org/eclipse/core/runtime/IPluginPrerequisite.java
+ create mode 100644 stubs/org/eclipse/core/runtime/Plugin.java
+ create mode 100644 stubs/org/eclipse/core/runtime/PluginVersionIdentifier.java
+
+diff --git a/build.xml b/build.xml
+index e44b47a..8d23803 100644
+--- a/build.xml
++++ b/build.xml
+@@ -376,7 +376,38 @@
+ 	  </antcall>
+ 	</target>
+ 
+-	<target name="build" depends="applyPatches,symlinkDeps,bootstrap,compilelibs" unless="build.complete">
++	<target name="prebootstrap" depends="symlinkDeps" unless="prebootstrap.complete">
++		<mkdir dir="${basedir}/temp/" />
++		<copy todir="${basedir}/temp/" >
++			<fileset dir="${basedir}/stubs/">
++				<include name="**/*.java" />
++			</fileset>
++		</copy>
++		<copy todir="${basedir}/temp" >
++			<fileset dir="${buildDirectory}/plugins/org.eclipse.core.runtime/src/">
++				<include name="org/eclipse/core/runtime/IPluginDescriptor.java" />
++			</fileset>
++		</copy>
++		<javac destdir="${basedir}/temp"
++			srcdir="${basedir}/temp"
++			source="1.3"
++			target="1.1"
++			debug="true"
++			optimize="true"
++			fork="true"
++			compiler="modern" />
++		<mkdir dir="${buildDirectory}/plugins/org.eclipse.core.runtime.compatibility.registry/classes/org/eclipse/core/runtime/" />
++		<copy todir="${buildDirectory}/plugins/org.eclipse.core.runtime.compatibility.registry/classes/" >
++			<fileset dir="${basedir}/temp/">
++				<include name="org/eclipse/core/runtime/IPluginDescriptor.class" />
++			</fileset>
++		</copy>
++		<delete dir="${basedir}/temp/"/>
++		<!-- Create a stamp file -->
++		<echo file="prebootstrap-stamp" />
++	</target>
++
++        <target name="build" depends="applyPatches,symlinkDeps,prebootstrap,bootstrap,compilelibs" unless="build.complete">
+ 
+ 		<echo message="build.xml:  eclipse.pdebuild.scripts = ${eclipse.pdebuild.scripts}" />
+ 		<echo message="${basedir}"/>
+diff --git a/stubs/org/eclipse/core/runtime/CoreException.java b/stubs/org/eclipse/core/runtime/CoreException.java
+new file mode 100644
+index 0000000..ff18293
+--- /dev/null
++++ b/stubs/org/eclipse/core/runtime/CoreException.java
+@@ -0,0 +1,4 @@
++package org.eclipse.core.runtime;
++public class CoreException extends Exception {
++    private static final long serialVersionUID = 1L;
++}
+diff --git a/stubs/org/eclipse/core/runtime/IExtension.java b/stubs/org/eclipse/core/runtime/IExtension.java
+new file mode 100644
+index 0000000..499a7a4
+--- /dev/null
++++ b/stubs/org/eclipse/core/runtime/IExtension.java
+@@ -0,0 +1,2 @@
++package org.eclipse.core.runtime;
++public interface IExtension{}
+diff --git a/stubs/org/eclipse/core/runtime/IExtensionPoint.java b/stubs/org/eclipse/core/runtime/IExtensionPoint.java
+new file mode 100644
+index 0000000..bbcc421
+--- /dev/null
++++ b/stubs/org/eclipse/core/runtime/IExtensionPoint.java
+@@ -0,0 +1,2 @@
++package org.eclipse.core.runtime;
++public interface IExtensionPoint{}
+diff --git a/stubs/org/eclipse/core/runtime/ILibrary.java b/stubs/org/eclipse/core/runtime/ILibrary.java
+new file mode 100644
+index 0000000..f6662d6
+--- /dev/null
++++ b/stubs/org/eclipse/core/runtime/ILibrary.java
+@@ -0,0 +1,2 @@
++package org.eclipse.core.runtime;
++public interface ILibrary{}
+diff --git a/stubs/org/eclipse/core/runtime/IPath.java b/stubs/org/eclipse/core/runtime/IPath.java
+new file mode 100644
+index 0000000..80ede8b
+--- /dev/null
++++ b/stubs/org/eclipse/core/runtime/IPath.java
+@@ -0,0 +1,2 @@
++package org.eclipse.core.runtime;
++public interface IPath extends Cloneable{};
+diff --git a/stubs/org/eclipse/core/runtime/IPluginPrerequisite.java b/stubs/org/eclipse/core/runtime/IPluginPrerequisite.java
+new file mode 100644
+index 0000000..d857663
+--- /dev/null
++++ b/stubs/org/eclipse/core/runtime/IPluginPrerequisite.java
+@@ -0,0 +1,2 @@
++package org.eclipse.core.runtime;
++public interface IPluginPrerequisite {}
+diff --git a/stubs/org/eclipse/core/runtime/Plugin.java b/stubs/org/eclipse/core/runtime/Plugin.java
+new file mode 100644
+index 0000000..60936c1
+--- /dev/null
++++ b/stubs/org/eclipse/core/runtime/Plugin.java
+@@ -0,0 +1,2 @@
++package org.eclipse.core.runtime;
++public abstract class Plugin {}
+diff --git a/stubs/org/eclipse/core/runtime/PluginVersionIdentifier.java b/stubs/org/eclipse/core/runtime/PluginVersionIdentifier.java
+new file mode 100644
+index 0000000..7f91189
+--- /dev/null
++++ b/stubs/org/eclipse/core/runtime/PluginVersionIdentifier.java
+@@ -0,0 +1,2 @@
++package org.eclipse.core.runtime;
++public final class PluginVersionIdentifier {}

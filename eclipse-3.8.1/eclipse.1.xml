@@ -1,0 +1,616 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<!-- lifted from troff+man by doclifter -->
+<refentry id='eclipse1'>
+<refmeta>
+<refentrytitle>eclipse</refentrytitle>
+<manvolnum>1</manvolnum>
+</refmeta>
+<refnamediv id='name'>
+<refname>eclipse</refname>
+<refpurpose>extensible tool platform and Java IDE</refpurpose>
+</refnamediv>
+<!-- body begins here -->
+<refsynopsisdiv id='synopsis'>
+<cmdsynopsis>
+  <command>eclipse</command>
+    <arg choice='opt'><arg choice='plain'><replaceable>platform</replaceable></arg><arg choice='plain'><replaceable>options</replaceable></arg></arg>
+    <arg choice='opt'><arg choice='plain'><option>-vmargs </option></arg><arg choice='opt'><arg choice='plain'><replaceable>Java</replaceable></arg><arg choice='plain'><replaceable>VM</replaceable></arg><arg choice='plain'><replaceable>arguments</replaceable></arg></arg></arg>
+</cmdsynopsis>
+</refsynopsisdiv>
+
+
+<refsect1 id='description'><title>DESCRIPTION</title>
+<para>
+The <command>Eclipse</command> Platform is an open and
+ extensible platform for anything and yet nothing in particular. It provides a
+ foundation for constructing and running integrated software-development tools.
+ The <command>Eclipse</command> Platform allows tool builders
+ to independently develop tools that integrate with other people's tools so
+ seamlessly you can't tell where one tool ends and another starts.</para>
+
+ <para>When invoked without selecting any particular application, the <command>eclipse</command>
+ command will start the <command>Eclipse</command> Platform with the Java Development
+ Tools (JDT) functionality enabled and ready to use.</para>
+
+<para>This manual page documents the command-line arguments for the
+<command>Eclipse</command> Platform and it is based on the
+Runtime Options help item in the <command>Eclipse</command>
+<ulink url="#authors" xrefstyle="AUTHORS">online help</ulink><!-- (see xref endterm="authors" linkend="authors" xrefstyle="AUTHORS"></xref> AUTHORS below)-->.</para>
+
+</refsect1>
+
+<refsect1 id='platform_options'><title>PLATFORM OPTIONS</title>
+<para>  Listed below are the command line arguments processed by various parts of the
+<command>Eclipse</command> runtime.
+Many of these values can also be specified using System properties either on the command line
+using <command>-D VM</command> arguments, by specifying their values in a <filename>config.ini</filename> file or by using a
+<filename>&lt;launcher&gt;.ini</filename> file. Using the two latter techniques it is possible to customize
+<command>Eclipse</command> without using command line arguments at all.</para>
+
+<para>For each argument in the list, its corresponding System property key is given (in {}). Also
+given is the <command>Eclipse</command> runtime layer in which the
+command line argument is processed (in ()). </para>
+
+<variablelist remap='TP'>
+
+<varlistentry>
+        <term><option>
+          -application &lt;id&gt; (Runtime)
+        </option></term>
+        <listitem>
+        <para>
+        The identifier of the application to run. The value given here
+            overrides any application defined by the product being run.</para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>eclipse.application</emphasis> to
+            &lt;id&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -arch &lt;architecture&gt; (OSGi)
+        </option></term>
+        <listitem>
+        <para>The processor architecture value.</para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.arch</emphasis> to
+            &lt;architecture&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -clean (OSGi)
+        </option></term>
+        <listitem>
+         <para>
+            Wipe clean any cached data used by the OSGi
+            framework and <command>eclipse</command> runtime. This will clean
+            the caches used to store bundle dependency resolution and <command>eclipse</command>
+            extension registry data. Using this option will force <command>eclipse</command> to
+            reinitialize these caches.
+          </para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.clean</emphasis> to
+            &quot;true&quot;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -configuration &lt;location&gt; (Main)
+        </option></term>
+        <listitem>
+        <para>The configuration location for this run of the platform. The
+            configuration determines what plug-ins will run as well as various
+            other system settings. See the On-line Help for details (SEE ALSO below).</para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.configuration.area</emphasis>
+            to &lt;location&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -console [port] (OSGi)
+        </option></term>
+        <listitem>
+        <para>Enable the OSGi console (if installed). If the [port] value is a suitable integer, it is interpreted as
+            the port on which the console listens and directs its output to the
+            given port. Handy for investigating the state of the system.</para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.console</emphasis> to [port] or the
+            empty string if the default port is to be used (i.e., when the port is not specified).
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -consoleLog (Runtime)
+        </option></term>
+        <listitem>
+        <para>Any log output is also sent to Java's
+            System.out (typically back to the command shell if any). Handy when
+            combined with <command>-debug</command>.</para>
+          <para>
+            This is equivalent to setting the property <emphasis>eclipse.consoleLog</emphasis> to
+            &quot;true&quot;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -data &lt;location&gt; (OSGi)<literallayout></literallayout>
+        </option></term>
+        <listitem>
+        <para>The instance data location for this session. Plug-ins use this
+            location to store their data. For example, the Resources plug-in
+            uses this as the default location for projects (aka the workspace).
+            See the On-line Help for details (SEE ALSO below).
+        </para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.instance.area</emphasis> to
+            &lt;location&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -debug [options file] (OSGi)
+        </option></term>
+        <listitem>
+        <para>Put the platform in debug mode. If [options file] is given, it is interpreted as the location of the
+            <filename>.options</filename> file. This file indicates what debug points are available
+            for a plug-in and whether or not they are enabled. If a location is
+            not specified, the platform searches for the<filename> .options</filename> file under
+            the install directory.</para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.debug</emphasis> to
+            [options file] or the empty string to simply enable debug (i.e., if
+            the options file location is not specified).
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -dev [entries] (OSGi)
+        </option></term>
+        <listitem>
+        <para>Turn on dev mode. If given, [entries] should be a comma-separated class path entries
+            which are added to the class path of each plug-in or a URL to a
+            Java properties file containing custom classpath additions for a
+            set of plug-ins. For each plug-in requiring a customized dev time
+            classpath the file will contain an entry of the
+            form.</para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.dev</emphasis> to
+            [entries] or the empty string to simply enable dev mode (i.e., if
+            entries are not specified).
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -eclipse.keyring &lt;file path&gt; (Equinox)
+        </option></term>
+        <listitem>
+          <para>
+            Set to override location of the default secure storage.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -eclipse.password &lt;file path&gt; (Equinox)
+        </option></term>
+        <listitem>
+          <para>
+            If specified, the secure storage treats contents of the file as a
+            default password. When not set, password providers are used to
+            obtain a password.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -feature &lt;feature id&gt; (Runtime)
+        </option></term>
+        <listitem>
+          <para>
+            Set the identifier of the product being run. This controls various
+            branding information and what application is used.
+          </para>
+           <para>
+            This is equivalent to setting the property <emphasis>eclipse.product</emphasis> to &lt;feature
+            id&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -framework &lt;location&gt; (Main)
+        </option></term>
+        <listitem>
+        <para>
+            Set the URL location of the OSGi framework. Useful if the <command>Eclipse</command>
+            install is disjoint. See the On-line Help for details (SEE ALSO below).</para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.framework</emphasis> to
+            &lt;location&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -initialize (Main)
+        </option></term>
+        <listitem>
+          <para>
+            Initializes the configuration being run. All runtime related data
+            structures and caches are refreshed. Any user/plug-in defined
+            configuration data is not purged. No application is run, any
+            product specifications are ignored and no UI is presented (e.g.,
+            the splash screen is not drawn).
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -install &lt;location&gt; (Main)
+        </option></term>
+        <listitem>
+        <para>Set the install location of the platform. This option indicates the
+            location of the basic <command>Eclipse</command> plug-ins and is useful if the <command>Eclipse</command>
+            install is disjoint.</para>
+          <para>
+            This is equivalent to setting the property <emphasis>osgi.install.area</emphasis> to
+            &lt;location&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -keyring &lt;location&gt; (Runtime)
+        </option></term>
+        <listitem>
+          <para>
+            The location of the authorization database on disk. This argument
+            has to be used together with the <command>-password</command> argument.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          --launcher.library &lt;location&gt; (Executable)
+        </option></term>
+        <listitem>
+          <para>
+            The location of the <command>eclipse</command> executable's companion shared
+            library. If not specified the executable looks in the plugins
+            directory for the appropriate
+            <emphasis>org.eclipse.equinox.launcher.[platform] fragment</emphasis> with the highest
+            version and uses the shared library named <filename>eclipse_*</filename> inside.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          --launcher.ini &lt;location&gt; (Executable)
+        </option></term>
+        <listitem>
+          <para>
+            The location of the product .ini file to use. If not
+            specified the executable will look for a file beside the launcher
+            with the same name and the extension <filename>.ini</filename>. (ie., <filename>/usr/bin/eclipse</filename>
+            looks for <filename>eclipse.ini</filename>, <filename>/opt/product</filename> looks for
+            <filename>product.ini</filename>).
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          --launcher.suppressErrors (Executable)
+        </option></term>
+        <listitem>
+          <para>
+            If specified the executable will not display any error or message
+            dialogs. This is useful if the executable is being used in an
+            unattended situation.
+          </para>
+        </listitem>
+      </varlistentry>
+     <varlistentry>
+        <term><option>
+          --launcher.XXMaxPermSize &lt;value&gt; (Executable)
+        </option></term>
+        <listitem>
+          <para>
+            If specified, and the executable detects that the VM being used is
+            a Sun VM, then the launcher will automatically add the
+            <option>-XX:MaxPermSize=&lt;value&gt;</option> vm argument. The executable is
+            not capable of detecting Sun VMs on all
+            platforms.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -name &lt;string&gt;
+        </option></term>
+        <listitem>
+          <para>
+            The name to be displayed in task bar item when the application
+            starts up. When not set, the name is the name of the executable.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -nl &lt;locale&gt; (OSGi)
+        </option></term>
+        <listitem>
+          <para>
+            The name of the locale on which <command>Eclipse</command> platform will run. NL
+            values should follow the standard Java locale naming conventions.
+          </para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>osgi.nl</emphasis> to
+            &lt;locale&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -noExit (OSGi)
+        </option></term>
+        <listitem>
+          <para>
+            Disable automatic termination of the VM after the <command>eclipse</command>
+            application has ended. This is useful for examining the OSGi
+            framework after the <command>eclipse</command> application has ended.
+          </para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>osgi.noShutdown</emphasis> to
+            &quot;true&quot;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -noLazyRegistryCacheLoading (Runtime)
+        </option></term>
+        <listitem>
+          <para>
+            Deactivate the platform's plug-in registry cache loading
+            optimization. By default, configuration elements are
+            loaded from the registry cache (when available) only on demand,
+            reducing memory footprint. This option forces the registry cache to
+            be fully loaded at startup.
+          </para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>eclipse.noLazyRegistryCacheLoading</emphasis>
+            to &quot;true&quot;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -noRegistryCache (Runtime)
+        </option></term>
+        <listitem>
+          <para>
+            The internal extension registry cache will
+            neither be read nor written.
+          </para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>eclipse.noRegistryCache</emphasis>
+            to &quot;true&quot;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -noSplash (Executable, Main)
+        </option></term>
+        <listitem>
+          <para>
+            Controls whether or not the splash screen is shown.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -os &lt;operating system&gt; (OSGi)
+        </option></term>
+        <listitem>
+          <para>
+            The operating system value. The value should be one of the <command>Eclipse</command>
+            processor architecture names known to <command>Eclipse</command> (e.g., x86, sparc,
+            ...).
+          </para>          <para>
+            This is equivalent to setting the property
+            <emphasis>osgi.os</emphasis> to
+            &lt;operating system&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -password &lt;password&gt; (Runtime)
+        </option></term>
+        <listitem>
+          <para>
+            The password for the authorization database.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -pluginCustomization &lt;location&gt; (Runtime)
+        </option></term>
+        <listitem>
+          <para>
+            The file system location of a properties file containing default
+            settings for plug-in preferences. These default settings override
+            default settings specified in the primary feature. Relative paths
+            are interpreted relative to the current working directory for
+            <command>eclipse</command> itself.
+          </para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>eclipse.pluginCustomization</emphasis>
+            to &lt;location&gt;
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -product &lt;id&gt; (OSGi)
+        </option></term>
+        <listitem>
+          <para>
+            The identifier of the product being run. This controls various
+            branding information and what application is used.
+          </para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>eclipse.product</emphasis> to &lt;id&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -showSplash &lt;bitmap&gt; (Executable, Main)
+        </option></term>
+        <listitem>
+          <para>
+            Specifies the bitmap to use in the splash screen. If specified, the
+            launcher may be able to show the splash screen before starting the
+            Java VM. If not specified, Main will find the bitmap using
+            the <emphasis>osgi.splashLocation</emphasis> and <emphasis>osgi.splashPath</emphasis>
+            properties.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -startup &lt;location&gt; (Executable)
+        </option></term>
+        <listitem>
+          <para>
+            The location of jar used to startup <command>eclipse</command>. The jar referred to
+            should have the <emphasis>Main-Class</emphasis> attribute set to
+            <emphasis>org.eclipse.equinox.launcher.Main</emphasis>. If this parameter is not set,
+            the executable will look in the plugins directory for
+            the <emphasis>org.eclipse.equinox.launcher bundle</emphasis> with the highest
+            version.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -user &lt;location&gt; (OSGi)
+        </option></term>
+        <listitem>
+          <para>
+            Set the location of the user area. The user area contains data (e.g.,
+            preferences) specific to the OS user and independent of any <command>Eclipse</command>
+            install, configuration or instance. See the On-line Help for details (SEE ALSO below).
+          </para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>osgi.user.area</emphasis> to
+            &lt;location&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -vm &lt;path to java vm&gt; (Executable, Main)
+        </option></term>
+        <listitem>
+          <para>
+            When passed to the <command>Eclipse</command> executable, this option is used to
+            locate the Java VM to use to run <command>Eclipse</command>. It should be the full
+            file system path to an appropriate: Java<filename> jre/bin</filename> directory, Java
+            Executable, Java shared library (<filename>libjvm.so</filename>), or a Java
+            VM Execution Environment description file. If not specified,
+            the <command>Eclipse</command> executable uses a search algorithm to locate a suitable
+            VM. In any event, the executable then passes the path to the actual
+            VM used to Java Main using the <command>-vm</command> argument. Java Main then stores
+            this value in <emphasis>eclipse.vm</emphasis>.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -vmargs [vmargs*] (Executable, Main)
+        </option></term>
+        <listitem>
+          <para>
+            when passed to the <command>Eclipse</command>, this option is used to customize the
+            operation of the Java VM to use to run <command>Eclipse</command>. If specified, this
+            option must come at the end of the command line. Even if not
+            specified on the executable command line, the executable will
+            automatically add the relevant arguments (including the class being
+            launched) to the command line passed into Java using the <command>-vmargs</command>
+            argument. Java Main then stores this value in
+            <emphasis>eclipse.vmargs</emphasis>.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>
+          -ws &lt;window system&gt; (OSGi)
+        </option></term>
+        <listitem>
+          <para>
+            Set the window system value. The value should be one of the <command>Eclipse</command>
+            window system names known to <command>Eclipse</command> (e.g., win32, motif, ...).
+          </para>
+          <para>
+            This is equivalent to setting the property
+            <emphasis>osgi.ws</emphasis> to
+            &lt;window system&gt;.
+          </para>
+        </listitem>
+      </varlistentry>
+
+  </variablelist>
+</refsect1>
+
+<refsect1 id='see_also'><title>SEE ALSO</title>
+<para><citerefentry><refentrytitle>java</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+<citerefentry><refentrytitle>ecj</refentrytitle><manvolnum>1</manvolnum></citerefentry>.</para>
+<para><command>Eclipse</command> On-line Help <ulink url='http://help.eclipse.org/'>http://help.eclipse.org/</ulink>
+<glossterm>Platform Plug-in Developer Guide</glossterm> &gt; <glossterm>Reference</glossterm> &gt; <glossterm>Other reference information</glossterm>  &gt;
+<glossterm>Runtime Options</glossterm>.</para>
+
+</refsect1>
+
+<refsect1 id='files'><title>FILES</title>
+<para>The system wide config.ini file is <filename>/etc/eclipse.ini</filename>. User level Configuration file is
+<filename>$HOME/.eclipse/org.eclipse.platform_&lt;version&gt;_&lt;id&gt;/configuration/config.ini</filename>.</para>
+</refsect1>
+
+<refsect1 XrefLabel="AUTHORS" id="authors"><title>AUTHORS</title>
+<para>
+The <command>Eclipse</command> Project was originally created by IBM in November 2001 and
+supported by a consortium of software vendors. The <command>Eclipse</command> Foundation was
+created in January 2004 as an independent not-for-profit corporation to act as the steward of the
+<command>Eclipse</command> community.
+</para>
+<para>This manual page was semi-automatically transformed from the
+Runtime Options HTML help using <command>pandoc</command> and
+<command>docbook2x-man</command> by Pablo Duboue &lt;pablo.duboue@gmail.com&gt;.</para>
+
+</refsect1>
+</refentry>

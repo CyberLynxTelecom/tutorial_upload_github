@@ -1,0 +1,20 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Sat, 30 Jun 2012 21:46:44 +0200
+Subject: gnomeproxy-glib-2.32-compat
+
+---
+ eclipse/plugins/org.eclipse.core.net/natives/unix/gnomeproxy.c |    1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/eclipse/plugins/org.eclipse.core.net/natives/unix/gnomeproxy.c b/eclipse/plugins/org.eclipse.core.net/natives/unix/gnomeproxy.c
+index 870e0be..ccdc186 100644
+--- a/eclipse/plugins/org.eclipse.core.net/natives/unix/gnomeproxy.c
++++ b/eclipse/plugins/org.eclipse.core.net/natives/unix/gnomeproxy.c
+@@ -13,7 +13,6 @@
+ #include <jni.h>
+ 
+ #include <glib.h>
+-#include <glib/gslist.h>
+ #include <gconf/gconf-value.h>
+ #include <gconf/gconf-client.h>
+ 

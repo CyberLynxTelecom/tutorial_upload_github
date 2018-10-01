@@ -1,0 +1,44 @@
+From: Benjamin Drung <bdrung@ubuntu.com>
+Date: Thu, 15 Mar 2012 20:03:40 +0100
+Subject: eclipse-build-generatedScripts
+
+---
+ build.xml    |    4 ++--
+ pdebuild.xml |    2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index a9dcd6a..e8a2119 100644
+--- a/build.xml
++++ b/build.xml
+@@ -36,7 +36,7 @@
+ 		</or>
+ 	</condition>
+ 
+-	<available file="eclipse-build-generatedScripts.tar.bz2" property="scriptsPresent" value="true" />
++	<available file="${basedir}/debian/eclipse-build-generatedScripts.tar.bz2" property="scriptsPresent" value="true" />
+ 	<available file="eclipse-sdktests-${label}-src.tar.bz2" property="testsSourcePresent" value="true" />
+ 	<available file="eclipse-sdktests-${label}-scripts.tar.bz2" property="testsScriptsPresent" value="true" />
+ 
+@@ -148,7 +148,7 @@
+ 	</target>
+ 
+ 	<target name="extractBuildXmls" if="scriptsPresent">
+-		<untar compression="bzip2" dest="${basedir}/build/eclipse-${label}-src" src="${basedir}/eclipse-build-generatedScripts.tar.bz2" />
++		<untar compression="bzip2" dest="${basedir}/build/eclipse-${label}-src" src="${basedir}/debian/eclipse-build-generatedScripts.tar.bz2" />
+ 	<exec executable="${basedir}/jasper7.sh">
+ 		<arg value="${label}"/>
+ 	</exec>
+diff --git a/pdebuild.xml b/pdebuild.xml
+index 2176099..74648b5 100644
+--- a/pdebuild.xml
++++ b/pdebuild.xml
+@@ -154,7 +154,7 @@
+ 			         includes="${generatedBuildXmls}" />
+ 		</copy>
+ 
+-		<tar destfile="eclipse-build-generatedScripts.tar.bz2"
++		<tar destfile="debian/eclipse-build-generatedScripts.tar.bz2"
+ 		     compression="bzip2"
+ 		     basedir="generatedScripts"
+ 		     includes="**/*" />

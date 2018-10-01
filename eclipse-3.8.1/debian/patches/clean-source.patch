@@ -1,0 +1,64 @@
+From: Benjamin Drung <bdrung@ubuntu.com>
+Date: Thu, 15 Mar 2012 20:03:39 +0100
+Subject: clean-source
+
+---
+ buildSDKSource.sh |   25 ++++++++++++++++++++-----
+ 1 files changed, 20 insertions(+), 5 deletions(-)
+
+diff --git a/buildSDKSource.sh b/buildSDKSource.sh
+index 6761075..e67ed1c 100755
+--- a/buildSDKSource.sh
++++ b/buildSDKSource.sh
+@@ -205,14 +205,14 @@ cd "${fetchDirectory}"
+ rm -rf ecfBundles orbitRepo
+ 
+ # Remove files from the version control system
+-find -depth -name CVS -exec rm -rf {} \;
++find -depth \( -name CVS -o -name .cvsignore \) -exec rm -rf {} \;
+ 
+ # Remove prebuilt binaries
+ find \( -name '*.exe' -o -name '*.dll' \) -delete
+ find -type f \( -name '*.so' -o -name '*.so.2' -o -name '*.a' \) -delete
+ find \( -name '*.sl' -o -name '*.jnilib' \) -delete
+ find features/org.eclipse.equinox.executable -name eclipse -delete
+-find \( -name '*.cvsignore' \) -delete
++find -name '*.xpt' -delete
+ 
+ # Remove unnecessary repo
+ rm -rf tempSite
+@@ -239,9 +239,6 @@ for f in \
+ done;
+ popd
+ 
+-# Remove binary JARs
+-find -type f -name '*.jar' -delete
+-
+ # Remove fetch logs
+ rm fetch_*
+ 
+@@ -252,6 +249,24 @@ rm -rf plugins/*.examples*
+ # Remove temporary files
+ find -name '*.orig' -delete
+ 
++# Remove binary JARs
++find -type f -name '*.jar' -delete
++find -name '*.class' -delete
++
++# Extract source .zip files
++cd plugins/org.eclipse.osgi.services
++unzip src.zip -d src
++cd ../org.eclipse.osgi.util
++unzip src.zip -d src
++cd ../..
++# Remove zip files
++find -name '*.zip' -delete
++
++# Correct permissions
++find -type d -print0 | xargs -0 chmod 755
++find -type f -print0 | xargs -0 chmod 644
++find -type f -name '*.sh' -print0 | xargs -0 chmod 755
++
+ # Remove empty directories
+ find -type d -empty -delete
+ 

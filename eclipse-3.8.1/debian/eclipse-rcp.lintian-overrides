@@ -1,0 +1,4 @@
+jar-not-in-usr-share
+codeless-jar
+# False positive, no fortifiable functions used
+hardening-no-fortify-functions usr/lib/eclipse/configuration/org.eclipse.osgi/bundles/*/*/.cp/os/linux/*/libunixfile_1_0_0.so

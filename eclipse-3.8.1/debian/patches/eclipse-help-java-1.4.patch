@@ -1,0 +1,17 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Fri, 16 Mar 2012 23:44:54 +0100
+Subject: eclipse-help-java-1.4
+
+---
+ .../plugins/org.eclipse.help.base/build.properties |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/eclipse/plugins/org.eclipse.help.base/build.properties b/eclipse/plugins/org.eclipse.help.base/build.properties
+index c3afbcf..863a963 100644
+--- a/eclipse/plugins/org.eclipse.help.base/build.properties
++++ b/eclipse/plugins/org.eclipse.help.base/build.properties
+@@ -30,3 +30,4 @@ jars.compile.order = .,\
+ source.ant_tasks/helpbase-ant.jar = src_ant/
+ jars.extra.classpath = platform:/plugin/org.apache.ant/lib/ant.jar
+ javacWarnings..=-unchecked,raw
++javacTarget=jsr14

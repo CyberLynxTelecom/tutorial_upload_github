@@ -1,0 +1,41 @@
+From: Niels Thykier <niels@thykier.net>
+Date: Thu, 15 Mar 2012 20:03:39 +0100
+Subject: fix-help-contents
+
+---
+ .../internal/jsp/jasper/JspClassLoader.java        |   15 +++++++++++++++
+ 1 files changed, 15 insertions(+), 0 deletions(-)
+
+diff --git a/eclipse/plugins/org.eclipse.equinox.jsp.jasper/src/org/eclipse/equinox/internal/jsp/jasper/JspClassLoader.java b/eclipse/plugins/org.eclipse.equinox.jsp.jasper/src/org/eclipse/equinox/internal/jsp/jasper/JspClassLoader.java
+index cc1c97b..9c634aa 100644
+--- a/eclipse/plugins/org.eclipse.equinox.jsp.jasper/src/org/eclipse/equinox/internal/jsp/jasper/JspClassLoader.java
++++ b/eclipse/plugins/org.eclipse.equinox.jsp.jasper/src/org/eclipse/equinox/internal/jsp/jasper/JspClassLoader.java
+@@ -20,6 +20,7 @@ import java.util.Enumeration;
+ import java.util.StringTokenizer;
+ 
+ import org.osgi.framework.Bundle;
++import org.osgi.framework.BundleContext;
+ import org.osgi.framework.Constants;
+ 
+ /**
+@@ -75,6 +76,20 @@ public class JspClassLoader extends URLClassLoader {
+ 	private void addBundleClassPathJars(Bundle bundle) {
+ 		Dictionary headers = bundle.getHeaders();
+ 		String classPath = (String) headers.get(Constants.BUNDLE_CLASSPATH);
++		BundleContext context = bundle.getBundleContext();
++		Bundle[] inner = context.getBundles();
++		for(int i = 0 ; i < inner.length ; i++){
++		    String loc = inner[i].getLocation();
++		    if(loc.startsWith("reference:file:plugins/")){
++			String p = loc.replaceFirst("^reference:file:", "file:///usr/lib/eclipse/");
++			try {
++			    URL u = new URL(p);
++			    super.addURL(u);
++			} catch(Exception e){
++			    e.printStackTrace();
++			}
++		    }
++		}
+ 		if (classPath != null) {
+ 			StringTokenizer tokenizer = new StringTokenizer(classPath, ","); //$NON-NLS-1$
+ 			while (tokenizer.hasMoreTokens()) {

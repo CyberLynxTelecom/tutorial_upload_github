@@ -1,0 +1,42 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Wed, 6 Jun 2012 21:11:28 +0200
+Subject: eclipse-help-fix-jsp-precompilation
+
+---
+ .../plugins/org.eclipse.help.webapp/buildJSPs.xml  |   20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/eclipse/plugins/org.eclipse.help.webapp/buildJSPs.xml b/eclipse/plugins/org.eclipse.help.webapp/buildJSPs.xml
+index 3b11f1b..8dd3353 100644
+--- a/eclipse/plugins/org.eclipse.help.webapp/buildJSPs.xml
++++ b/eclipse/plugins/org.eclipse.help.webapp/buildJSPs.xml
+@@ -55,11 +55,27 @@
+ 	<!-- Compile the JSPs                                                      -->
+ 	<!-- ===================================================================== -->
+ 	<target name="compile">
+-		
++
++		<path id="class_path" >
++                        <path refid="@dot.classpath"/>
++                        <fileset dir="..">
++                                <patternset>
++                                        <include name="javax.servlet*.jar"/>
++                                        <include name="javax.servlet.jsp*.jar"/>
++                                        <include name="org.apache.ant*/lib/ant.jar"/>
++                                        <include name="org.apache.commons.el*.jar"/>
++                                        <include name="org.apache.commons.logging*.jar"/>
++                                        <include name="org.apache.jasper*.jar"/>
++                                        <include name="org.eclipse.help*.jar"/>
++                                        <include name="org.eclipse.help.base*.jar"/>
++                                </patternset>
++                        </fileset>
++                </path>
++
+ 		<!-- Invoke Jasper compiler -->
+ 		<java
+ 			classname="org.apache.jasper.JspC"
+-			classpathref="@dot.classpath"
++			classpathref="class_path"
+ 			fork="true"
+ 			failonerror="true">
+ 			<jvmarg value="-Dorg.apache.jasper.compiler.disablejsr199=true"/>

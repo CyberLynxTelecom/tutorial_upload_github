@@ -1,0 +1,21 @@
+From: Debian Orbital Alignment Team
+ <pkg-java-maintainers@lists.alioth.debian.org>
+Date: Thu, 15 Mar 2012 20:03:38 +0100
+Subject: forceContextQualifier
+
+---
+ build.properties |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/build.properties b/build.properties
+index 4eff621..79fbd75 100644
+--- a/build.properties
++++ b/build.properties
+@@ -24,6 +24,7 @@ p2.artifact.repo = file:${repo}
+ p2.flavor = tooling
+ p2.publish.artifacts=true
+ generateAPIDescription=false
++forceContextQualifier = dist
+ 
+ collectingFolder=eclipse
+ archivePrefix=eclipse

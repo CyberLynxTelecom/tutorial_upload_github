@@ -1,0 +1,159 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Tue, 5 Jun 2012 20:55:55 +0200
+Subject: eclipse-add-archs-net
+
+---
+ eclipse/features/org.eclipse.platform/feature.xml |  120 +++++++++++++++++++++
+ 1 file changed, 120 insertions(+)
+
+Index: b/eclipse/features/org.eclipse.platform/feature.xml
+===================================================================
+--- a/eclipse/features/org.eclipse.platform/feature.xml
++++ b/eclipse/features/org.eclipse.platform/feature.xml
+@@ -114,6 +114,146 @@
+          unpack="false"/>
+          
+    <plugin
++         id="org.eclipse.core.net.linux.alpha"
++         os="linux"
++         arch="alpha"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.arm"
++         os="linux"
++         arch="arm"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.aarch64"
++         os="linux"
++         arch="aarch64"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.ia64"
++         os="linux"
++         arch="ia64"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.mips"
++         os="linux"
++         arch="mips"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.mipsel"
++         os="linux"
++         arch="mipsel"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.PA_RISC"
++         os="linux"
++         arch="PA_RISC"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.ppc"
++         os="linux"
++         arch="ppc"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.ppc64"
++         os="linux"
++         arch="ppc64"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.ppc64le"
++         os="linux"
++         arch="ppc64le"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.s390"
++         os="linux"
++         arch="s390"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.s390x"
++         os="linux"
++         arch="s390x"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.sparc"
++         os="linux"
++         arch="sparc"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
++         id="org.eclipse.core.net.linux.sparc64"
++         os="linux"
++         arch="sparc64"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         fragment="true"
++         unpack="false"/>
++
++   <plugin
+          id="org.eclipse.core.net.linux.x86_64"
+          os="linux"
+          arch="x86_64"

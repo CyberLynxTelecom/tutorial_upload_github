@@ -1,0 +1,22 @@
+From: Niels Thykier <niels@thykier.net>
+Date: Thu, 15 Mar 2012 20:03:40 +0100
+Subject: osgi-services
+
+---
+ build.xml |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index 1fe9a95..f79fda2 100644
+--- a/build.xml
++++ b/build.xml
+@@ -381,6 +381,9 @@
+ 		<patch patchfile="${basedir}/patches/swt-no-api-generation.patch" dir="${buildDirectory}" strip="0" />
+ 
+ 		<patch patchfile="${basedir}/patches/add-plugin-version-of-arm-launcher-fragment.patch" dir="${buildDirectory}" strip="1" />
++
++                <delete dir="${buildDirectory}/plugins/org.eclipse.equinox.io/" />
++                <delete dir="${buildDirectory}/plugins/org.eclipse.osgi.services/src/org/osgi/service/io/" />
+ 		<echo file="patch-stamp" />
+ 	</target>
+ 

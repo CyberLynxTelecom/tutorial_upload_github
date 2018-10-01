@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Created-By: 1.5.0_11 (Sun Microsystems Inc.)
+Bundle-License: ... TODO
+Import-Package: javax.security.auth.x500
+Bundle-RequiredExecutionEnvironment: OSGi/Minimum-1.2
+Include-Resource: legal/about.html, legal/LICENSE
+Bnd-LastModified: 1240835506397
+Export-Package: java.security.interfaces,java.lang,java.net,java.secur
+ ity,java.text,java.security.spec,java.security.acl,java.lang.reflect,
+ java.util,java.lang.ref,java.security.cert;uses:="javax.security.auth
+ .x500",java.io,java.util.zip,java.math,java.util.jar,javax.security.a
+ uth.x500
+Bundle-Version: 1.2.0.200904270831
+Bundle-Copyright: Copyright (c) OSGi Alliance (2000, 2009). All Rights
+  Reserved.
+Bundle-Name: ee.minimum
+Bundle-Description: Contains the OSGi minimum execution environment st
+ ubbed classes and sources
+Private-Package: .
+Bundle-Vendor: OSGi Alliance
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: ee.minimum
+Tool: Bnd-0.0.319
+

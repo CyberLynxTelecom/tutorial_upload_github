@@ -1,0 +1,35 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Thu, 29 Dec 2011 00:45:27 +0100
+Subject: set-shared-config-dir
+
+When uninstalling the initializer, set custom shared config directory
+to prevent our ~/.eclipse to pollute the configuration of freshly
+built Eclipse.
+---
+ build.xml |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index f3ce428..3f5a3c3 100644
+--- a/build.xml
++++ b/build.xml
+@@ -791,9 +791,9 @@
+                         <arg line="-p2.os ${p2.os}" />
+                         <arg line="-p2.ws ${p2.ws}" />
+                         <arg line="-p2.arch ${p2.arch}" />
+-                        <arg line="${p2.director.extraArgs}" />
+                         <arg line="-metadatarepository file:${p2.repo}" />
+                         <arg line="-artifactrepository file:${p2.repo}" />
++                        <arg line="${p2.director.extraArgs}" />
+                 </exec>
+         </target>
+ 
+@@ -880,7 +880,7 @@
+                         <param name="p2.director.uninstallIU" value="org.eclipse.equinox.initializer" />
+                         <param name="p2.director.profile" value="PlatformProfile" />
+                         <param name="p2.director.install.path" value="${installationDir}" />
+-                        <param name="p2.director.extraArgs" value="-purgeHistory" />
++                        <param name="p2.director.extraArgs" value="-purgeHistory -vmargs -Dosgi.sharedConfiguration.area=${installationDir}/configuration" />
+ 			<param name="p2.os" value="linux" />
+                         <param name="p2.ws" value="gtk" />
+                         <param name="p2.arch" value="${buildArch}" />

@@ -1,0 +1,26 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Sun, 15 Jan 2012 16:47:18 +0100
+Subject: add-o.e.equinox.log
+
+---
+ eclipse/features/org.eclipse.rcp/feature.xml |    7 +++++++
+ 1 files changed, 7 insertions(+), 0 deletions(-)
+
+diff --git a/eclipse/features/org.eclipse.rcp/feature.xml b/eclipse/features/org.eclipse.rcp/feature.xml
+index e1db66f..0e7e15a 100644
+--- a/eclipse/features/org.eclipse.rcp/feature.xml
++++ b/eclipse/features/org.eclipse.rcp/feature.xml
+@@ -321,6 +321,13 @@
+          unpack="false"/>
+ 
+    <plugin
++         id="org.eclipse.equinox.log"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         unpack="false"/>
++
++   <plugin
+          id="org.eclipse.equinox.util"
+          download-size="0"
+          install-size="0"

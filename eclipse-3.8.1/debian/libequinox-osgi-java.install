@@ -1,0 +1,3 @@
+usr/lib/eclipse/plugins/org.eclipse.osgi.services_*.jar
+usr/lib/eclipse/plugins/org.eclipse.osgi.util_*.jar
+usr/lib/eclipse/plugins/org.eclipse.osgi_*.jar

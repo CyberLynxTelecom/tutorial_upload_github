@@ -1,0 +1,78 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Fri, 23 Mar 2012 18:47:21 +0100
+Subject: jdt-junit4-fix
+
+---
+ build.xml                                       |   20 --------------------
+ dependencies/jdtnonosgidependencies.properties  |    7 +++++--
+ eclipse/features/org.eclipse.jdt/feature.xml    |    2 +-
+ eclipse/plugins/org.junit4/META-INF/MANIFEST.MF |    2 +-
+ 4 files changed, 7 insertions(+), 24 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index 578b1e8..a12fbea 100644
+--- a/build.xml
++++ b/build.xml
+@@ -419,26 +419,6 @@
+ 			<regexp pattern="^SHA1-Digest.*" />
+ 			<substitution expression="" />
+ 		</replaceregexp>
+-		<replaceregexp file="${buildDirectory}/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/META-INF/MANIFEST.MF" flags="m,g,s">
+-			<regexp pattern="^Name.*" />
+-			<substitution expression="" />
+-		</replaceregexp>
+-		<replaceregexp file="${buildDirectory}/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/META-INF/MANIFEST.MF" flags="m,g,s">
+-			<regexp pattern="^SHA1-Digest.*" />
+-			<substitution expression="" />
+-		</replaceregexp>
+-		<replaceregexp file="${buildDirectory}/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/META-INF/MANIFEST.MF" flags="m,g,s">
+-			<regexp pattern="junit\.jar" />
+-			<substitution expression="\." />
+-		</replaceregexp>
+-
+-		<jar destfile="${buildDirectory}/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100.jar" manifest="${buildDirectory}/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/META-INF/MANIFEST.MF">
+-			<fileset dir="${buildDirectory}/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/"/>
+-			<zipfileset src="/usr/share/java/junit.jar"/>
+-		</jar>
+-
+-		<delete dir="${buildDirectory}/plugins/org.junit_4.8.2.v4_8_2_v20110321-1705/"/>
+-		<delete dir="${buildDirectory}/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/"/>
+ 
+ 		<!-- Create a stamp file -->
+ 		<echo file="symlinks-stamp" />
+diff --git a/dependencies/jdtnonosgidependencies.properties b/dependencies/jdtnonosgidependencies.properties
+index 3971e85..350712d 100644
+--- a/dependencies/jdtnonosgidependencies.properties
++++ b/dependencies/jdtnonosgidependencies.properties
+@@ -1,2 +1,5 @@
+-org.junit4/junit.jar=/usr/share/java/junit.jar
+-org.junit_4.8.2.v4_8_2_v20110321-1705.jar=/usr/share/java/junit.jar
++org.junit4/junit.jar=/usr/share/java/junit4.jar
++org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar=/usr/share/java/junit4.jar
++org.junit_3.8.2.v3_8_2_v20100427-1100/junit.jar=/usr/share/java/junit.jar
++org.junit_4.8.2.dist/junit.jar=/usr/share/java/junit4.jar
++org.junit_3.8.2.dist/junit.jar=/usr/share/java/junit.jar
+diff --git a/eclipse/features/org.eclipse.jdt/feature.xml b/eclipse/features/org.eclipse.jdt/feature.xml
+index 353e1f8..584d808 100644
+--- a/eclipse/features/org.eclipse.jdt/feature.xml
++++ b/eclipse/features/org.eclipse.jdt/feature.xml
+@@ -155,7 +155,7 @@
+          id="org.junit"
+          download-size="0"
+          install-size="0"
+-         version="4.10.0.qualifier"/>
++         version="4.8.2.qualifier"/>
+ 
+    <plugin
+          id="org.junit"
+diff --git a/eclipse/plugins/org.junit4/META-INF/MANIFEST.MF b/eclipse/plugins/org.junit4/META-INF/MANIFEST.MF
+index a20fb01..b5113fe 100644
+--- a/eclipse/plugins/org.junit4/META-INF/MANIFEST.MF
++++ b/eclipse/plugins/org.junit4/META-INF/MANIFEST.MF
+@@ -7,5 +7,5 @@ Bundle-Localization: plugin
+ Bundle-RequiredExecutionEnvironment: J2SE-1.5
+ Bundle-Vendor: %providerName
+ Require-Bundle: org.hamcrest.core;bundle-version="1.1.0";visibility:=reexport,
+- org.junit;bundle-version="4.8.1";visibility:=reexport
++ org.junit;bundle-version="4.7.0";visibility:=reexport
+ Eclipse-BundleShape: dir

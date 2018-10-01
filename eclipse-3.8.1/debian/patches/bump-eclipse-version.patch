@@ -1,0 +1,68 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Sat, 5 May 2012 22:21:56 +0200
+Subject: bump-eclipse-version
+
+---
+ build.properties            |    4 ++--
+ buildSDKSource.sh           |    4 ++--
+ pdebuild.properties         |    4 ++--
+ regenerateBootstrapFiles.sh |    2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/build.properties b/build.properties
+index 366bbe1..8f4f820 100644
+--- a/build.properties
++++ b/build.properties
+@@ -1,7 +1,7 @@
+ #baseLocation=${basedir}/bootstrap
+ # Note:  this is also in pdebuild.properties
+-buildId=I20120320-1400
+-label=3.8.0-I20120320-1400
++buildId=debbuild
++label=3.8.1
+ EMFlabel=2.7.0
+ testsBuildLabel=3.8.0-I20120320-1400
+ testframework=org.eclipse.test_3.3.100
+diff --git a/buildSDKSource.sh b/buildSDKSource.sh
+index 83f418c..aeaddc7 100755
+--- a/buildSDKSource.sh
++++ b/buildSDKSource.sh
+@@ -6,10 +6,10 @@ workDirectory=
+ baseBuilder=
+ eclipseBuilder=
+ 
+-buildID="I20120320-1400"
++buildID="debbuild"
+ baseBuilderTag="R4_2_primary"
+ eclipseBuilderTag="R4_2_primary"
+-label="3.8.0-I20120320-1400"
++label="3.8.1"
+ fetchTests="yes"
+ 
+ usage="usage:  <build ID> [-workdir <working directory>] [-baseBuilder <path to org.eclipse.releng.basebuilder checkout>] [-eclipseBuilder <path to org.eclipse.releng.eclipsebuilder checkout>] [-baseBuilderTag <org.eclipse.releng.basebuilder tag to check out>] [-noTests]"
+diff --git a/pdebuild.properties b/pdebuild.properties
+index 94f0cd2..b87aa59 100644
+--- a/pdebuild.properties
++++ b/pdebuild.properties
+@@ -2,8 +2,8 @@ buildArch=x86
+ ws=gtk
+ os=linux
+ 
+-buildId=I20120320-1400
+-label=3.8.0-I20120320-1400
++buildId=debbuild
++label=3.8.1
+ bootclasspath=/usr/lib/jvm/java/jre/lib/rt.jar:/usr/lib/jvm/java/jre/lib/jce.jar:/usr/lib/jvm/default-java/jre/lib/rt.jar:/usr/lib/jvm/default-java/jre/lib/jce.jar:/usr/lib64/jvm/java/jre/lib/rt.jar:/usr/lib64/jvm/java/jre/lib/jce.jar
+ #build.compiler=org.eclipse.jdt.core.JDTCompilerAdapter
+ 
+diff --git a/regenerateBootstrapFiles.sh b/regenerateBootstrapFiles.sh
+index d9f0b42..cfbf84a 100755
+--- a/regenerateBootstrapFiles.sh
++++ b/regenerateBootstrapFiles.sh
+@@ -18,5 +18,5 @@ $launcherDir/plugins/org.eclipse.equinox.launcher_*.jar \
+ -application org.eclipse.ant.core.antRunner \
+ -f pdebuild.xml generateScripts \
+ -DskipBase=true \
+--DsdkSource=build/eclipse-3.8.0-I20120320-1400-src \
++-DsdkSource=build/eclipse-3.8.1-src \
+ 2>&1 | tee ./generatePdeBuildScripts.log

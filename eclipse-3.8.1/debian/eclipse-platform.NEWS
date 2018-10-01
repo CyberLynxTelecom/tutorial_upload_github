@@ -1,0 +1,39 @@
+eclipse-platform (3.5.2-6) unstable; urgency=low
+
+  The upgrade of eclipse may cause plugins to silently disappear.
+  The exact reason has yet to be determined and we are looking for
+  an automatic solution for this problem.
+  
+  There are two known workarounds; one is two completely remove
+  ~/.eclipse and re-install all user plugins. The other is to
+  manually merge "bundles.info" from ~/.eclipse with the
+  "bundles.info" from /usr/lib/eclipse. This solution is slightly
+  more complicated, but appears to restore user installed plugins
+  without having to reinstall them.
+  
+  For more information on how to merge the bundles.info files,
+  you may want to have a look at #587657[1].
+  
+  Note: this issue may also affect plugins installed via packages
+  from repositories (such as the packages eclipse-emf and
+  eclipse-rse).
+  
+  [1] http://bugs.debian.org/587657
+
+ -- Niels Thykier <niels@thykier.net>  Mon, 13 Sep 2010 20:06:13 +0200
+
+eclipse-platform (3.5.2-1) unstable; urgency=low
+
+  In previous versions of eclipse (<< 3.5), it would extract shared
+  libraries to users ~/.eclipse. This has been fixed in the 3.5
+  series, but means that eclipse will have issues starting if you are
+  upgrading from an eclipse older than 3.5. Removing or renaming
+  ~/.eclipse fixes this at the cost of losing personal configuration.
+
+  In 3.5 all the "choose a suitable JVM" code has been removed and
+  instead eclipse now respect alternatives. Old configuration files
+  for this purpose (including the user file ~/.eclipse/eclipserc) is
+  now obsolete and will be silently ignored.
+
+ -- Debian Orbital Alignment Team <pkg-java-maintainers@lists.alioth.debian.org>  Thu, 18 Mar 2010 12:13:51 +0100
+

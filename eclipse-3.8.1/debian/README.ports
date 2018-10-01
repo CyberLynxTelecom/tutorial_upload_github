@@ -1,0 +1,96 @@
+To make Eclipse build on a new architecture, a few files have to be updated in
+the source tree. Some of them are patches from eclipse-build project that patch
+the actual Eclipse sources (yes, you have to patch the patches!).
+
+The following is a list of Eclipse source files which must be changed. When some
+of them has to be patched through eclipse-build patch, it's mentioned which one
+you sould update. Replace <arch> with name of the architecture.
+
+eclipse-build-config/productFiles/rcpConfig/build.properties
+------------------------------------------------------------
+Add following lines:
+
+root.linux.gtk.<arch>=absolute:${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.<arch>,absolute:${buildDirectory}/features/org.eclipse.equinox.executable/bin/gtk/linux/<arch>
+root.linux.gtk.<arch>.permissions.755=*.so*
+
+eclipse/features/org.eclipse.equinox.executable/target.build.properties
+-----------------------------------------------------------------------
+Add following lines (via patches/eclipse-add-archs-executable.patch):
+
+root.linux.gtk.<arch>=bin/gtk/linux/<arch>,gtk_root
+root.linux.gtk.<arch>.permissions.755=libcairo-swt.so
+
+eclipse/features/org.eclipse.equinox.executable/feature.xml
+-----------------------------------------------------------
+Add new plugin element (via patches/eclipse-add-archs-executable.patch):
+
+<plugin
+  id="org.eclipse.equinox.launcher.gtk.linux.<arch>"
+  os="linux"
+  ws="gtk"
+  arch="<arch>"
+  download-size="0"
+  install-size="0"
+  version="0.0.0"
+  fragment="true"/>
+
+eclipse/plugins/org.eclipse.core.runtime/src/org/eclipse/core/internal/runtime/InternalPlatform.java
+----------------------------------------------------------------------------------------------------
+Add item into ARCH_LIST array:
+
+Platform.ARCH_<arch>
+
+eclipse/plugins/org.eclipse.core.runtime/src/org/eclipse/core/runtime/Platform.java
+-----------------------------------------------------------------------------------
+Add string constant:
+
+public static final String ARCH_<arch> = "<arch>";//$NON-NLS-1$
+
+eclipse/plugins/org.eclipse.osgi/eclipseAdaptor/src/org/eclipse/core/runtime/internal/adaptor/PluginConverterImpl.java
+----------------------------------------------------------------------------------------------------------------------
+Add item into ARCH_LIST array:
+
+org.eclipse.osgi.service.environment.Constants.ARCH_<arch>
+
+eclipse/plugins/org.eclipse.osgi/supplement/src/org/eclipse/osgi/service/environment/Constants.java
+---------------------------------------------------------------------------------------------------
+Add string constant:
+
+public static final String ARCH_<arch> = "<arch>";//$NON-NLS-1$
+
+eclipse/features/org.eclipse.platform/feature.xml
+-------------------------------------------------
+Add new plugin element (via patches/eclipse-add-archs-filesystem.patch):
+
+<plugin
+  id="org.eclipse.core.filesystem.linux.<arch>"
+  os="linux"
+  arch="<arch>"
+  download-size="0"
+  install-size="0"
+  version="0.0.0"
+  fragment="true"
+  unpack="false"/>
+
+Add new plugin element (via patches/eclipse-add-archs-net.patch):
+
+<plugin
+  id="org.eclipse.core.net.linux.<arch>"
+  os="linux"
+  arch="<arch>"
+  download-size="0"
+  install-size="0"
+  version="0.0.0"
+  fragment="true"
+  unpack="false"/>
+
+build.xml
+---------
+In target generateSecondaryFragments add:
+
+For 64bit platform:
+<generateArch newArch="<arch>" archBase="x86_64"/>
+
+For 32bit platform:
+<generateArch newArch="<arch>" archBase="x86"/>
+

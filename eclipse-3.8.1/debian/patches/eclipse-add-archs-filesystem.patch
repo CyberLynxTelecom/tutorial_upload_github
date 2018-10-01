@@ -1,0 +1,64 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Tue, 4 Dec 2012 19:59:07 +0100
+Subject: eclipse-add-archs-filesystem
+
+---
+ patches/eclipse-add-archs-filesystem.patch |   12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+Index: b/patches/eclipse-add-archs-filesystem.patch
+===================================================================
+--- a/patches/eclipse-add-archs-filesystem.patch
++++ b/patches/eclipse-add-archs-filesystem.patch
+@@ -1,6 +1,6 @@
+ --- a/features/org.eclipse.platform/feature.xml
+ +++ b/features/org.eclipse.platform/feature.xml
+-@@ -445,6 +445,116 @@
++@@ -565,6 +565,146 @@
+           version="0.0.0"
+           fragment="true"
+           unpack="false"/>
+@@ -26,6 +26,16 @@
+ +         unpack="false"/>
+ +	 
+ +   <plugin
+++         id="org.eclipse.core.filesystem.linux.aarch64"
+++         os="linux"
+++         arch="aarch64"
+++         download-size="0"
+++         install-size="0"
+++         version="0.0.0"
+++         fragment="true"
+++         unpack="false"/>
+++	 
+++   <plugin
+ +         id="org.eclipse.core.filesystem.linux.ia64"
+ +         os="linux"
+ +         arch="ia64"
+@@ -112,6 +122,26 @@
+ +         download-size="0"
+ +         install-size="0"
+ +         version="0.0.0"
+++         fragment="true"
+++         unpack="false"/>
+++
+++   <plugin
+++         id="org.eclipse.core.filesystem.linux.ppc64"
+++         os="linux"
+++         arch="ppc64"
+++         download-size="0"
+++         install-size="0"
+++         version="0.0.0"
+++         fragment="true"
+++         unpack="false"/>
+++
+++   <plugin
+++         id="org.eclipse.core.filesystem.linux.ppc64le"
+++         os="linux"
+++         arch="ppc64le"
+++         download-size="0"
+++         install-size="0"
+++         version="0.0.0"
+ +         fragment="true"
+ +         unpack="false"/>
+  

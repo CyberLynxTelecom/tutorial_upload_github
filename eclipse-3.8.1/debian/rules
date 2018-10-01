@@ -1,0 +1,139 @@
+#!/usr/bin/make -f
+
+export JAVA_HOME=/usr/lib/jvm/default-java
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	dh_auto_build -- provision.cvs
+
+override_dh_auto_clean:
+	ant distclean
+	mh_clean
+	rm -rf bootstrap/configuration/org.eclipse.update \
+	  bootstrap/environment/ee.minimum.jar
+
+override_dh_auto_install:
+	ant installSDKinDropins -Dprefix=/usr -DdestDir=$(CURDIR)/debian/tmp
+
+DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+CFG_OSGI_BUNDLES_PATH = debian/eclipse-rcp/usr/lib/eclipse/configuration/org.eclipse.osgi/bundles
+JNI_SO_PATH := $(CFG_OSGI_BUNDLES_PATH)/*/1/.cp
+LAUNCHER_LIB = debian/eclipse-rcp/usr/lib/eclipse/plugins/org.eclipse.equinox.launcher.*/eclipse_*.so
+
+# This has to go in an arch package, as some of the version numbers
+# depend on which arch it was build one.
+COPY_PLATFORM:=/usr/lib/eclipse/buildscripts/copy-platform
+COPY_PLATFORM_INSTALL:=debian/tmp$(COPY_PLATFORM)
+PDEBUILD_INSTALL:=debian/tmp/usr/lib/eclipse/buildscripts/pde-build
+PDEBUILDVERSION = $(shell ls debian/tmp/usr/lib/eclipse/dropins/sdk/plugins | grep org.eclipse.pde.build_ | sed 's/org.eclipse.pde.build_//')
+
+override_dh_install-arch:
+	# move jdt from /usr/lib to /usr/share
+	cd debian/tmp/usr && mkdir -p share/eclipse/dropins && mv lib/eclipse/dropins/jdt share/eclipse/dropins
+	# move images from /usr/lib to /usr/share
+	cd debian/tmp/usr && find lib/ -type f \( -name '*.bmp' -o -name '*.gif' -o -name '*.jpg' -o -name '*.png' \) | perl ../../../debian/extra/imagemv.pl
+	# remove extra license files
+	rm -f debian/tmp/usr/lib/eclipse/plugins/org.apache.ant_*/about_files/LICENSE* \
+		debian/tmp/usr/lib/eclipse/epl-v10.html \
+		debian/tmp/usr/lib/eclipse/about_files/lgpl-v21.txt \
+		debian/tmp/usr/lib/eclipse/about_files/mpl-v11.txt \
+		debian/tmp/usr/lib/eclipse/about_files/webkit-bsd.txt \
+		debian/tmp/usr/lib/eclipse/about_files/pixman-licenses.txt \
+		debian/tmp/usr/lib/eclipse/about_files/about_cairo.html
+	find debian/tmp/usr/lib/eclipse/dropins -type f -name LICENSE*.txt -delete
+	# Remove symlink and some cruft installed by the upstream install
+	rm -fr debian/tmp/usr/bin/*
+	# install the wrapper script
+	cp debian/extra/eclipse debian/tmp/usr/bin/
+	chmod 755 debian/tmp/usr/bin/eclipse
+	# Correct the profile in config.ini - else eclipse will refuse to open the update/install menus.
+	sed -i 's/SDKProfile/PlatformProfile/' debian/tmp/usr/lib/eclipse/configuration/config.ini
+	# Set a saner default file limit than "unlimited".
+	echo 'osgi.bundlefile.limit=100' >> debian/tmp/usr/lib/eclipse/configuration/config.ini
+	# Remove the unnecessary configuration data (taken from Fedora spec)
+	find debian/tmp/usr/lib/eclipse -depth -type d -empty -delete
+	# fix permissions of scripts
+	### FIXME - update to the new dropins layout (steal from fedora-spec file)
+	chmod +x debian/tmp/usr/lib/eclipse/dropins/sdk/plugins/org.eclipse.pde.build_*/templates/package-build/*.sh
+	@echo "*** generate-pdebuild-scripts ***"
+	mkdir -p `dirname $(COPY_PLATFORM_INSTALL)` `dirname $(PDEBUILD_INSTALL)`
+	install -m 755 pdebuild/eclipse-copy-platform.sh $(COPY_PLATFORM_INSTALL)
+	( \
+	  cd debian/tmp/usr/lib/eclipse; \
+	  ls -d * | egrep -v '^(plugins|features|about_files|dropins|buildscripts)$$' ; \
+	  ls -d * plugins/* features/* ; \
+	) | sed -e's,^\(.*\),[ ! -e \1 ] \&\& ln -s $$eclipse/\1 \1,' >> $(COPY_PLATFORM_INSTALL)
+	( \
+	  cd debian/tmp/usr/lib/eclipse; \
+	  for p in $$(ls -d dropins/sdk/plugins/*) ; do \
+		plugin=$$(basename $$p); \
+		echo $$p | sed -e"s,^\(.*\),[ ! -e plugins/$$plugin ] \&\& ln -s \$$eclipse/\1 plugins/$$plugin,"; \
+	  done \
+	) >> $(COPY_PLATFORM_INSTALL)
+	( \
+	  cd debian/tmp/usr/share/eclipse; \
+	  for p in $$(ls -d dropins/jdt/plugins/*) ; do \
+		plugin=$$(basename $$p); \
+		echo $$p | sed -e"s,^\(.*\),[ ! -e plugins/$$plugin ] \&\& ln -s \$$datadir/\1 plugins/$$plugin,"; \
+	  done \
+	) >> $(COPY_PLATFORM_INSTALL)
+	sed -e "s/@PDEBUILDVERSION@/$(PDEBUILDVERSION)/g" -e "s:@COPY_PLATFORM@:$(COPY_PLATFORM):g" < pdebuild/eclipse-pdebuild.sh > $(PDEBUILD_INSTALL)
+	chmod a+x $(PDEBUILD_INSTALL)
+	dh_install --list-missing
+	$(if $(wildcard debian/tmp/usr/lib/eclipse/plugins/org.eclipse.core.net.linux.*.jar),dh_install -peclipse-platform debian/tmp/usr/lib/eclipse/plugins/org.eclipse.core.net.linux.*.jar /usr/lib/eclipse/plugins)
+	$(if $(wildcard debian/tmp/usr/lib/eclipse/plugins/org.eclipse.update.core.linux*.jar),dh_install -peclipse-platform debian/tmp/usr/lib/eclipse/plugins/org.eclipse.update.core.linux*.jar /usr/lib/eclipse/plugins)
+	dh_install -peclipse-platform build/*/plugins/org.eclipse.core.net/fragments/*/libgnomeproxy*.so \
+		usr/lib/$(DEB_HOST_MULTIARCH)/jni
+	find $(CFG_OSGI_BUNDLES_PATH) -depth -type d -a -empty -delete
+	# Check if we are doing a -B build
+	[ ! -d debian/eclipse-platform-data ] || debian/rules override_dh_install-indep
+	chmod 0644 debian/eclipse-rcp/usr/lib/eclipse/about_files/IJG_README
+	# Expose org.eclipse.jface and its dependencies
+	mkdir -p debian/eclipse-rcp/usr/share/java
+	cd debian/eclipse-rcp/usr/share/java; \
+	ln -s ../../lib/eclipse/plugins/org.eclipse.jface_*.jar; \
+	ln -s org.eclipse.jface_*.jar org.eclipse.jface.jar; \
+	ln -s ../../lib/eclipse/plugins/org.eclipse.core.commands_*.jar; \
+	ln -s org.eclipse.core.commands_*.jar org.eclipse.core.commands.jar; \
+	ln -s ../../lib/eclipse/plugins/org.eclipse.equinox.common_*.jar; \
+	ln -s org.eclipse.equinox.common_*.jar org.eclipse.equinox.common.jar
+
+# Operations on arch: all packages - not invoked if building with -B
+override_dh_install-indep:
+	dh_install --indep
+	# mv arch-indep plugins from lib to share
+	cd debian/eclipse-platform-data/usr && find lib/ -type f -path '*lib/eclipse/*' | perl ../../../debian/extra/imagemv.pl
+	# Expose osgi jars
+	mkdir -p debian/libequinox-osgi-java/usr/share/java
+	cd debian/libequinox-osgi-java/usr/share/java && \
+	  for FILE in ../../lib/eclipse/plugins/* ; do \
+		ln -s $$FILE ; \
+		ln -s $$FILE `basename $$FILE | sed 's/_.*$$//g'`.jar ; \
+	  done
+	# Expose jdi.jar and jdimodel.jar
+	mkdir -p debian/eclipse-jdt/usr/share/java
+	cd debian/eclipse-jdt/usr/share/java; \
+	  ln -s ../eclipse/dropins/jdt/plugins/org.eclipse.jdt.debug_*/jdi.jar; \
+	  ln -s ../eclipse/dropins/jdt/plugins/org.eclipse.jdt.debug_*/jdimodel.jar;
+	# Install poms and jars into Maven repo
+	 for pom in $(wildcard debian/poms/*.xml); do \
+		mh_installpom -v -plibequinox-osgi-java $$pom; \
+		SUFFIX=`basename $$pom .xml | sed 's/pom-equinox-//'`; \
+		mh_installjar -v -plibequinox-osgi-java  $$pom debian/libequinox-osgi-java/usr/share/java/org.eclipse.$$SUFFIX.jar; \
+	 done
+
+override_jh_classpath:
+	jh_classpath
+	jh_classpath -c"org.eclipse.core.commands.jar org.eclipse.equinox.common.jar" \
+		debian/eclipse-rcp/usr/share/java/org.eclipse.jface.jar
+	jh_classpath -c"org.eclipse.equinox.common.jar" \
+		debian/eclipse-rcp/usr/share/java/org.eclipse.core.commands.jar
+
+override_dh_md5sums:
+	# If we are using GCJ, let the build fail at this point.
+	# We want to check the build log, but not to use the created packages.
+	! ($(JAVA_HOME)/bin/java -version 2>&1 | grep gcj >/dev/null) || \
+		(echo "GCJ detected, exiting build now..." && exit 1)
+	dh_md5sums

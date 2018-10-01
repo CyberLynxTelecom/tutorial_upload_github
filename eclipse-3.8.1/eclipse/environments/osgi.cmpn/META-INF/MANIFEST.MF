@@ -1,0 +1,98 @@
+Manifest-Version: 1.0
+Created-By: 1.5.0_11 (Sun Microsystems Inc.)
+Bundle-License: ... TODO
+Import-Package: info.dmtree;resolution:=optional;version="1.0",info.dm
+ tree.notification;resolution:=optional;version="1.0",info.dmtree.noti
+ fication.spi;resolution:=optional;version="1.0",info.dmtree.registry;
+ resolution:=optional;version="1.0",info.dmtree.security;resolution:=o
+ ptional;version="1.0",info.dmtree.spi;resolution:=optional;version="1
+ .0",javax.microedition.io;resolution:=optional,javax.servlet;resoluti
+ on:=optional,javax.servlet.http;resolution:=optional,javax.xml.parser
+ s;resolution:=optional,org.osgi.application;resolution:=optional;vers
+ ion="1.0",org.osgi.framework;resolution:=optional;version="1.5",org.o
+ sgi.service.application;resolution:=optional;version="1.1",org.osgi.s
+ ervice.blueprint.context;resolution:=optional;version="1.0",org.osgi.
+ service.blueprint.convert;resolution:=optional;version="1.0",org.osgi
+ .service.blueprint.namespace;resolution:=optional;version="1.0",org.o
+ sgi.service.blueprint.reflect;resolution:=optional;version="1.0",org.
+ osgi.service.cm;resolution:=optional;version="1.2",org.osgi.service.c
+ omponent;resolution:=optional;version="1.1",org.osgi.service.condperm
+ admin;resolution:=optional;version="1.1",org.osgi.service.deploymenta
+ dmin;resolution:=optional;version="1.1",org.osgi.service.deploymentad
+ min.spi;resolution:=optional;version="1.0",org.osgi.service.device;re
+ solution:=optional;version="1.1",org.osgi.service.discovery;resolutio
+ n:=optional;version="1.0",org.osgi.service.distribution;resolution:=o
+ ptional;version="1.0",org.osgi.service.event;resolution:=optional;ver
+ sion="1.2",org.osgi.service.http;resolution:=optional;version="1.2",o
+ rg.osgi.service.io;resolution:=optional;version="1.0",org.osgi.servic
+ e.log;resolution:=optional;version="1.3",org.osgi.service.metatype;re
+ solution:=optional;version="1.1",org.osgi.service.monitor;resolution:
+ =optional;version="1.0",org.osgi.service.prefs;resolution:=optional;v
+ ersion="1.1",org.osgi.service.provisioning;resolution:=optional;versi
+ on="1.2",org.osgi.service.upnp;resolution:=optional;version="1.1",org
+ .osgi.service.useradmin;resolution:=optional;version="1.1",org.osgi.s
+ ervice.wireadmin;resolution:=optional;version="1.0",org.osgi.util.cdm
+ a;resolution:=optional;version="1.0",org.osgi.util.gsm;resolution:=op
+ tional;version="1.0",org.osgi.util.measurement;resolution:=optional;v
+ ersion="1.0",org.osgi.util.mobile;resolution:=optional;version="1.0",
+ org.osgi.util.position;resolution:=optional;version="1.0",org.osgi.ut
+ il.tracker;resolution:=optional;version="1.4",org.osgi.util.xml;resol
+ ution:=optional;version="1.0",org.w3c.dom;resolution:=optional
+Include-Resource: legal/about.html, legal/LICENSE, xmlns/app=../xmlns/
+ app, xmlns/blueprint=../xmlns/blueprint, xmlns/blueprint-cm=../xmlns/
+ blueprint-cm, xmlns/metatype=../xmlns/metatype, xmlns/scr=../xmlns/sc
+ r, xmlns/sd=../xmlns/sd
+Bnd-LastModified: 1241800359312
+Export-Package: info.dmtree;version="1.0.1",info.dmtree.spi;uses:="inf
+ o.dmtree";version="1.0",info.dmtree.registry;uses:="org.osgi.framewor
+ k,info.dmtree,info.dmtree.notification";version="1.0",info.dmtree.not
+ ification.spi;uses:="info.dmtree.notification";version="1.0",info.dmt
+ ree.security;uses:="info.dmtree";version="1.0",info.dmtree.notificati
+ on;uses:="info.dmtree";version="1.0",org.osgi.application;uses:="org.
+ osgi.framework";version="1.0",org.osgi.service.application;uses:="org
+ .osgi.framework";version="1.1",org.osgi.service.blueprint.convert;ver
+ sion="1.0",org.osgi.service.blueprint.context;uses:="org.osgi.service
+ .blueprint.reflect,org.osgi.framework";version="1.0",org.osgi.service
+ .blueprint.reflect;version="1.0",org.osgi.service.blueprint.namespace
+ ;uses:="org.osgi.service.blueprint.reflect,org.w3c.dom";version="1.0"
+ ,org.osgi.service.cm;uses:="org.osgi.framework";version="1.2.1",org.o
+ sgi.service.component;uses:="org.osgi.framework";version="1.1",org.os
+ gi.service.deploymentadmin.spi;uses:="org.osgi.service.deploymentadmi
+ n,org.osgi.framework";version="1.0.1",org.osgi.service.deploymentadmi
+ n;uses:="org.osgi.framework";version="1.1",org.osgi.service.device;us
+ es:="org.osgi.framework";version="1.1",org.osgi.service.discovery;use
+ s:="org.osgi.framework";version="1.0",org.osgi.service.distribution;u
+ ses:="org.osgi.framework";version="1.0",org.osgi.service.event;uses:=
+ "org.osgi.framework";version="1.2",org.osgi.service.http;uses:="javax
+ .servlet.http,javax.servlet";version="1.2.1",org.osgi.service.io;uses
+ :="javax.microedition.io";version="1.0",org.osgi.service.log;uses:="o
+ rg.osgi.framework";version="1.3",org.osgi.service.metatype;uses:="org
+ .osgi.framework";version="1.1",org.osgi.service.monitor;version="1.0"
+ ,org.osgi.service.prefs;version="1.1.1",org.osgi.service.provisioning
+ ;version="1.2",org.osgi.service.upnp;version="1.1",org.osgi.service.u
+ seradmin;uses:="org.osgi.framework";version="1.1",org.osgi.service.wi
+ readmin;uses:="org.osgi.framework";version="1.0",org.osgi.util.measur
+ ement;version="1.0.1",org.osgi.util.position;uses:="org.osgi.util.mea
+ surement";version="1.0.1",org.osgi.util.cdma;uses:="org.osgi.framewor
+ k,org.osgi.service.condpermadmin";version="1.0",org.osgi.util.gsm;use
+ s:="org.osgi.framework,org.osgi.service.condpermadmin";version="1.0.1
+ ",org.osgi.util.mobile;uses:="org.osgi.framework,org.osgi.service.con
+ dpermadmin";version="1.0",org.osgi.util.tracker;uses:="org.osgi.frame
+ work";version="1.4",org.osgi.util.xml;uses:="javax.xml.parsers,org.os
+ gi.framework";version="1.0.1"
+Bundle-Version: 4.2.0.200905081232
+Bundle-Copyright: Copyright (c) OSGi Alliance (2000, 2009). All Rights
+  Reserved.
+Bundle-Name: osgi.cmpn
+Bundle-Description: OSGi Service Platform Release 4 version 4.2.0.2009
+ 05081232, Compendium Interfaces and Classes for use in compiling bund
+ les.
+Private-Package: xmlns.blueprint.v1.0.0,xmlns.scr.v1.1.0,xmlns.metatyp
+ e.v1.1.0,xmlns.sd.v1.0.0,xmlns.scr.v1.0.0,xmlns.app.v1.0.0,xmlns.blue
+ print-cm.v1.0.0,xmlns.metatype.v1.0.0,.,xmlns.app.v1.1.0
+Bundle-Vendor: OSGi Alliance
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: osgi.cmpn
+Tool: Bnd-0.0.319
+DynamicImport-Package: *
+

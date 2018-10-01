@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.emf.license"
+      label="EMF License"
+      version="2.7.0.qualifier"
+      provider-name="Eclipse Modeling Project">
+
+   <description>
+      License for Eclipse Modeling Framework.
+   </description>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+</feature>

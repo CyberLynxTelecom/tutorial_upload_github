@@ -1,0 +1,22 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Sun, 6 May 2012 16:41:33 +0200
+Subject: arch-dont-copy-removed-about-files
+
+---
+ build.xml |    3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index f99abfa..4fce261 100644
+--- a/build.xml
++++ b/build.xml
+@@ -288,9 +288,6 @@
+ 				<include name="*@{newArch}/**/*.*" />
+ 				<excludesfile name="${buildDirectory}/plugins/rename.sh" />
+ 			</replace>
+-			<copy todir="${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.@{newArch}/">
+-    				<fileset dir="${buildDirectory}/features/org.eclipse.platform/about_files/linux.gtk.@{archBase}"/>
+- 			</copy>
+ 			<mkdir dir="${buildDirectory}/features/" />
+ 		</sequential>
+ 	</macrodef>

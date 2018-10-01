@@ -1,0 +1,176 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Sun, 17 Jun 2012 21:23:14 +0200
+Subject: fix-gnu-kfreebsd-build
+
+- don't test for valid env.JAVA_HOME (not supported on kFreeBSD and Hurd)
+- make org.eclipse.equinox.executable/library/gtk/build.sh aware of
+  BSD and Hurd kernels
+- don't use PATH_MAX macro (not defined on GNU Hurd)
+---
+ build.xml                                          |   11 ++++++---
+ .../library/eclipseCommon.c                        |    7 ++----
+ .../library/gtk/build.sh                           |    2 +-
+ .../natives/unix/unixfile.c                        |   13 +++-------
+ .../filesystem/local/unix/UnixFileFlags.java       |    6 -----
+ .../filesystem/local/unix/UnixFileNatives.java     |   26 +++++++++++++++-----
+ 6 files changed, 34 insertions(+), 31 deletions(-)
+
+diff --git a/build.xml b/build.xml
+index 1d65b7b..0197193 100644
+--- a/build.xml
++++ b/build.xml
+@@ -8,9 +8,14 @@
+ 	<property environment="env"/>
+ 	<property name="jhome" value="${env.JAVA_HOME}"/>
+ 	<condition property="javaHomeExists">
+-		<resourceexists>
+-			<file file="${jhome}"/>
+-		</resourceexists>
++		<or>
++			<resourceexists>
++				<file file="${jhome}"/>
++			</resourceexists>
++			<!-- env.JAVA_HOME doesn't work on kFreeBSD and GNU Hurd -->
++			<os name="GNU/kFreeBSD"/>
++			<os name="GNU"/>
++		</or>
+ 	</condition>
+ 	<fail unless="javaHomeExists" message="JAVA_HOME is not set properly"/>
+ 
+diff --git a/eclipse/features/org.eclipse.equinox.executable/library/eclipseCommon.c b/eclipse/features/org.eclipse.equinox.executable/library/eclipseCommon.c
+index 923b3c2..9d8caaa 100644
+--- a/eclipse/features/org.eclipse.equinox.executable/library/eclipseCommon.c
++++ b/eclipse/features/org.eclipse.equinox.executable/library/eclipseCommon.c
+@@ -331,15 +331,12 @@ _TCHAR* findSymlinkCommand( _TCHAR* command, int resolve )
+ 
+ #if !defined(_WIN32) && !defined(MACOSX)
+ char * resolveSymlinks( char * path ) {
+-	char * ch, *buffer;
++	char * ch;
+ 	if(path == NULL)
+ 		return path;
+ 	/* resolve symlinks */
+ 	ch = path;
+-	buffer = malloc(PATH_MAX);
+-    path = realpath(path, buffer);
+-    if (path != buffer)
+-    	free(buffer);
++    path = realpath(path, NULL);
+     if (path == NULL)
+     	return ch; /* failed to resolve the links, return original path */
+     return path;
+diff --git a/eclipse/features/org.eclipse.equinox.executable/library/gtk/build.sh b/eclipse/features/org.eclipse.equinox.executable/library/gtk/build.sh
+index 894ce4a..c43f7b9 100755
+--- a/eclipse/features/org.eclipse.equinox.executable/library/gtk/build.sh
++++ b/eclipse/features/org.eclipse.equinox.executable/library/gtk/build.sh
+@@ -51,7 +51,7 @@ if [ "${CC}" = "" ]; then
+ fi
+ 
+ case $OS in
+-	"Linux")
++	"Linux"|"GNU/kFreeBSD"|"GNU")
+ 		makefile="make_linux.mak"
+ 		defaultOS="linux"
+ 		case $MODEL in
+diff --git a/eclipse/plugins/org.eclipse.core.filesystem/natives/unix/unixfile.c b/eclipse/plugins/org.eclipse.core.filesystem/natives/unix/unixfile.c
+index 43d6aa5..0dbee16 100644
+--- a/eclipse/plugins/org.eclipse.core.filesystem/natives/unix/unixfile.c
++++ b/eclipse/plugins/org.eclipse.core.filesystem/natives/unix/unixfile.c
+@@ -165,20 +165,15 @@ JNIEXPORT jint JNICALL Java_org_eclipse_core_internal_filesystem_local_unix_Unix
+ 	jint code;
+  	jbyte *name;
+  	int len;
+-	char temp[PATH_MAX+1];
++	char temp[bufsiz];
+ 	jstring linkTarget = NULL;
+ 
+ 	name = getByteArray(env, path);
+-  	len = readlink((const char*)name, temp, PATH_MAX);
++  	len = readlink((const char*)name, temp, bufsiz);
+   	free(name);
+ 	if (len > 0) {
+-		temp[len] = 0;
+ 		(*env)->SetByteArrayRegion(env, buf, 0, len, (jbyte*) temp);
+ 	}
+-	else {
+-		temp[0] = 0;
+-		(*env)->SetByteArrayRegion(env, buf, 0, 0, (jbyte*) temp);
+-	}
+ 	return len;
+ }
+ 
+@@ -255,9 +250,7 @@ JNIEXPORT jint JNICALL Java_org_eclipse_core_internal_filesystem_local_unix_Unix
+ 	jint ret = -1;
+ 
+ 	flag = (char*) getByteArray(env, buf);
+-	if (strcmp(flag, "PATH_MAX") == 0)
+-		ret = PATH_MAX;
+-	else if (strcmp(flag, "S_IFMT") == 0)
++	if (strcmp(flag, "S_IFMT") == 0)
+ 		ret = S_IFMT;
+ 	else if (strcmp(flag, "S_IFLNK") == 0)
+ 		ret = S_IFLNK;
+diff --git a/eclipse/plugins/org.eclipse.core.filesystem/src/org/eclipse/core/internal/filesystem/local/unix/UnixFileFlags.java b/eclipse/plugins/org.eclipse.core.filesystem/src/org/eclipse/core/internal/filesystem/local/unix/UnixFileFlags.java
+index 43d1112..cbc7c95 100644
+--- a/eclipse/plugins/org.eclipse.core.filesystem/src/org/eclipse/core/internal/filesystem/local/unix/UnixFileFlags.java
++++ b/eclipse/plugins/org.eclipse.core.filesystem/src/org/eclipse/core/internal/filesystem/local/unix/UnixFileFlags.java
+@@ -13,7 +13,6 @@ package org.eclipse.core.internal.filesystem.local.unix;
+ public class UnixFileFlags {
+ 
+ 	static {
+-		PATH_MAX = UnixFileNatives.getFlag("PATH_MAX"); //$NON-NLS-1$
+ 		S_IFMT = UnixFileNatives.getFlag("S_IFMT"); //$NON-NLS-1$
+ 		S_IFLNK = UnixFileNatives.getFlag("S_IFLNK"); //$NON-NLS-1$
+ 		S_IFDIR = UnixFileNatives.getFlag("S_IFDIR"); //$NON-NLS-1$
+@@ -31,11 +30,6 @@ public class UnixFileFlags {
+ 	}
+ 
+ 	/**
+-	 * chars in a path name including nul
+-	 */
+-	public static final int PATH_MAX;
+-
+-	/**
+ 	 * bitmask for the file type bitfields
+ 	 */
+ 	public static final int S_IFMT;
+diff --git a/eclipse/plugins/org.eclipse.core.filesystem/src/org/eclipse/core/internal/filesystem/local/unix/UnixFileNatives.java b/eclipse/plugins/org.eclipse.core.filesystem/src/org/eclipse/core/internal/filesystem/local/unix/UnixFileNatives.java
+index e0d52bf..a3d8539 100644
+--- a/eclipse/plugins/org.eclipse.core.filesystem/src/org/eclipse/core/internal/filesystem/local/unix/UnixFileNatives.java
++++ b/eclipse/plugins/org.eclipse.core.filesystem/src/org/eclipse/core/internal/filesystem/local/unix/UnixFileNatives.java
+@@ -72,15 +72,29 @@ public abstract class UnixFileNatives {
+ 		StructStat stat = new StructStat();
+ 		if (lstat(name, stat) == 0) {
+ 			if ((stat.st_mode & UnixFileFlags.S_IFMT) == UnixFileFlags.S_IFLNK) {
+-				if (stat(name, stat) == 0)
+-					info = stat.toFileInfo();
++
++				StructStat targetStat = new StructStat();
++				if (stat(name, targetStat) == 0)
++					info = targetStat.toFileInfo();
+ 				else
+ 					info = new FileInfo();
+ 				info.setAttribute(EFS.ATTRIBUTE_SYMLINK, true);
+-				byte target[] = new byte[UnixFileFlags.PATH_MAX];
+-				int length = readlink(name, target, target.length);
+-				if (length > 0)
+-					info.setStringAttribute(EFS.ATTRIBUTE_LINK_TARGET, bytesToFileName(target, length));
++
++				do {
++					byte target[] = new byte[(int) stat.st_size + 1];
++					int length = readlink(name, target, target.length);
++					if (length <= 0) {
++						break;
++					} else if (length > stat.st_size) {
++						// Symlink increased in size between lstat() and readlink()
++						if (lstat(name, stat) != 0) {
++							break;
++						}
++					} else {
++						info.setStringAttribute(EFS.ATTRIBUTE_LINK_TARGET, bytesToFileName(target, length));
++						break;
++					}
++				} while (true);
+ 			} else
+ 				info = stat.toFileInfo();
+ 		} else

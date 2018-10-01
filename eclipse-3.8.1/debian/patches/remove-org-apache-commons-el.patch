@@ -1,0 +1,75 @@
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Sat, 7 Apr 2012 17:28:59 +0200
+Subject: remove-org-apache-commons-el
+
+---
+ dependencies/dependencies.properties               |    1 -
+ .../eclipse-help-feature-adjust-dependencies.patch |    9 +--------
+ patches/serverside-patch-additional-imports.patch  |    9 +--------
+ 3 files changed, 2 insertions(+), 17 deletions(-)
+
+diff --git a/dependencies/dependencies.properties b/dependencies/dependencies.properties
+index b7f5ce0..430cc53 100644
+--- a/dependencies/dependencies.properties
++++ b/dependencies/dependencies.properties
+@@ -14,7 +14,6 @@ org.apache.tomcat.util_7.0.26.jar=/usr/share/java/tomcat-util.jar
+ org.apache.juli_7.0.21.jar=/usr/share/java/tomcat-juli.jar
+ org.apache.el_7.0.21.jar=/usr/share/java/tomcat-jasper-el.jar
+ org.apache.commons.codec_1.3.0.v201101211617.jar=/usr/share/java/commons-codec.jar
+-org.apache.commons.el_1.0.0.v200806031608.jar=/usr/share/java/commons-el.jar
+ org.apache.commons.httpclient_3.1.0.v201012070820.jar=/usr/share/java/commons-httpclient.jar
+ org.apache.commons.logging_1.0.4.v201101211617.jar=/usr/share/java/commons-logging.jar
+ org.apache.felix.gogo.command_0.8.0.v201108120515.jar=/usr/share/java/org.apache.felix.gogo.command.jar
+diff --git a/patches/eclipse-help-feature-adjust-dependencies.patch b/patches/eclipse-help-feature-adjust-dependencies.patch
+index ce8649e..d2e042a 100644
+--- a/patches/eclipse-help-feature-adjust-dependencies.patch
++++ b/patches/eclipse-help-feature-adjust-dependencies.patch
+@@ -54,7 +54,7 @@ diff --git a/features/org.eclipse.help/feature.xml b/features/org.eclipse.help/f
+           download-size="0"
+           install-size="0"
+           version="0.0.0"
+-@@ -182,5 +196,19 @@
++@@ -182,5 +196,12 @@
+           install-size="0"
+           version="0.0.0"
+           unpack="false"/>
+@@ -65,13 +65,6 @@ diff --git a/features/org.eclipse.help/feature.xml b/features/org.eclipse.help/f
+ +         install-size="0"
+ +         version="0.0.0"
+ +         unpack="false"/> 
+-+
+-+  <plugin
+-+         id="org.apache.commons.el"
+-+         download-size="0"
+-+         install-size="0"
+-+         version="0.0.0"
+-+         unpack="false"/> 
+    
+  </feature>
+ diff --git a/plugins/org.eclipse.help.base/META-INF/MANIFEST.MF b/plugins/org.eclipse.help.base/META-INF/MANIFEST.MF
+diff --git a/patches/serverside-patch-additional-imports.patch b/patches/serverside-patch-additional-imports.patch
+index 020f734..1ce7d5f 100644
+--- a/patches/serverside-patch-additional-imports.patch
++++ b/patches/serverside-patch-additional-imports.patch
+@@ -1,6 +1,6 @@
+ --- features/org.eclipse.equinox.serverside.sdk/feature.xml.old	2012-01-14 12:38:46.714594091 +0100
+ +++ features/org.eclipse.equinox.serverside.sdk/feature.xml	2012-01-14 12:39:04.959639056 +0100
+-@@ -152,6 +152,21 @@
++@@ -152,6 +152,14 @@
+           install-size="0"
+           version="0.0.0"
+           unpack="false"/>
+@@ -12,13 +12,6 @@
+ +         version="0.0.0"
+ +         unpack="false"/> 
+ +
+-+  <plugin
+-+         id="org.apache.commons.el"
+-+         download-size="0"
+-+         install-size="0"
+-+         version="0.0.0"
+-+         unpack="false"/> 
+-+
+     <plugin
+           id="org.apache.jasper.glassfish.source"
+           download-size="0"

@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Created-By: 1.5.0_11 (Sun Microsystems Inc.)
+Bundle-License: ... TODO
+Import-Package: javax.security.auth.x500;resolution:=optional,org.osgi
+ .framework;resolution:=optional;version="1.5",org.osgi.framework.hook
+ s.service;resolution:=optional;version="1.0",org.osgi.framework.launc
+ h;resolution:=optional;version="1.0",org.osgi.service.condpermadmin;r
+ esolution:=optional;version="1.1",org.osgi.service.packageadmin;resol
+ ution:=optional;version="1.2",org.osgi.service.permissionadmin;resolu
+ tion:=optional;version="1.2",org.osgi.service.startlevel;resolution:=
+ optional;version="1.1",org.osgi.service.url;resolution:=optional;vers
+ ion="1.0"
+Include-Resource: legal/about.html, legal/LICENSE
+Bnd-LastModified: 1240749140397
+Export-Package: org.osgi.framework.hooks.service;uses:="org.osgi.frame
+ work";version="1.0",org.osgi.framework;uses:="javax.security.auth.x50
+ 0";version="1.5",org.osgi.framework.launch;uses:="org.osgi.framework"
+ ;version="1.0",org.osgi.service.condpermadmin;uses:="org.osgi.framewo
+ rk,org.osgi.service.permissionadmin";version="1.1",org.osgi.service.p
+ ackageadmin;uses:="org.osgi.framework";version="1.2",org.osgi.service
+ .permissionadmin;version="1.2",org.osgi.service.startlevel;uses:="org
+ .osgi.framework";version="1.1",org.osgi.service.url;version="1.0"
+Bundle-Version: 4.2.0.200904260832
+Bundle-Copyright: Copyright (c) OSGi Alliance (2000, 2009). All Rights
+  Reserved.
+Bundle-Name: osgi.core
+Bundle-Description: OSGi Service Platform Release 4 version 4.2.0.2009
+ 04260832, Core Interfaces and Classes for use in compiling bundles.
+Private-Package: .
+Bundle-Vendor: OSGi Alliance
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: osgi.core
+Tool: Bnd-0.0.319
+DynamicImport-Package: *
+
